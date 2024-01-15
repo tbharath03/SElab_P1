@@ -49,3 +49,7 @@ B --Edit Profile-->E(Customize Profile)
 
 ## UML Use Case Model
 ![Use Case Model](Untitled.jpg)
+
+## Tech Stack
+**Client : ** HTML, CSS, JS, Bootstrap
+**Server : ** Java, Spring framework, MYSQL Database
