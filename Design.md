@@ -51,5 +51,5 @@ B --Edit Profile-->E(Customize Profile)
 ![Use Case Model](Untitled.jpg)
 
 ## Tech Stack
-**Client : ** HTML, CSS, JS, Bootstrap
-**Server : ** Java, Spring framework, MYSQL Database
+**Client :** HTML, CSS, JS, Bootstrap<br />
+**Server :** Java, Spring framework, MYSQL Database
