@@ -1,23 +1,57 @@
-# NITCONF  RMS
+# NITCONF RMS
 
 It is a system which helps program committee to decide whether  to accept paper for a conference based on reviews given by reviewers. It gives us a categorized review based on different aspects of a paper. 
 
-
-## Register/Login Page
-The new reviewer should **register** into web application. Already registered reviewers can **login** using their login credentials. 
-
-
-
 ## Home Page
-Home page contains papers assigned to the reviewer and respective status and deadline. If reviewer has any clarifications required for assigned papers, they can contact the author for further clarifications using comment section and notify author through mail. 
+
+This is the home page of reviewer management system. This page contains basic overview of website, and option to login/register.
+
+## Register
+
+ new reviewer must register using their credentials. 
+ 
+  Credentials required to register:
+ - Firstname
+ - LastName
+ - Education Details with required certificate
+ - Interested topics with minimum limit 5
+ - Paper limit (max no of papers you are willing to review)
+ - Email
+ - Phone Number
+ - Password
+ - Confirm password
+   
+ You can submit through submit button.
+ 
+**Program committee should verify and accept you as reviewer**
+
+## Login 
+
+ Already registered reviewers can **login** using their login credentials. 
+ 
+ Login credentials required to login :
+ - username/email
+ - password
+
+ Forgot Password:
+  you should enter email inorder to receive a link to your mail,through which password can be changed.
+
+## Dashboard
+Dashboard page contains papers assigned to the reviewer and respective status and deadline.
 
 We have two sections :
  - Need to review
     >The reviewer can view/download the paper. There is also a link to review form page.
  - Already reviewed.
-	 >The reviewer can view/download the paper. There is also a link to view or edit the review.
+    >The reviewer can view/download the paper. There is also a link to view or edit the review.
 
-On top right corner there is option, edit profile, total papers accepted, logout option.
+On top right corner there is option, edit profile, total papers reviewed, logout option.
+- edit profile
+   >you can edit your email,paperslimit,tags(interested topics), change password.
+- total papers reviewed
+   >shows number of papers you reviewed.
+- logout option
+  > you can logout from website.
 
 ## Review form page
 
@@ -36,20 +70,4 @@ This contains five sections  :
 
 ## FLOW-CHART
 
-```mermaid
-graph LR
-A[Login] --> B(HomePage)
-A --Not a user ?--> C(Register)
-B --To Review--> D(Review Form Page)
-B --View/Edit Review--> D(Review Form Page)
-C --Login--> A
-B --Edit Profile-->E(Customize Profile)
-```
-
-
-## UML Use Case Model
-![Use Case Model](Untitled.jpg)
-
-## Tech Stack
-**Client :** HTML, CSS, JS, Bootstrap<br />
-**Server :** Java, Spring framework, MYSQL Database
+![Flow-Chart](RMS%20FLowchart.jpeg)
