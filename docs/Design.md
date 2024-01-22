@@ -2,11 +2,30 @@
 
 It is a system which helps program committee to decide whether  to accept paper for a conference based on reviews given by reviewers. It gives us a categorized review based on different aspects of a paper. 
 
+## Register
+
+ new reviewer must register using their credentials. 
+ 
+  Credentials required to register:
+ - Firstname
+ - LastName
+ - Education Details with required certificate
+ - Interested topics with minimum limit 5
+ - Paper limit (max no of papers you are willing to review)
+ - Email
+ - Phone Number
+ - Password
+ - Confirm password
+   
+ You can submit through submit button.
+ 
+**Program committee should verify and accept you as reviewer**
+
 ## Login 
 
  Already registered reviewers can **login** using their login credentials. 
  
- Login credentials required to login page:
+ Login credentials required to login :
  - username/email
  - password
 
