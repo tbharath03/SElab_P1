@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Builder
-@EntityScan
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
