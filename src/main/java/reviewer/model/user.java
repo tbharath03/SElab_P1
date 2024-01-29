@@ -11,14 +11,25 @@ import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Builder
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="user")
+@Table(name="user",
+schema ="nitconf",
+uniqueConstraints= {
+		@UniqueConstraint(
+		name="emailId_unique",
+		 columnNames = { "emailId" }
+)
+})
 public class user {
+	//check for identity type in java guides there is generated value
+	//for id sequence generator see video
+	//for no null constraint @Column(name ="string name",nullable=false)
 	@Id
 	private Long userid;
 	private String firstName;
