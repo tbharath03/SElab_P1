@@ -2,11 +2,11 @@
 
 It is a system which helps program committee to decide whether  to accept paper for a conference based on reviews given by reviewers. It gives us a categorized review based on different aspects of a paper. 
 
-## Home Page
+## 1  Home Page
 
 This is the home page of reviewer management system. This contains the basic overview of website, and option for Login/Register.
 
-## Register
+## 1.1 Register
 
  new reviewer must register using their credentials. 
  
@@ -25,7 +25,7 @@ This is the home page of reviewer management system. This contains the basic ove
  
 **Program committee should verify and accept you as reviewer**
 
-## Login 
+## 1.2  Login 
 
  Already registered reviewers can **login** using their login credentials. 
  
@@ -36,16 +36,18 @@ This is the home page of reviewer management system. This contains the basic ove
  Forgot Password:
   you should enter email inorder to receive a link to your mail,through which password can be changed.
 
-## Dashboard
+## 2  Dashboard
 
 Dashboard contains papers assigned to the reviewer and respective status and deadline.
 
 We have two sections :
+## 2.1 
  - Need to review
     >The reviewer can view/download the paper. There is also a link to review form page.
+## 2.2
  - Already reviewed.
     >The reviewer can view/download the paper. There is also a link to view or edit the review.
-
+## 2.3
 On top right corner there is option, edit profile, total papers reviewed, logout option.
 - edit profile
    >you can edit your email,paperslimit,tags(interested topics), and change password.
@@ -54,7 +56,7 @@ On top right corner there is option, edit profile, total papers reviewed, logout
 - logout option
   > you can logout from website.
 
-## Review form page
+## 3  Review form page
 
 This contains five sections  :
 - Details of paper.
