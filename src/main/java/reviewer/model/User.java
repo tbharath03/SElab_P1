@@ -18,7 +18,7 @@ import jakarta.persistence.UniqueConstraint;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="user",
+@Table(name="User",
 schema ="nitconf",
 uniqueConstraints= {
 		@UniqueConstraint(
@@ -26,7 +26,7 @@ uniqueConstraints= {
 		 columnNames = { "emailId" }
 )
 })
-public class user {
+public class User {
 	//check for identity type in java guides there is generated value
 	//for id sequence generator see video
 	//for no null constraint @Column(name ="string name",nullable=false)
