@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,13 +123,13 @@ width: 400px;
         <div><h2>NITCONF</h2></div>
 </div>
     <div class="body">
-        <form method="post">
+        <form method="post" th:action="@{/login111}" th:object="${user}">
 			
 			<div class="login-container">
         <h2>Login</h2>
             <label for="email">Email:</label>
             <div class="password-container1">
-            <input type="email" id="email" name="email" placeholder="someone@gmail.com" required>
+            <input type="email" id="email" name="emailId" placeholder="someone@gmail.com" required>
 </div>
 
             <div class="password-container">
