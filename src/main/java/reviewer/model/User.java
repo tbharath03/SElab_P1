@@ -1,5 +1,5 @@
 package reviewer.model;
-import lombok.AllArgsConstructor;
+import lombok.AllArgsConstructor; 
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,8 @@ import java.util.List;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -26,18 +28,19 @@ uniqueConstraints= {
 		 columnNames = { "emailId" }
 )
 })
-public class User {
+public class User{
 	//check for identity type in java guides there is generated value
 	//for id sequence generator see video
 	//for no null constraint @Column(name ="string name",nullable=false)
 	@Id
-	private Long userid;
-	private String firstName;
-	private String lastName;
-	private String emailId;
-	private String number;
-	private String password;
-	private Long paperlimit;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long userid=null;
+	private String firstName=null;
+	private String lastName=null;
+	private String emailId=null;
+	private String number=null;
+	private String password=null;
+	private Long paperlimit=null;
 	public Long getUserid() {
 		return userid;
 	}
@@ -86,5 +89,30 @@ public class User {
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
-	private List<String> tags;	
+	private List<String> tags;
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId
+				+ ", number=" + number + ", password=" + password + ", paperlimit=" + paperlimit + ", tags=" + tags
+				+ "]";
+	}
+	public User(Long userid, String firstName, String lastName, String emailId, String number, String password,
+			Long paperlimit, List<String> tags) {
+		super();
+		this.userid = userid;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailId = emailId;
+		this.number = number;
+		this.password = password;
+		this.paperlimit = paperlimit;
+		this.tags = tags;
+	}
+	public User() {
+		super();
+	}
+	
+	
+	
+	
 }
