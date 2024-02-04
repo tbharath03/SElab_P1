@@ -19,8 +19,7 @@ public class SecurityConfig{
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
-	
+		
 	@Bean
 	PasswordEncoder passwordEncoder()     
 	{   
@@ -36,22 +35,20 @@ public class SecurityConfig{
 		provider.setPasswordEncoder(new BCryptPasswordEncoder());
 		
 		return provider;
-		
-		
 	}
-	
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {     //need to understand 
 		http
 			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/", "/home").permitAll()
+				.requestMatchers("/", "/home","/login","/registerPage").permitAll()
 				.anyRequest().authenticated()
 			)
 			.formLogin((form) -> form
 				.loginPage("/login")
 				.permitAll()
 				.defaultSuccessUrl("/dashboard", true)
+				
 			)
 			.logout((logout) -> logout.permitAll());
 

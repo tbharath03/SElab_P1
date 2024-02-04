@@ -209,40 +209,38 @@ align-items: center;
     <div class="body">
 <div class="form-container">
 
- 
-
-<form id="registrationForm" th:action="@{/register}" th:object="${User}"   method="post" enctype="multipart/form-data">
+<form id="registrationForm"  method="post" th:action="@{/registerPage}">
 <h3>REGISTER</h3>
 <font color="grey"> **Name must be as per Aadhar**. </font>
 <br>
 <br>
 <label for="fname">Enter your Firstname</label>
- <input type="text"  name="firstName" placeholder="Firstname" required>
-<label for="lname">Enter your Lastname</label>
-<input type="text"  name="lastName" placeholder="Lastname" required>
+ <input type="text" th:field="${user.firstName}" placeholder="Firstname" required>
+ <label for="lname">Enter your Lastname</label>
+<input type="text" th:field="${user.lastName}" placeholder="Lastname" required>
  <br>
  <br>
- 
-<label for="profileImage">Upload a Valid Educational Certificate:</label>
-<input type="file" id="profileImage" name="profileImage" accept="image/*" required >
-<label for="profileImage">Upload your aadhar image:</label>
+ <!--
+ <label for="profileImage">Upload a Valid Educational Certificate:</label>
 <input type="file" id="profileImage" name="profileImage" accept="image/*" required>
+<label for="profileImage">Upload your aadhar image:</label>
+<input type="file" id="profileImage" name="profileImage" accept="image/*" required> 
 <div class="interest-tags" id="interestTagsContainer"></div>
 <label for="areaofinterest">Add your interests:</label>
-<input type="text"  id="areaofinterest" name="tags" placeholder="interest"  required>
+<input type="text" th.filed="${user.tags}" placeholder="interest"  >
 <button type="button" onclick="addInterests()">ADD</button>
-<br>
+<br>-->
 <font color="grey"> **Max papers you can evaluate**. </font>
 <label for="paper limit">Paper Limit</label>
-<input type="number"  name="paperlimit" placeholder="0" >
+<input type="number" th:field="${user.paperlimit}" placeholder="0" required>
 <br>
 <br>
 <label for="phoneNumber">Enter your phoneNumber:</label>
- <input type="tel"  name="number" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" required>
+ <input type="tel" th:field="${user.number}" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" required>
 <label for="email">Enter your email:</label>
-<input type="email"  name="emailId"  placeholder="someoneexample@gmail.com" required>
+<input type="email" th:field="${user.emailId}"  placeholder="someoneexample@gmail.com" required>
 <label for="password">Enter your Password:</label>
-<input type="password" id="id_password" name="password" placeholder="Enterpassword" required>
+<input type="password" th:field="${user.password}" placeholder="Enter password" required>
 <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
 <div class="password-restrictions">
 Password must follow the following:
@@ -260,7 +258,9 @@ Password must follow the following:
 </form>
 </div>
 </div>
-
+<div th:if="${param.success}">
+	<div class="sucess">You have successfully registered</div>
+</div>
 <script>
 document.getElementById("registrationForm").addEventListener("submit", function(event) {
 var password = document.getElementById("password").value;
