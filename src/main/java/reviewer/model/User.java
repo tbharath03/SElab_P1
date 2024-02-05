@@ -18,6 +18,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+
+/**
+ * This is a user class;
+ */
 @Builder
 @Entity
 @Data
