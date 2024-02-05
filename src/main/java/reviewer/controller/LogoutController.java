@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/AlreadyReviewed")
-public class AlreadyReviewController {
-	@GetMapping
-    public String AlreadyReviewed(){
-        return "AlreadyReviewed";
-    }
+@RequestMapping("/logout")
+
+public class LogoutController {
+        @GetMapping
+        public String logout() {
+        	return "home";
+        }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -100,7 +100,7 @@
     <h1>Conference Paper Review Form</h1>
   </header>
 
-  <form>
+  <form  method="post" th:action="@{/review}" th:object="${review}">
     <table>
       <tr>
         <div class="tr1">
@@ -131,50 +131,51 @@
     <table>
       <tr>
           <th>Evaluation Category</th>
-          <th>Enter Your Score (out of 10)</th>
+          <th>Enter Your Score (out of 9)</th>
       </tr>
       <tr>
           <td>Technical Content and Accuracy</td>
-          <td contenteditable="true" min="1" max="10"></td>
+          <td><input type="integer" name="TechnicalContentandAccuracy" pattern="[0-9]{1}" placeholder="0" required></td>
 
       </tr>
       <tr>
           <td>Significance of the Work</td>
-          <td contenteditable="true" min="1" max="10"></td>
+          <td><input type="integer" name="SignificanceoftheWork" pattern="[0-9]{1}" placeholder="0" required></td>
 
       </tr>
       <tr>
           <td>Appropriate Title, Introduction, and Conclusion</td>
-          <td contenteditable="true" min="1" max="10"></td>
+          <td><input type="integer" name="AppropriateTitleLongroductionandConclusion" pattern="[0-9]{1}" placeholder="0" required></td>
 
       </tr>
       <tr>
           <td>Overall Organization</td>
-          <td contenteditable="true" min="1" max="10"></td>
+          <td><input type="integer" name="OverallOrganization"  pattern="[0-9]{1}" placeholder="0" required></td>
 
       </tr>
       <tr>
           <td>Appropriate for SAC</td>
-          <td contenteditable="true" min="1" max="10"></td>
+          <td> <input type="integer" name="AppropriateforSAC" pattern="[0-9]{1}" placeholder="0" required></td>
 
       </tr>
       <tr>
           <td>Style and Clarity of Paper</td>
-          <td contenteditable="true" min="1" max="10"></td>
+          
+<td><input type="integer" name="StyleandClarityofPaper" pattern="[0-9]{1}" placeholder="0" required></td>
 
       </tr>
       <tr>
           <td>Originality of Content</td>
-          <td contenteditable="true"></td>
+          <td><input type="integer" name="OriginalityofContent"  pattern="[0-9]{1}" placeholder="0" required></td>
       </tr>
       <tr>
           <td>Referee's Confidence in Paper's Subject</td>
-          <td contenteditable="true" min="1" max="10"></td>
+          <td><input  type="integer" name="RefereesConfidenceinPapersSubject"  pattern="[0-9]{1}" placeholder="0" required></td>
 
       </tr>
       <tr>
           <td>Overall Recommendation</td>
-          <td contenteditable="true" min="1" max="10"></td>
+          <td><input type="integer" name="OverallRecommendation" pattern="[0-9]{1}" placeholder="0" required></td>
 
       </tr>
   </table>
@@ -193,23 +194,25 @@
   <h2>Confidential-comments to programme committe</h2>
         <p>You may wish to withhold some comments from the aurthors,and include solely for the committee's internal use.For example,you may want to express a very strong(negative) opinion on the paper,which might pffend the aurthors in some way.Or,perhaps you wish to write something which would expose your identity to aurthors.If you wish to share comments of this nature with the committe,this is the place to put them</p>
         <div class="mi">
-          <textarea id="comments" name="comments" rows="8"></textarea>
+          <textarea id="comments" name="ConfidentialComments" rows="8"></textarea>
         </div>
     <hr>
-        <fieldset>
-          <legend>Overall Recommendation</legend>
-          <label class="option"><input type="radio" name="recommendation" value="Weakly Accept">Accept as it is</label>
-          <br>
-          <label class="option"><input type="radio" name="recommendation" value="acceptMinorRevisions">Accept with minor revisions</label>
-          <br>
-          <label class="option"><input type="radio" name="recommendation" value="acceptMajorRevisions">Accept with major revisions</label>
-          <br>
-          <label class="option"><input type="radio" name="recommendation" value="reject">Reject</label>
-          <br>
-        </fieldset>
+        
 
-    <button type="submit">SUBMIT REVIEW</button>
-  </form>
+<h2>Over all recommendation</h2>
+<label for="decision">Select Decision:</label>
+<select id="decision" name="decision" required>
+  <option value="accept as it is">Accept as it is</option>
+  <option value="accept with minor revisions">Accept with minor revisions</option>
+  <option value="accept with major revisions">Accept with major revisions</option>
+  <option value="Reject">Reject</option>
+</select>
+
+<hr>
+
+<button class="button1" type="submit">Submit Review</button>
+</form>
+
 </body>
 
 </html>

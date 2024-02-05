@@ -85,7 +85,7 @@ public class RegisterPageController
 		{
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
-		return "redirect:/registerPage?success";
+		return "redirect:/login?success";
 		}
 		else {
 			//session.setAttribute("msg","invalid email this email already exsist");

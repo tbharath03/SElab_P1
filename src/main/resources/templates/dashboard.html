@@ -20,18 +20,18 @@
           justify-content: space-between;
       }
       .header a:link {
-        color: green;
+        color: white;
         background-color: transparent;
         text-decoration: none;
       }
       .header a:hover {
-        color: blue;
+        color: white;
         background-color: transparent;
         text-decoration: none;
       }
       
       .header a:active {
-        color: blue;
+        color: white;
         background-color: transparent;
         text-decoration: none;
       }
@@ -42,6 +42,7 @@
       }
       .logout{
           color: white;
+          padding-top: 20px;
           padding-right: 40px;
           padding-bottom: 20px;
       }
@@ -73,13 +74,20 @@
         height: 45px;
         width: 45px;
       }
-      
+       .MAINBODY {
+        width: 90%;
+        height: 640px;
+        display: flex;
+        flex-direction: column;
+        justify-content: top;
+        align-items: center;
+      }
       /* Sidebar */
       .sidebar {
         /* position: fixed; */
         top: 0;
         left: 0;
-        height:640px;
+        height:100vh;
         width: 270px;
         background: #7597cf63;
         padding: 15px 10px;
@@ -104,6 +112,9 @@
         opacity: 0;
         pointer-events: none;
       }
+      .total{
+		  height: 100vh;
+	  }
       /* #lock-icon,
       #sidebar-close {
         padding: 10px;
@@ -123,7 +134,6 @@
         justify-content: space-between;
         /* margin-top: 40px; */
         overflow-y: auto;
-        /* height: calc(100% - 82px); */
       }
       .menu_container::-webkit-scrollbar {
         display: none;
@@ -165,6 +175,10 @@
         margin-bottom: 8px;
         color: #707070;
       }
+      .FULL {
+        display: flex;
+        flex-direction: row;
+      }
       .COMPLETE {
           display: flex;
           flex-direction: column;
@@ -200,27 +214,25 @@
         font-size: 15px;
         color: #333;
       }
+     h2 .heading{
+		 padding-top: 13px;
+          padding-left: 30px;
+          padding-bottom: 10px;
+	  }
       </style>
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   </head>
   <body>
-    <div class="COMPLETE">
     <div class="header">
         <div><h2>NITCONF</h2></div>
         <div class="logout">
-          <!-- <img src="images/icons8-logout-50.png" alt="logout"> -->
-          <a href="#">logout</a>
+          <a th:href="@{/logout}">logout</a>
         </div>
     </div>
-    <div>
+    <div class="FULL">
+    <div class="total">
+    <div class="COMPLETE">
     <nav class="sidebar locked">
-      <!-- <div class="logo_items flex">
-        <span class="nav_image">
-          <img src="images/nitc_logo.svg" alt="logo_img">
-        </span>
-        <span class="logo_name">NITCONF</span> -->
-      <!-- </div> -->
-
       <div class="menu_container">
         <div class="menu_items">
           <ul class="menu_item">
@@ -242,13 +254,13 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="#" class="link flex">
+              <a th:href="@{/AlreadyReviewed}" class="link flex">
                 <i class="bx bxs-magic-wand"></i>
                 <span>Already reviewed</span>
               </a>
             </li>
             <li class="item">
-              <a href="#" class="link flex">
+              <a th:href="@{/NeedtoReview}" class="link flex">
                 <i class="bx bx-folder"></i>
                 <span>Need to review</span>
               </a>
@@ -267,7 +279,7 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="#" class="link flex">
+              <a th:href="@{/editProfile}" class="link flex">
                 <i class="bx bx-cog"></i>
                 <span>Edit Profile</span>
               </a>
@@ -292,10 +304,9 @@
             </li> 
           </ul>
         </div>
-
         <div class="sidebar_profile flex">
           <span class="nav_image">
-            <img src="images/profile.png" alt="logo_img" />
+            <img th:src="@{/profile.png}" alt="logo_img" />
           </span>
           <div class="data_text">
             <span class="name">Rohith Muthavarapu</span>
@@ -306,6 +317,13 @@
     </nav>
     </div>
 </div>
+ <div class="MAINBODY">
+	  <h2 class="heading">TOTAL PAPERS</h2>
+	  <p>All papers allocated to reviewer</p>
+  </div>
+</div>
+  
+
     <!-- Navbar
     <nav class="navbar flex">
       <i class="bx bx-menu" id="sidebar-open"></i>

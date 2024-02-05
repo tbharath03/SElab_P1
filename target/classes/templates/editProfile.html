@@ -20,18 +20,18 @@
           justify-content: space-between;
       }
       .header a:link {
-        color: green;
+        color: white;
         background-color: transparent;
         text-decoration: none;
       }
       .header a:hover {
-        color: blue;
+        color: white;
         background-color: transparent;
         text-decoration: none;
       }
       
       .header a:active {
-        color: blue;
+        color: white;
         background-color: transparent;
         text-decoration: none;
       }
@@ -42,6 +42,7 @@
       }
       .logout{
           color: white;
+          padding-top: 20px;
           padding-right: 40px;
           padding-bottom: 20px;
       }
@@ -73,13 +74,15 @@
         height: 45px;
         width: 45px;
       }
-      
+      .total{
+		 height: 100vh;
+	  }
       /* Sidebar */
       .sidebar {
         /* position: fixed; */
         top: 0;
         left: 0;
-        height:640px;
+        height:100vh;
         width: 270px;
         background: #7597cf63;
         padding: 15px 10px;
@@ -272,12 +275,12 @@
         <div><h2>NITCONF</h2></div>
         <div class="logout">
           <!-- <img src="images/icons8-logout-50.png" alt="logout"> -->
-          <a href="#">logout</a>
+          <a th:href="@{/logout}">logout</a>
         </div>
     </div>
     <div class="FULL">
     <div class="COMPLETE">
-    <div>
+    <div class="total">
     <nav class="sidebar locked">
       <!-- <div class="logo_items flex">
         <span class="nav_image">
@@ -294,7 +297,7 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="#" class="link flex">
+              <a th:href="@{dashboard}" class="link flex">
                 <i class="bx bx-grid-alt"></i>
                 <span>All Papers</span>
               </a>
@@ -307,13 +310,13 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="#" class="link flex">
+              <a th:href="@{AlreadyReviewed}" class="link flex">
                 <i class="bx bxs-magic-wand"></i>
                 <span>Already reviewed</span>
               </a>
             </li>
             <li class="item">
-              <a href="#" class="link flex">
+              <a th:href="@{NeedtoReview}" class="link flex">
                 <i class="bx bx-folder"></i>
                 <span>Need to review</span>
               </a>
@@ -332,7 +335,7 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="#" class="link flex">
+              <a th:href="@{editProfile}" class="link flex">
                 <i class="bx bx-cog"></i>
                 <span>Edit Profile</span>
               </a>
@@ -360,7 +363,7 @@
 
         <div class="sidebar_profile flex">
           <span class="nav_image">
-            <img src="images/profile.png" alt="logo_img" />
+            <img th:src="@{profile.png}" alt="logo_img" />
           </span>
           <div class="data_text">
             <span class="name">Rohith Muthavarapu</span>

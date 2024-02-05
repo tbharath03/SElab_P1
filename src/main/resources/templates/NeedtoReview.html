@@ -20,18 +20,18 @@
           justify-content: space-between;
       }
       .header a:link {
-        color: white;
+        color: green;
         background-color: transparent;
         text-decoration: none;
       }
       .header a:hover {
-        color: white;
+        color: blue;
         background-color: transparent;
         text-decoration: none;
       }
       
       .header a:active {
-        color: white;
+        color: blue;
         background-color: transparent;
         text-decoration: none;
       }
@@ -241,7 +241,7 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="#" class="link flex">
+              <a th:href="@{/dashboard}" class="link flex">
                 <i class="bx bx-grid-alt"></i>
                 <span>All Papers</span>
               </a>
@@ -318,8 +318,8 @@
     </div>
 </div>
  <div class="MAINBODY">
-	  <h2 class="heading">TOTAL PAPERS</h2>
-	  <p>All papers allocated to reviewer</p>
+	  <h2 class="heading">NEED TO REVIEW PAPERS</h2>
+	  <p>All papers allocated to the reviewer but not reviewed yet</p>
   </div>
 </div>
   
