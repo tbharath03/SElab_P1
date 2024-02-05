@@ -11,7 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
+/**
+ * Configuration class for Spring Security.
+ */
 
 @Configuration
 @EnableWebSecurity
@@ -19,13 +21,21 @@ public class SecurityConfig{
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
-		
+	/**
+     * Configures the password encoder bean to use BCrypt hashing algorithm.
+     *
+     * @return BCryptPasswordEncoder bean.
+     */
 	@Bean
 	PasswordEncoder passwordEncoder()     
 	{   
 		return new BCryptPasswordEncoder();
 	}
-	
+	/**
+     * Configures the authentication provider bean using DaoAuthenticationProvider.
+     *
+     * @return DaoAuthenticationProvider bean.
+     */
 	@Bean
 	AuthenticationProvider authenticationprovider()
 	{
@@ -36,7 +46,13 @@ public class SecurityConfig{
 		
 		return provider;
 	}
-
+	/**
+     * Configures the security filter chain for HTTP requests.
+     *
+     * @param http HttpSecurity object to configure security settings.
+     * @return SecurityFilterChain object.
+     * @throws Exception if an error occurs during configuration.
+     */
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {     //need to understand 
 		http
@@ -51,7 +67,7 @@ public class SecurityConfig{
 				
 			)
 			.logout((logout) -> logout.permitAll());
-
+		// Builds and returns the configured SecurityFilterChain
 		return http.build();
 	}
 	
