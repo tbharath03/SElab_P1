@@ -17,7 +17,7 @@ import reviewer.model.User;
  * @since 2024-02-05
  */
 @Controller
-@RequestMapping("/loginPage")
+@RequestMapping("/login")
 public class LoginController {
 
 	/**
@@ -44,7 +44,7 @@ public class LoginController {
 	{
 		User user = new User();
 		model.addAttribute("user",user);
-		return "loginPage";
+		return "login";
 	}
 	
 }
