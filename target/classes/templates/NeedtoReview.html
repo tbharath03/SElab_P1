@@ -309,8 +309,9 @@
             <img th:src="@{/profile.png}" alt="logo_img" />
           </span>
           <div class="data_text">
-            <span class="name">Rohith Muthavarapu</span>
-            <span class="email">1234@gmail.com</span>
+			             <span th:text="${user.emailId}"></span>
+            <span class="email" th:text="${user.firstName}"></span>
+            <span class="email" th:text="${user.lastName}"></span>
           </div>
         </div>
       </div>
