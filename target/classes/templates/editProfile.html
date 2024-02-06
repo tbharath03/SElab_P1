@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -271,7 +272,8 @@
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   </head>
   <body>
-    <div class="header">
+	
+    <div class="header" >
         <div><h2>NITCONF</h2></div>
         <div class="logout">
           <!-- <img src="images/icons8-logout-50.png" alt="logout"> -->
@@ -366,24 +368,26 @@
             <img th:src="@{profile.png}" alt="logo_img" />
           </span>
           <div class="data_text">
-            <span class="name">Rohith Muthavarapu</span>
-            <span class="email">1234@gmail.com</span>
+			             <span th:text="${user.emailId}"></span>
+            <span class="email" th:text="${user.firstName}"></span>
+            <span class="email" th:text="${user.lastName}"></span>
           </div>
         </div>
       </div>
     </nav>
     </div>
 </div>
+
 <div class="MAINBODY">
   <h2 class="mb-4">Edit Profile</h2>
-  <form>
+  <form method="post" th:action="@{/editProfile}" th:object="${user}">
     <div class="form-group" style="display: flex;">
       <label for="FirstName">Firstname:</label>
       <div class="input-group" style="display: flex;  margin-left: 10px;">
-        <input type="text" class="form-control" id="FirstName" placeholder="Enter your Firstname" disabled>
+        <input type="text"  class="form-control" id="FirstName" name="firstName" th:value="${user.firstName}" disabled>
         <div class="input-group-append">
           <div class="input-group-text">
-            <input type="checkbox" id="editFirstName"> Edit
+            <input type="checkbox" id="editFirstName"  name="firstName"> Edit
           </div>
         </div>
       </div>
@@ -391,10 +395,10 @@
     <div class="form-group" style="display: flex;">
       <label for="LastName">Lastname:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="LastName" placeholder="Enter your Lastname" disabled>
+        <input type="text" class="form-control" id="LastName" name="lastName" th:value="${user.lastName}" disabled>
         <div class="input-group-append">
           <div class="input-group-text">
-            <input type="checkbox" id="editLastName"> Edit
+            <input type="checkbox" id="editLastName" name="lastName"> Edit
           </div>
         </div>
       </div>
@@ -402,7 +406,7 @@
     <div class="form-group" style="display: flex;">
       <label for="email">Email:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="email" class="form-control" id="email" placeholder="Enter your email" disabled>
+        <input type="email" class="form-control" id="email" name="emailId" th:value="${user.emailId}" disabled>
         <div class="input-group-append">
           <div class="input-group-text">
             <input type="checkbox" id="editEmail"> Edit
@@ -413,7 +417,7 @@
     <div class="form-group" style="display: flex;">
       <label for="PhoneNumber">Phone Number:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="PhoneNumber" placeholder="Enter Phone Number" disabled>
+        <input type="text" class="form-control" id="PhoneNumber" name="number" th:value="${user.number}" disabled>
         <div class="input-group-append">
           <div class="input-group-text">
             <input type="checkbox" id="editPhoneNumber"> Edit
@@ -424,7 +428,7 @@
     <div class="form-group" style="display: flex;">
       <label for="paperLimit">Paperlimit:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="paperLimit" placeholder="Enter Paperlimit" disabled>
+        <input type="text" class="form-control" id="paperLimit" name="paperlimit" th:value="${user.paperlimit}" disabled>
         <div class="input-group-append">
           <div class="input-group-text">
             <input type="checkbox" id="editPaperLimit"> Edit
@@ -446,7 +450,7 @@
     <div class="form-group" style="display: flex;">
       <label for="NewPassword">New Password:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="password" class="form-control" id="NewPassword" placeholder="Enter new password" disabled>
+        <input type="password" class="form-control" id="NewPassword" name="password" placeholder="Enter new password" disabled>
         <div class="input-group-append">
           <div class="input-group-text">
             <input type="checkbox" id="editNewPassword"> Edit
@@ -465,7 +469,7 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit" class="btn-primary">Save Changes</button>
   </form>
 </div>
 </div>
