@@ -91,8 +91,6 @@
         width: 270px;
         background: #7597cf63;
         padding: 15px 10px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s ease;
       }
       .sidebar.close {
         width: calc(55px + 20px);
@@ -219,6 +217,24 @@
           padding-left: 30px;
           padding-bottom: 10px;
 	  }
+	  
+	  /* On mouse-over */
+.sidebar a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: #4070f4;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #7597cf63;
+  padding-left: 10px;
+}
       </style>
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   </head>
@@ -285,11 +301,16 @@
               </a>
              </li>
              <li class="item">
-                <a href="#" class="link flex">
-                  <i class="bx bx-flag"></i>
-                  <span>Papers reviewed</span>
-                </a>
-               </li>
+               	<a class="dropdown-btn link flex">
+					<i class="bx bx-flag"></i>
+					<span>Papers reviewed</span>
+    				<i class="fa fa-caret-down"></i>
+  				</a>
+  				<div class="dropdown-container">
+    				<span>Total Papers : </span>
+    				<span th:text="${paperCount}"/>
+  				</div>
+  			</li>
             <!-- <li class="item">
               <a href="#" class="link flex">
                 <i class="bx bx-award"></i>
@@ -333,5 +354,21 @@
         <img src="images/profile.pngc:\Users\rohit\OneDrive\Desktop\SElab_P1\SElab_P1\images\nitc_logo.svgc:\Users\rohit\OneDrive\Desktop\SElab_P1\SElab_P1\images\nitc_logo.svg" alt="logo_img" />
       </span>
     </nav> -->
+    <script>
+		var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+	</script>
   </body>
 </html>
