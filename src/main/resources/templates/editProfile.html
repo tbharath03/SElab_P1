@@ -380,99 +380,74 @@
 
 <div class="MAINBODY">
   <h2 class="mb-4">Edit Profile</h2>
-  <form method="post" th:action="@{/editProfile}" th:object="${user}">
+  <form id="editProfileForm" method="post" th:action="@{/editProfile}"> <!--form start-->
     <div class="form-group" style="display: flex;">
       <label for="FirstName">Firstname:</label>
       <div class="input-group" style="display: flex;  margin-left: 10px;">
-        <input type="text"  class="form-control" id="FirstName" name="firstName" th:value="${user.firstName}" disabled>
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <input type="checkbox" id="editFirstName"  name="firstName"> Edit
-          </div>
-        </div>
+        <input type="text"  class="form-control" id="FirstName" name="firstName" th:value="${user.firstName}" th:field="${user.firstName}">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="LastName">Lastname:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="LastName" name="lastName" th:value="${user.lastName}" disabled>
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <input type="checkbox" id="editLastName" name="lastName"> Edit
-          </div>
-        </div>
+        <input type="text" class="form-control" id="LastName" name="lastName" th:value="${user.lastName}" th:field="${user.lastName}">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="email">Email:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="email" class="form-control" id="email" name="emailId" th:value="${user.emailId}" disabled>
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <input type="checkbox" id="editEmail"> Edit
-          </div>
-        </div>
+        <input type="email" class="form-control" id="email" name="emailId" th:value="${user.emailId}" th:field="${user.emailId}">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="PhoneNumber">Phone Number:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="PhoneNumber" name="number" th:value="${user.number}" disabled>
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <input type="checkbox" id="editPhoneNumber"> Edit
-          </div>
-        </div>
+        <input type="text" class="form-control" id="PhoneNumber" name="number" th:value="${user.number}" th:field="${user.number}">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="paperLimit">Paperlimit:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="paperLimit" name="paperlimit" th:value="${user.paperlimit}" disabled>
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <input type="checkbox" id="editPaperLimit"> Edit
-          </div>
-        </div>
+        <input type="text" class="form-control" id="paperLimit" name="paperlimit" th:value="${user.paperlimit}" th:field="${user.paperlimit}">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="OldPassword">Old Password:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="password" class="form-control" id="OldPassword" placeholder="Enter old password" disabled>
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <input type="checkbox" id="editOldPassword"> Edit
-          </div>
-        </div>
+        <input type="password" class="form-control" id="OldPassword" placeholder="Enter old password" name="oldPassword" th:field="${user.password}">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="NewPassword">New Password:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="password" class="form-control" id="NewPassword" name="password" placeholder="Enter new password" disabled>
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <input type="checkbox" id="editNewPassword"> Edit
-          </div>
-        </div>
+        <input type="password" class="form-control" id="NewPassword" name="newPassword" placeholder="Enter new password" th:attr="value = ${newPassword}">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="ReEnterNewPassword">Re-enter new Password:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="password" class="form-control" id="ReEnterNewPassword" placeholder="re-enter new password" disabled>
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <input type="checkbox" id="editReEnterNewPassword"> Edit
-          </div>
-        </div>
+        <input type="password" class="form-control" id="ReEnterNewPassword" placeholder="re-enter new password" name="reEnterPassword" th:attr="value = ${reEnterPassword}">
       </div>
     </div>
-    <button type="submit" class="btn-primary">Save Changes</button>
+    <button type="submit" class="btn-primary" onclick="validate()">Save Changes</button>
   </form>
 </div>
 </div>
+<!--
+<script defer async>
+	document.getElementById("editProfileForm").addEventListener("submit",(event) => {
+		let oldPassword = document.getElementById("OldPassword").value;
+		let newPassword = document.getElementById("NewPassword").value;
+		let reEnterPassword = document.getElementById("ReEnterNewPassword").value;
+		if(oldPassword!=null || newPassword!= null || reEnterPassword!=null){
+			if(newPassword != reEnterPassword || newPassword==null || reEnterPassword == null || oldPassword == null){
+				alert("errors");
+				event.preventDefault();
+			}	
+		}
+	});
+</script>
+				-->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
