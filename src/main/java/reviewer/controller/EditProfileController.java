@@ -84,7 +84,10 @@ public class EditProfileController {
     	if(user0.getPaperlimit() != user.getPaperlimit() && user.getPaperlimit() != null) {
     		user0.setPaperlimit(user.getPaperlimit());
     	}
-    	if(newPassword != null && reEnterPassword != null && user.getPassword() != null) {
+    	System.out.println(newPassword);
+    	System.out.println(reEnterPassword);
+    	System.out.println(user.getPassword());
+    	if(newPassword != "" && reEnterPassword != "" && user.getPassword() != "") {
     		if(passwordEncoder.matches(user.getPassword(),user0.getPassword())) {
     			if(newPassword.equals(reEnterPassword)) {
     				user0.setPassword(passwordEncoder.encode(newPassword));
