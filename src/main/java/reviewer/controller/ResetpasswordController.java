@@ -3,6 +3,7 @@ package reviewer.controller;
 
 import java.security.Principal;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
+
 import reviewer.model.User;
 import reviewer.repository.UserRepository;
 import reviewer.service.TokenService;
@@ -33,57 +36,35 @@ public class ResetpasswordController
 	
 	
 	@GetMapping("/resetpassword")
-	    public String resetpassword(@RequestParam String token,Model model, Principal principal) {
+	    public String resetpassword(@RequestParam String token,Model model) {
 		//User user = tokenService.isValidToken(user, token);
 		 User user = tokenService.getUserByToken(token);
 
 		    if (user != null) {
 		    	System.out.println(user.getEmailId());
-		        model.addAttribute("user", user);
+		        model.addAttribute("user",user);
 		        return "resetpassword";
 		    } else {
 		        System.out.println("Invalid token or user not found");
 		        return "error";
 		    }
-		/* User user = tokenService.getUserByToken(token);
-	        if(principal!=null)
-	        {
-	        	String username = principal.getName();
-	        User user = userRepository.findByEmailId(username); 
-	        boolean u1=tokenService.isValidToken(user, token);
-	        if(u1==true)
-	        {
-	        model.addAttribute("user", user); 
-	        System.out.println(username);
-	        return "resetpassword";
-	        }
-	        
-	        else
-	        {
-	        	System.out.println("invalidtoken");
-	        	return "error";
-	        }
-	        }
-	        return "home";*/
 	    }
 	 
 	@PostMapping("/resetpassword")
-    public String resetpasswordimpl(@ModelAttribute User user,@RequestParam("newPassword")String newPassword) {
-    	
-System.out.println(user.toString());
-		System.out.println(user.getEmailId());
-
-		if(user!=null)
+    public String resetpasswordimpl(@ModelAttribute User user,@RequestParam("newpassword") String password) 
+	{
+		//System.out.println("user0"+user.toString());
+		User user0;
+		user0= userRepository.findByEmailId(user.getEmailId());
+		System.out.println("user1"+user0.toString());
+		if(user0!=null) 
 		{
-			System.out.println(user.getEmailId());
-    	User user0 = userRepository.findByEmailId(user.getEmailId());
-    	user0.setPassword(passwordEncoder.encode(newPassword));
-    	userRepository.save(user0);
-    	tokenService.invalidateToken(user, user.getResetToken());
-    	return "login";
+		user0.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user0);
+		return "redirect:/login?success";
 		}
+		return "error";
 		
-			return "home";
     }
 
 	
