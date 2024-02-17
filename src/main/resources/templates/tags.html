@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>/* Import Google font - Poppins */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      .header {
+          background-color: #0c0b21;
+          color: #fff;
+          display: flex;
+          justify-content: space-between;
+      }
+      .header a:link {
+        color: white;
+        background-color: transparent;
+        text-decoration: none;
+      }
+      .header a:hover {
+        color: white;
+        background-color: transparent;
+        text-decoration: none;
+      }
+      
+      .header a:active {
+        color: white;
+        background-color: transparent;
+        text-decoration: none;
+      }
+      .header a:visited {
+        color: white;
+        background-color: transparent;
+        text-decoration: none;
+      }
+      .logout{
+          color: white;
+          padding-top: 20px;
+          padding-right: 40px;
+          padding-bottom: 20px;
+      }
+      .logout img{
+        margin-top: 10px;
+         height: 25px;
+         width: 20px;
+      }
+      h2{
+          padding-top: 13px;
+          padding-left: 30px;
+          padding-bottom: 10px;
+      }
+      body {
+        min-height: 100vh;
+        background: #eef5fe;
+      }
+      /* Pre css */
+      .flex {
+        display: flex;
+        align-items: center;
+      }
+      .nav_image {
+        display: flex;
+        min-width: 55px;
+        justify-content: center;
+      }
+      .nav_image img {
+        height: 45px;
+        width: 45px;
+      }
+      .total{
+		 height: 100vh;
+	  }
+      /* Sidebar */
+      .sidebar {
+        /* position: fixed; */
+        top: 0;
+        left: 0;
+        height:100vh;
+        width: 270px;
+        background: #7597cf63;
+        padding: 15px 10px;
+      }
+      .sidebar.close {
+        width: calc(55px + 20px);
+      }
+      .logo_items {
+        gap: 8px;
+      }
+      .logo_name {
+        font-size: 26px;
+        color: #101010;
+        font-weight: 500px;
+        transition: all 0.3s ease;
+      }
+      .sidebar.close .logo_name,
+      .sidebar.close #lock-icon,
+      .sidebar.close #sidebar-close {
+        opacity: 0;
+        pointer-events: none;
+      }
+      /* #lock-icon,
+      #sidebar-close {
+        padding: 10px;
+        color: #4070f4;
+        font-size: 25px;
+        cursor: pointer;
+        margin-left: -4px;
+        transition: all 0.3s ease;
+      }
+      #sidebar-close {
+        display: none;
+        color: #333;
+      } */
+      .menu_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* margin-top: 40px; */
+        overflow-y: auto;
+        /* height: calc(100% - 82px); */
+      }
+      .menu_container::-webkit-scrollbar {
+        display: none;
+      }
+      .menu_title {
+        position: relative;
+        height: 50px;
+        width: 55px;
+      }
+      .menu_title .title {
+        margin-left: 15px;
+        transition: all 0.3s ease;
+      }
+      .sidebar.close .title {
+        opacity: 0;
+      }
+      .menu_title .line {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 3px;
+        width: 20px;
+        border-radius: 25px;
+        background: #aaa;
+        transition: all 0.3s ease;
+      }
+      .menu_title .line {
+        opacity: 0;
+      }
+      .sidebar.close .line {
+        opacity: 1;
+      }
+      .item {
+        list-style: none;
+      }
+      .link {
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        color: #707070;
+      }
+      .COMPLETE {
+          display: flex;
+          flex-direction: column;
+      }
+      .link:hover {
+        color: #fff;
+        background-color: #4070f4;
+      }
+      .link span {
+        white-space: nowrap;
+      }
+      .link i {
+        height: 50px;
+        min-width: 55px;
+        display: flex;
+        font-size: 22px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2px;
+      }
+      
+      .sidebar_profile {
+        padding-top: 15px;
+        margin-top: 15px;
+        gap: 15px;
+        border-top: 2px solid rgba(0, 0, 0, 0.1);
+      }
+      .sidebar_profile .name {
+        font-size: 18px;
+        color: #333;
+      }
+      .sidebar_profile .email {
+        font-size: 15px;
+        color: #333;
+      }
+      .FULL {
+        display: flex;
+        flex-direction: row;
+      }
+      .MAINBODY {
+        width: 90%;
+        height: 640px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .form-row {
+        padding: 10px;
+      }
+      .btn-primary {
+            margin: 10px;
+			color: rgb(232, 232, 232);
+			background-color: rgb(8, 8, 156);
+			border: unset;
+			border-radius: 5px;
+			padding: 5px 10px 5px 10px;
+      }
+
+      .btn-primary:hover {
+        background-color: rgb(7, 7, 106);
+        cursor: pointer;
+      }
+      
+      button
+{
+background-color: rgb(8, 8, 156);
+color: #fff;
+padding: 7.5px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+align-items: center;
+
+}
+
+input 
+{
+ width: 70%;
+ padding: 8px;
+ margin-bottom: 15px;
+ box-sizing: border-box;
+}
+
+.tagDropdown
+{
+ width: 70%;
+ padding: 8px;
+ margin-bottom: 15px;
+ box-sizing: border-box;
+}
+
+button:hover 
+{
+background-color:rgb(7, 7, 106) ;
+}
+      body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-check-label {
+      font-weight: normal;
+    }
+    input[type=checkbox] {
+      margin-left: 10px;
+    }
+    label {
+      width: 200px;
+    }
+    input {
+      padding: 5px;
+    }
+    
+    /* On mouse-over */
+.sidebar a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: #4070f4;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #7597cf63;
+  padding-left: 10px;
+}
+      </style>
+      <script>
+        $(document).ready(function () {
+          $('input[type="checkbox"]').change(function () {
+            var inputField = $(this).closest('.input-group').find('input[type="text"], input[type="email"], input[type="password"]');
+            inputField.prop('disabled', !this.checked);
+          });
+        });
+      </script>
+    <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  </head>
+  <body>
+	
+    <div class="header" >
+        <div><h2>NITCONF</h2></div>
+        <div class="logout">
+          <!-- <img src="images/icons8-logout-50.png" alt="logout"> -->
+          <a th:href="@{/logout}">logout</a>
+        </div>
+    </div>
+    <div class="FULL">
+    <div class="COMPLETE">
+    <div class="total">
+    <nav class="sidebar locked">
+      <!-- <div class="logo_items flex">
+        <span class="nav_image">
+          <img src="images/nitc_logo.svg" alt="logo_img">
+        </span>
+        <span class="logo_name">NITCONF</span> -->
+      <!-- </div> -->
+
+      <div class="menu_container">
+        <div class="menu_items">
+          <ul class="menu_item">
+            <div class="menu_title flex">
+              <span class="title">Dashboard</span>
+              <span class="line"></span>
+            </div>
+            <li class="item">
+              <a th:href="@{dashboard}" class="link flex">
+                <i class="bx bx-grid-alt"></i>
+                <span>All Papers</span>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="menu_item">
+            <div class="menu_title flex">
+              <span class="title">Papers</span>
+              <span class="line"></span>
+            </div>
+            <li class="item">
+              <a th:href="@{AlreadyReviewed}" class="link flex">
+                <i class="bx bxs-magic-wand"></i>
+                <span>Already reviewed</span>
+              </a>
+            </li>
+            <li class="item">
+              <a th:href="@{NeedtoReview}" class="link flex">
+                <i class="bx bx-folder"></i>
+                <span>Need to review</span>
+              </a>
+            </li>
+            <!-- <li class="item">
+              <a href="#" class="link flex">
+                <i class="bx bx-cloud-upload"></i>
+                <span>Upload New</span>
+              </a>
+            </li> -->
+          </ul>
+
+          <ul class="menu_item">
+            <div class="menu_title flex">
+              <span class="title">Settings</span>
+              <span class="line"></span>
+            </div>
+            <li class="item">
+              <a th:href="@{editProfile}" class="link flex">
+                <i class="bx bx-cog"></i>
+                <span>Edit Profile</span>
+              </a>
+             </li>
+             <li class="item">
+               	<a class="dropdown-btn link flex">
+					<i class="bx bx-flag"></i>
+					<span>Papers reviewed</span>
+    				<i class="fa fa-caret-down"></i>
+  				</a>
+  				<div class="dropdown-container">
+    				<span>Total Papers : </span>
+    				<span th:text="${paperCount}"/>
+  				</div>
+  			</li>
+            <!-- <li class="item">
+              <a href="#" class="link flex">
+                <i class="bx bx-award"></i>
+                <span>Award</span>
+              </a>
+            </li> -->
+            <li class="item">
+              <a href="#" class="link flex">
+                <i class="bx bx-cog"></i>
+                <span>Tags</span>
+              </a>
+            </li> 
+          </ul>
+        </div>
+
+        <div class="sidebar_profile flex">
+          <span class="nav_image">
+            <img th:src="@{profile.png}" alt="logo_img" />
+          </span>
+          <div class="data_text">
+			             <span th:text="${user.emailId}"></span>
+            <span class="email" th:text="${user.firstName}"></span>
+            <span class="email" th:text="${user.lastName}"></span>
+          </div>
+        </div>
+      </div>
+    </nav>
+    </div>
+</div>
+
+<div class="MAINBODY">
+  <h2 class="mb-4">MANAGE YOUR TAGS</h2>
+  <hr>
+  <form method="post" th:action="@{/tags}">
+ <div class="interest-tags" id="interestTagsContainer">
+	 
+	  <label for="tagDropdown">SEE YOUR TAGS </label>
+	  <br>
+        <select id="tagDropdown" name="list">
+            <option th:each="tag : ${list}" th:text="${tag}"></option>
+        </select>
+         <br>
+      <br>
+<label for="areaofinterest">ADD YOUR TAGS</label>
+<br>
+<font color="grey"> **You can add your tags here** </font>
+<input type="text" id="areaofinterest" name="newtag" pattern="[A-Z]+" placeholder="interest">
+<button type="submit">ADD</button>
+<br>
+<label for="areaofinterest">REMOVE YOUR TAGS</label>
+<br>
+<font color="grey"> **You can remove your tags here** </font>
+<input type="text" id="areaofinterest" name="rmtag" pattern="[A-Z]+" placeholder="interest">
+<button type="submit">REMOVE</button>
+
+</div>
+</form>
+</div>
+</body>
+</html>
