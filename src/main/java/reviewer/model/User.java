@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -54,6 +54,7 @@ public class User implements UserDetails{
 	private String number;
 	private String password;
 	private Long paperlimit;
+    private String tag;
 	  /**
      * No-argument constructor used in the controller.
      */
@@ -86,16 +87,7 @@ public class User implements UserDetails{
      * @param encode     The encoded password.
      * @param paperlimit The paper limit.
      */
-	public User(Long userid2, String firstName2, String lastName2, String emailId2, String number2, String encode,
-			Long paperlimit2, List<String> tags2) 
-	{
-		  this.firstName=firstName2;
-		  this.lastName=lastName2;
-		  this.emailId=emailId2;
-		  this.number=number2;
-		  this.password=encode;
-		  this.paperlimit=paperlimit2;
-	}
+	
 	/**
      * Returns the user's first name.
      *
@@ -103,6 +95,17 @@ public class User implements UserDetails{
      */
 	public String getFirstName() {
 		return firstName;
+	}
+	public User(String emailId, String firstName, String lastName, String number, String password, Long paperlimit,
+			String tag) {
+		super();
+		this.emailId = emailId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.number = number;
+		this.password = password;
+		this.paperlimit = paperlimit;
+		this.tag = tag;
 	}
 	/**
      * Sets the user's first name.
@@ -198,11 +201,7 @@ public class User implements UserDetails{
      *
      * @return A string representation.
      */
-	@Override
-	public String toString() {
-		return "Email=" +emailId  + ", password=" + password + ", Firstname=" + firstName + ",LastName=" + lastName +" contactno=" + number
-				 ;
-	}
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -227,5 +226,11 @@ public class User implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
 	}	
 }
