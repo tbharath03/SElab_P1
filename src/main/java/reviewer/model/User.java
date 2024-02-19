@@ -31,8 +31,8 @@ import jakarta.persistence.UniqueConstraint;
 @Builder
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+// @AllArgsConstructor
+// @NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @Table(name="User",
 schema ="nitconf",
 uniqueConstraints= {
