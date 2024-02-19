@@ -1,0 +1,333 @@
+openapi: "3.0.1"
+info:
+  title: "NITCONF RMS"
+  description: "It is a system which helps program committee to decide whether to accept paper for a conference based on reviews given by reviewers. It gives us a categorized review based on different aspects of a paper."
+  license:
+    name: "Apache 2.0"
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+  version: 1.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ROHITHMUTHAVARAPU/NITCONF/1.0.0
+  - url: "http://localhost:8080"
+    description: "Generated server url"
+paths:
+  /api/reviewpage:
+    get:
+      tags:
+        - "ReviewPage"
+      summary: "Search for review"
+      description: "Find the requested reviewpaper and display it."
+      operationId: "searchReviewpaper"
+      parameters:
+        - name: "action"
+          in: "query"
+          description: "This is to submit the details of particular paper"
+          required: true
+          schema:
+            type: "string"
+          example: "view"
+        - name: "id"
+          in: "query"
+          description: "The ID of the paper."
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+          example: 1
+        - name: "EmailId"
+          in: "query"
+          description: "The EmailId of the reviewer."
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+    post:
+      tags:
+        - "ReviewPage"
+      summary: "store the data"
+      description: "Save the current progress in reviewFrompage."
+      operationId: "saveReviewFormPage"
+      parameters:
+        - name: "action"
+          in: "query"
+          description: "The action to perform. Valid actions are to save the review for particular page."
+          required: true
+          schema:
+            type: "string"
+          example: "update"
+        - name: "id"
+          in: "query"
+          description: "The ID of the paper."
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+          example: 1
+        - name: "EmailId"
+          in: "query"
+          description: "The EmailId of the reviewer."
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Review"
+        required: true
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+                
+  /api/ForgotPassword:
+    get:
+      tags:
+        - "ForgotPassword"
+      summary: "Search for Reviewer Details"
+      description: "Find the requested revierdetails and display it."
+      operationId: "Forgotpassword"
+      parameters:
+        - name: "action"
+          in: "query"
+          description: "get reviewer details"
+          required: true
+          schema:
+            type: "string"
+          example: ""
+        - name: "Number"
+          in: "query"
+          description: "The Phonenumber of the reviewer."
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+          example: 9876543210
+        - name: "EmailId"
+          in: "query"
+          description: "The EmailId of the reviewer."
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tokens"
+    post:
+      tags:
+        - "ForgotPassword"
+      summary: "override the oldpassword with newone"
+      description: "Save the current password."
+      operationId: "changepassword"
+      parameters:
+        - name: "action"
+          in: "query"
+          description: "The action to perform.change the password of the reviewer after valid verfication."
+          required: true
+          schema:
+            type: "string"
+          example: "update"
+        - name: "id"
+          in: "query"
+          description: "The ID of the paper."
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+          example: 1
+        - name: "EmailId"
+          in: "query"
+          description: "The EmailId of the reviewer."
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Review"
+        required: true
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /api/NeedtoReview:
+    get:
+      tags:
+        - "Need To Review"
+      summary: "all papers"
+      description: "Find all papers assigned to a reviewer which are not reviewed."
+      operationId: "find all Papers"
+      parameters:
+        - name: "EmailId"
+          in: "query"
+          description: "The EmailId of the reviewer."
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "object"
+  /api/AlreadyReviewed:
+    get:
+      tags:
+        - "AlreadyReviewed"
+      summary: "List all submissions"
+      description: "Display all submissions made by the reviewer."
+      operationId: "Already Reviewed"
+      parameters:
+        - name: "Email"
+          in: "query"
+          description: "The Email of the reviewer to get alreadyReviewed papers."
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Review"
+  /api/edit_profile:
+    get:
+      tags:
+        - "EditProfile"
+      summary: "Edit the reviewer details"
+      description: "Search the reviewer for whom the details to be changed"
+      operationId: "FindEmailId"
+      parameters:
+        - name: "EmailId"
+          in: "query"
+          description: "The EmailId of the reviewer to retrieve the information for."
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /api/tags:
+    get:
+      tags:
+        - "Tags"
+      summary: "Display all tags for Reviewer"
+      description: "Show all tags."
+      operationId: "displayTags"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                 $ref: "#/components/schemas/Tags"
+  
+components:
+  schemas:
+    
+    Review:
+      type: "object"
+      properties:
+        id:
+          $ref: "#/components/schemas/ReviewKey"
+        TechnicalContentandAccuracy:
+          type: "integer"
+          format: "int32"
+        SignificanceoftheWork:
+          type: "integer"
+          format: "int32"
+        OriginalityofContent:
+          type: "integer"
+          format: "int32"
+        AppropriateforSAC:
+          type: "integer"
+          format: "int32"
+        organization:
+          type: "integer"
+          format: "int32"
+        StyleandClarityofPaper:
+          type: "integer"
+          format: "int32"
+        refeersConfidence:
+          type: "integer"
+          format: "int32"
+        overall:
+          type: "integer"
+          format: "int32"
+        comment:
+          type: "string"
+        ConfidentailComment:
+          type: "string"
+       
+    ReviewKey:
+      type: "object"
+      
+    Tokens:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+        id:
+          type: "integer"
+          format: "int64"
+        Expiredtime:
+          type: "string"
+      
+    Tags:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        id:
+          type: "integer"
+          format: "int64"
+    User:
+      type: "object"
+      properties:
+        EmailId:
+          type: "string"
+        password:
+          type: "string"
+        FirstName:
+          type: "string"
+        LastName:
+          type: "string"
+        Number:
+          type: "string"
+        tags:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Tags"
+        accountNonExpired:
+          type: "boolean"
+        accountNonLocked:
+          type: "boolean"
+        credentialsNonExpired:
+          type: "boolean"
