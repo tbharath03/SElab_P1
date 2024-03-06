@@ -25,7 +25,6 @@ public class TokenServiceImpl implements TokenService {
     }
     @Override
     public String generateToken() {
-        // Implement your token generation logic (e.g., using UUID)
         return UUID.randomUUID().toString();
     }
 
@@ -42,14 +41,13 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public boolean isValidToken(User user, String token) {
-        // Check if the token is valid and not expired
         Token token1 = tokenRepository.findByUserAndToken(user,token);
         return token1 != null && token1.getExpirationTime().isAfter(LocalDateTime.now());
     }
 
     @Override
     public void invalidateToken(User user, String token) {
-        // Remove the token from the database (invalidate)
+      
         Token token1 = tokenRepository.findByUserAndToken(user,token);
         if (token1 != null) 
         {
@@ -60,14 +58,12 @@ public class TokenServiceImpl implements TokenService {
 	public User getUserByToken(String token) {
 		  Token tokenEntity = tokenRepository.findByToken(token);
 
-	        // Check if the token is valid and not expired
 	        if (tokenEntity != null && !tokenEntity.isExpired(tokenEntity.getExpirationTime())) 
 	        {
 	            
 	            return userRepository.findByEmailId(tokenEntity.getUser().getEmailId());
 	        }
 
-	        // If the token is invalid or expired, return null
 	        return null;
 		
 	}

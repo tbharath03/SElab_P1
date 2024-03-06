@@ -30,7 +30,7 @@
         background-color: transparent;
         text-decoration: none;
       }
-      
+
       .header a:active {
         color: white;
         background-color: transparent;
@@ -53,8 +53,10 @@
          width: 20px;
       }
       h2{
-          padding-top: 13px;
-          padding-left: 30px;
+
+          padding-top: 10px;
+          padding-left: 0px;
+
           padding-bottom: 10px;
       }
       body {
@@ -187,7 +189,7 @@
         justify-content: center;
         border-radius: 2px;
       }
-      
+
       .sidebar_profile {
         padding-top: 15px;
         margin-top: 15px;
@@ -213,6 +215,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
       }
       .form-row {
         padding: 10px;
@@ -230,7 +233,7 @@
         background-color: rgb(7, 7, 106);
         cursor: pointer;
       }
-      
+
       button
 {
 background-color: rgb(8, 8, 156);
@@ -290,7 +293,30 @@ background-color:rgb(7, 7, 106) ;
     input {
       padding: 5px;
     }
-    
+
+
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .tag-box {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .tag-label {
+    margin-right: 5px;
+  }
+
     /* On mouse-over */
 .sidebar a:hover, .dropdown-btn:hover {
   color: #f1f1f1;
@@ -308,7 +334,11 @@ background-color:rgb(7, 7, 106) ;
   background-color: #7597cf63;
   padding-left: 10px;
 }
+
       </style>
+     
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
       <script>
         $(document).ready(function () {
           $('input[type="checkbox"]').change(function () {
@@ -320,7 +350,7 @@ background-color:rgb(7, 7, 106) ;
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   </head>
   <body>
-	
+
     <div class="header" >
         <div><h2>NITCONF</h2></div>
         <div class="logout">
@@ -371,6 +401,7 @@ background-color:rgb(7, 7, 106) ;
                 <span>Need to review</span>
               </a>
             </li>
+
             <!-- <li class="item">
               <a href="#" class="link flex">
                 <i class="bx bx-cloud-upload"></i>
@@ -378,6 +409,7 @@ background-color:rgb(7, 7, 106) ;
               </a>
             </li> -->
           </ul>
+
 
           <ul class="menu_item">
             <div class="menu_title flex">
@@ -401,14 +433,12 @@ background-color:rgb(7, 7, 106) ;
     				<span th:text="${paperCount}"/>
   				</div>
   			</li>
-            <!-- <li class="item">
-              <a href="#" class="link flex">
-                <i class="bx bx-award"></i>
-                <span>Award</span>
-              </a>
-            </li> -->
+
+            
             <li class="item">
-              <a href="#" class="link flex">
+				
+              <a th:href="@{/tags}" class="link flex">
+
                 <i class="bx bx-cog"></i>
                 <span>Tags</span>
               </a>
@@ -435,29 +465,30 @@ background-color:rgb(7, 7, 106) ;
   <h2 class="mb-4">MANAGE YOUR TAGS</h2>
   <hr>
   <form method="post" th:action="@{/tags}">
- <div class="interest-tags" id="interestTagsContainer">
-	 
-	  <label for="tagDropdown">SEE YOUR TAGS </label>
-	  <br>
-        <select id="tagDropdown" name="list">
-            <option th:each="tag : ${list}" th:text="${tag}"></option>
-        </select>
-         <br>
-      <br>
+
 <label for="areaofinterest">ADD YOUR TAGS</label>
 <br>
 <font color="grey"> **You can add your tags here** </font>
 <input type="text" id="areaofinterest" name="newtag" pattern="[A-Z]+" placeholder="interest">
 <button type="submit">ADD</button>
 <br>
-<label for="areaofinterest">REMOVE YOUR TAGS</label>
-<br>
-<font color="grey"> **You can remove your tags here** </font>
-<input type="text" id="areaofinterest" name="rmtag" pattern="[A-Z]+" placeholder="interest">
-<button type="submit">REMOVE</button>
+
+      
+  <label for="areaofinterest">REMOVE YOUR TAGS</label>
+    <br>
+    <font color="grey"> **You can remove your tags here** </font>
+    
+    <!-- Iterate through the list of tags and display an input field and remove button for each -->
+    <div th:each="tag : ${list}">
+        <input type="text" th:value="${tag}" id="areaofinterest"  readonly="readonly" />
+        <button type="submit" name="rmtag" th:value="${tag}">DELETE</button>
+        <br>
+    </div>
+
 
 </div>
 </form>
 </div>
 </body>
+
 </html>

@@ -1,6 +1,7 @@
 package reviewer.service;
 
 import reviewer.model.Review;
+import reviewer.model.Tag;
 import reviewer.model.User;
 /**
  * Service interface for user-related operations.
@@ -20,5 +21,7 @@ public interface UserService {
     */
 
    public void ReviewbyUser(Review review);
+
+public void addTag(Tag tag);
   
 }
