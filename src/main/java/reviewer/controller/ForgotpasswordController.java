@@ -38,7 +38,6 @@ private EmailService emailservice;
 		User user=userRepository.findByEmailId(email);
 		System.out.println(number);
 		System.out.println(user.getNumber());
-		//System.out.println(user.toString());
 		if(user!=null && number.equals(user.getNumber()))
 		{
 	 
@@ -47,12 +46,7 @@ private EmailService emailservice;
 	            System.out.println("before mail service");
 	            emailservice.sendResetEmail(user.getEmailId(), resetToken);
 	            System.out.println("hloo");
-	            //return "redirect:/resetpassword?token=" + resetToken;
 		}
-	
-		
-	//	session.setAttribute("msg", "invalid email and mobile number");
-		//return "forgotpassword";
 		
 	}
 }

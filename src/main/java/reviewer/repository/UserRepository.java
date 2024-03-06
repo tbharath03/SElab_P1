@@ -1,8 +1,10 @@
 package reviewer.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import reviewer.model.User;
@@ -26,4 +28,5 @@ public interface UserRepository extends CrudRepository<User,String>{
 	     * @return An Optional containing the User object associated with the provided ID.
 	     */
 	 Optional<User> findById(String emailId);
+
 }
