@@ -53,8 +53,10 @@
          width: 20px;
       }
       h2{
+
           padding-top: 10px;
           padding-left: 0px;
+
           padding-bottom: 10px;
       }
       body {
@@ -213,7 +215,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-  
+
       }
       .form-row {
         padding: 10px;
@@ -293,6 +295,7 @@ background-color:rgb(7, 7, 106) ;
     }
 
 
+
 .tag-container {
     display: flex;
     flex-wrap: wrap;
@@ -313,6 +316,7 @@ background-color:rgb(7, 7, 106) ;
   .tag-label {
     margin-right: 5px;
   }
+
     /* On mouse-over */
 .sidebar a:hover, .dropdown-btn:hover {
   color: #f1f1f1;
@@ -334,6 +338,7 @@ background-color:rgb(7, 7, 106) ;
       </style>
      
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
       <script>
         $(document).ready(function () {
           $('input[type="checkbox"]').change(function () {
@@ -396,7 +401,15 @@ background-color:rgb(7, 7, 106) ;
                 <span>Need to review</span>
               </a>
             </li>
-          
+
+            <!-- <li class="item">
+              <a href="#" class="link flex">
+                <i class="bx bx-cloud-upload"></i>
+                <span>Upload New</span>
+              </a>
+            </li> -->
+          </ul>
+
 
           <ul class="menu_item">
             <div class="menu_title flex">
@@ -420,10 +433,12 @@ background-color:rgb(7, 7, 106) ;
     				<span th:text="${paperCount}"/>
   				</div>
   			</li>
+
             
             <li class="item">
 				
               <a th:href="@{/tags}" class="link flex">
+
                 <i class="bx bx-cog"></i>
                 <span>Tags</span>
               </a>
@@ -457,6 +472,7 @@ background-color:rgb(7, 7, 106) ;
 <input type="text" id="areaofinterest" name="newtag" pattern="[A-Z]+" placeholder="interest">
 <button type="submit">ADD</button>
 <br>
+
       
   <label for="areaofinterest">REMOVE YOUR TAGS</label>
     <br>
@@ -469,8 +485,10 @@ background-color:rgb(7, 7, 106) ;
         <br>
     </div>
 
+
 </div>
 </form>
 </div>
 </body>
+
 </html>
