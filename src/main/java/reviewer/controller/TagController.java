@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import reviewer.model.Tag;
 import reviewer.model.User;
+
+import reviewer.repository.PaperRepository;
+
 import reviewer.repository.TagRepository;
 import reviewer.repository.UserRepository;
 
@@ -36,16 +39,21 @@ public class TagController {
 	 private UserRepository userRepository;
 	private TagRepository tagRepository;
 
-	    public TagController(UserRepository userRepository, TagRepository tagRepository) {
+	private PaperRepository paperRepo;
+
+	    public TagController(UserRepository userRepository, TagRepository tagRepository,PaperRepository paperRepo) {
 	        this.userRepository = userRepository;
 	        this.tagRepository=tagRepository;
+	        this.paperRepo=paperRepo;
 	    }
 	    @GetMapping
 	    public String addtag(Model model, Principal principal) 
-	    {   
+	    {  
 	    	 String username = principal.getName(); // Get the username of the currently logged-in user
 	         User user = userRepository.findByEmailId(username); // Retrieve the user details from the repository using the username
 	         model.addAttribute("user", user);
+	         model.addAttribute("paperCount", paperRepo.count());
+
 	          List <Tag> list1 = tagRepository.findByUser(user);
     		 List<String> list = new ArrayList<String>(); 
     		 for(int i=0;i<list1.size();i++)
@@ -57,13 +65,18 @@ public class TagController {
 	        return "tags";
 	    }
 	@PostMapping
-	public String TagControllering(@RequestParam("newtag")String tag,@RequestParam("rmtag")String rmtag,
+
+	public String TagControllering( @RequestParam(name = "rmtag", required = false) String rmtag,@RequestParam("newtag")String tag,
 			Principal principal,@ModelAttribute User user)
 	{
-		
+		System.out.println("1"+tag);
 		User user1=userRepository.findByEmailId(principal.getName());
 		List <Tag> list1 = tagRepository.findByUser(user1);
 		Tag tag1=tagRepository.findByUserAndTag(user1,tag);
+		System.out.println(tag);
+		if(tag!="")
+		{
+
 		if(tag1==null)
 		{
 			tag1=new Tag();
@@ -81,7 +94,10 @@ public class TagController {
 			System.out.println("tag exsist");
 		}
 		
-		if(list1.size()>6)
+		}
+		
+		
+		if(list1.size()>5)
 		{
 		if(rmtag!="")
 		{

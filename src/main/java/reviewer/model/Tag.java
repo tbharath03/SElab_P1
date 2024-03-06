@@ -13,8 +13,10 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+
 // @AllArgsConstructor
 // @NoArgsConstructor
+
 @Table(name="Tag")
 public class Tag {
 
