@@ -6,9 +6,11 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,77 +28,62 @@ public class Paper {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
 	   private Long pid;
-       private List<String> authors;
+       private String title;
+       private String authors;
        
        @CreationTimestamp
        private LocalDateTime dateallocated;
+       private String paperlink;
        
-       /**
-        * Gets the unique identifier of the paper.
-        *
-        * @return The paper's ID.
-        */
+       @OneToMany(mappedBy="paper")
+       List<Review> reviews;
        public Long getPid() {
 		return pid;
 	}
-       /**
-        * Sets the unique identifier of the paper.
-        *
-        * @param pid The paper's ID to be set.
-        */
+       
 	public void setPid(Long pid) {
 		this.pid = pid;
 	}
-	/**
-     * Gets the list of authors associated with the paper.
-     *
-     * @return The list of authors.
-     */
-	public List<String> getAuthors() {
+	
+	public String getAuthors() {
 		return authors;
 	}
-	/**
-     * Sets the list of authors associated with the paper.
-     *
-     * @param authors The list of authors to be set.
-     */
-	public void setAuthors(List<String> authors) {
+	
+	public void setAuthors(String authors) {
 		this.authors = authors;
 	}
-	 /**
-     * Gets the date when the paper was allocated.
-     *
-     * @return The date of paper allocation.
-     */
+	 
 	public LocalDateTime getDateallocated() {
 		return dateallocated;
 	}
-	/**
-     * Sets the date when the paper was allocated.
-     *
-     * @param dateallocated The date of paper allocation to be set.
-     */
+	
 	public void setDateallocated(LocalDateTime dateallocated) {
 		this.dateallocated = dateallocated;
 	}
-	/**
-     * Gets the deadline date associated with the paper.
-     *
-     * @return The deadline date for the paper.
-     */
+	
 	public LocalDateTime getDeadlinedate() {
 		return deadlinedate;
 	}
-	/**
-     * Sets the deadline date associated with the paper.
-     *
-     * @param deadlinedate The deadline date for the paper to be set.
-     */
+	
 	public void setDeadlinedate(LocalDateTime deadlinedate) {
 		this.deadlinedate = deadlinedate;
 	}
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getPaperlink() {
+		return paperlink;
+	}
+
+	public void setPaperlink(String paperlink) {
+		this.paperlink = paperlink;
+	}
 	@CreationTimestamp
-       private LocalDateTime deadlinedate;
+     private LocalDateTime deadlinedate;
        
 	   
 }
