@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -131,51 +131,51 @@
     <table>
       <tr>
           <th>Evaluation Category</th>
-          <th>Enter Your Score (out of 9)</th>
+          <th>Enter Your Score (out of 10)</th>
       </tr>
       <tr>
           <td>Technical Content and Accuracy</td>
-          <td><input type="integer" name="TechnicalContentandAccuracy" pattern="[0-9]{1}" placeholder="0" required></td>
+          <td><select type="integer" id="TechnicalContentandAccuracy" name="TechnicalContentandAccuracy" min=0  max=10 placeholder="0" required></select></td>
 
       </tr>
       <tr>
           <td>Significance of the Work</td>
-          <td><input type="integer" name="SignificanceoftheWork" pattern="[0-9]{1}" placeholder="0" required></td>
+          <td><select type="integer" id="SignificanceoftheWork" name="SignificanceoftheWork" min=0  max=10 placeholder="0" required></select></td>
 
       </tr>
       <tr>
           <td>Appropriate Title, Introduction, and Conclusion</td>
-          <td><input type="integer" name="AppropriateTitleLongroductionandConclusion" pattern="[0-9]{1}" placeholder="0" required></td>
+          <td><select type="integer" id="AppropriateTitleLongroductionandConclusion" name="AppropriateTitleLongroductionandConclusion" min=0  max=10 placeholder="0" required></select></td>
 
       </tr>
       <tr>
           <td>Overall Organization</td>
-          <td><input type="integer" name="OverallOrganization"  pattern="[0-9]{1}" placeholder="0" required></td>
+          <td><select type="integer" id="OverallOrganization" name="OverallOrganization"  min=0  placeholder="0" required></select></td>
 
       </tr>
       <tr>
           <td>Appropriate for SAC</td>
-          <td> <input type="integer" name="AppropriateforSAC" pattern="[0-9]{1}" placeholder="0" required></td>
+          <td> <select type="integer" id="AppropriateforSAC" name="AppropriateforSAC" min=0 max=10 placeholder="0" required></select></td>
 
       </tr>
       <tr>
           <td>Style and Clarity of Paper</td>
           
-<td><input type="integer" name="StyleandClarityofPaper" pattern="[0-9]{1}" placeholder="0" required></td>
+<td><select type="integer" id="StyleandClarityofPaper" name="StyleandClarityofPaper" min=0 max=10 placeholder="0" required></select></td>
 
       </tr>
       <tr>
           <td>Originality of Content</td>
-          <td><input type="integer" name="OriginalityofContent"  pattern="[0-9]{1}" placeholder="0" required></td>
+          <td><select type="integer" id="OriginalityofContent" name="OriginalityofContent"  min=0 max=10 placeholder="0" required></select></td>
       </tr>
       <tr>
           <td>Referee's Confidence in Paper's Subject</td>
-          <td><input  type="integer" name="RefereesConfidenceinPapersSubject"  pattern="[0-9]{1}" placeholder="0" required></td>
+          <td><select  type="integer" id="RefereesConfidenceinPapersSubject" name="RefereesConfidenceinPapersSubject"  min=0 max=10 placeholder="0" required></select></td>
 
       </tr>
       <tr>
           <td>Overall Recommendation</td>
-          <td><input type="integer" name="OverallRecommendation" pattern="[0-9]{1}" placeholder="0" required></td>
+          <td><select type="integer" id="OverallRecommendation" name="OverallRecommendation" min=0 max=10 placeholder="0" required></select></td>
 
       </tr>
   </table>
@@ -197,8 +197,7 @@
           <textarea id="comments" name="ConfidentialComments" rows="8"></textarea>
         </div>
     <hr>
-        
-
+  
 <h2>Over all recommendation</h2>
 <label for="decision">Select Decision:</label>
 <select id="decision" name="decision" required>
@@ -214,5 +213,25 @@
 </form>
 
 </body>
+<script>
+   function createDropdown(id) {
+    var selectElement = document.getElementById(id);
 
+    for (var i = 0; i <= 10; i++) {
+      var option = document.createElement("option");
+      option.value = i;
+      option.text = i;
+      selectElement.add(option);
+    }
+  }
+  createDropdown("TechnicalContentandAccuracy");
+  createDropdown("SignificanceoftheWork");
+  createDropdown("AppropriateTitleLongroductionandConclusion");
+  createDropdown("OverallOrganization");
+  createDropdown("AppropriateforSAC");
+  createDropdown("StyleandClarityofPaper");
+  createDropdown("OriginalityofContent");
+  createDropdown("RefereesConfidenceinPapersSubject");
+  createDropdown("OverallRecommendation");
+</script>
 </html>

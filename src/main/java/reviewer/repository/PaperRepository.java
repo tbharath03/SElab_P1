@@ -7,5 +7,5 @@ import reviewer.model.Paper;
 
 @Repository
 public interface PaperRepository extends CrudRepository<Paper,Long>{
-	
+	         Paper findBypid(Long pid);
 }

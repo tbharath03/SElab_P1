@@ -1,5 +1,7 @@
 package reviewer.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import reviewer.model.Review;
+import reviewer.model.User;
+import reviewer.repository.PaperRepository;
+import reviewer.repository.ReviewRepository;
+import reviewer.repository.UserRepository;
 import reviewer.service.UserService;
 /**
  * Controller class for handling reviews.
@@ -22,7 +29,14 @@ import reviewer.service.UserService;
 @Controller
 @RequestMapping("/")
 public class ReviewController {
-   
+	private UserRepository repo;
+	private PaperRepository paperRepo;
+	private ReviewRepository reviewRepo;
+	public ReviewController(UserRepository repo,PaperRepository paperRepo,ReviewRepository reviewRepo) {
+        this.repo = repo;
+        this.paperRepo = paperRepo;
+        this.reviewRepo = reviewRepo;
+    }
 	@Autowired
 	private UserService service;
 	 /**
@@ -53,8 +67,10 @@ public class ReviewController {
      * @see UserService For information about the UserService used for review processing.
      */
 	@PostMapping("/review")
-	public String review(@ModelAttribute Review review)
+	public String review(@ModelAttribute Review review,Principal principal)
 	{
+		String username = principal.getName(); // Get the username of the currently logged-in user
+        User user = repo.findByEmailId(username);
 		service.ReviewbyUser(review);
 		return "dashboard";
 	}

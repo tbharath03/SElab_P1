@@ -31,6 +31,7 @@ public class Review
        private String comments;
        private String ConfidentialComments;
        private String decision;
+       private String status="Need to Review";
     
     @JsonIgnore
    	@ManyToOne 
@@ -124,6 +125,30 @@ public class Review
 	}
 	
 
+	public Rkey getRid() {
+		return rid;
+	}
+
+	public void setRid(Rkey rid) {
+		this.rid = rid;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Paper getPaper() {
+		return paper;
+	}
+
+	public void setPaper(Paper paper) {
+		this.paper = paper;
+	}
+
 	public void setOverallRecommendation(Long overallRecommendation) {
 		OverallRecommendation = overallRecommendation;
 	}
@@ -196,6 +221,14 @@ public class Review
 	
 	public void setDecision(String decision) {
 		this.decision = decision;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	   
 }
