@@ -92,6 +92,13 @@
   {
     width: 60%;
   }
+  .mainBox{
+	  border: 2px solid #707070;
+	  padding : 10px;
+	  margin : 5px;
+	  display: flex;
+	  justify-content: space-between;
+  }
 </style>
 </head>
 
@@ -100,34 +107,29 @@
     <h1>Conference Paper Review Form</h1>
   </header>
 
-  <form  method="post" th:action="@{/review}" th:object="${review}">
-    <table>
-      <tr>
-        <div class="tr1">
-        <td>
-          <label for="submissionId">Submission ID:</label>
-          <p id="submissionIdPlaceholder"></p>
-
-          <label for="authors">Authors:</label>
-          <p id="authorsPlaceholder"></p>
-
-          <label for="trackCommittee">Track Committee Name:</label>
-          <p id="trackCommitteePlaceholder"></p>
-
-          <label for="paperName">Paper Name:</label>
-          <p id="paperNamePlaceholder"></p>
-        </td>
-      </div>
-        <td>
-          <label for="reviewer">Primary Reviewer:</label>
-          <p id="reviewerPlaceholder"></p>
-
-          <label for="secondaryReviewer">Secondary Reviewer:</label>
-          <p id="secondaryReviewerPlaceholder"></p>
-        </td>
-      </tr>
-    </table>
+    <div class="mainBox">
+      
+        <div class="blabla1">
+        
+          <p>Paper ID : <span th:text="${paper.pid}"></span></p>
+          <p>Title : <span th:text="${paper.title}"></span></p>
+          <p>Authors : <span th:text="${paper.authors}"></span></p>
+          <p>Date Allocated : <span th:text="${paper.dateallocated}"></span> </p>
+ 		  
+         </div>
+         <div>
+			 
+		 </div>
+		<div class="blabla2">
+			<p>Reviewer : <span th:text="${user.firstName}"></span><span> </span><span th:text="${user.lastName}"></span></p>
+ 		  <p>E-mail : <span th:text="${user.emailId}"></span> </p>
+ 		  <p>DeadLine : <span th:text="${paper.deadlinedate}"></span> </p>
+		</div>
+		<div></div>
+		<div></div>
+    </div>
 <hr>
+<form  method="post" th:action="@{/review}" th:object="${review}">
     <table>
       <tr>
           <th>Evaluation Category</th>
@@ -135,47 +137,47 @@
       </tr>
       <tr>
           <td>Technical Content and Accuracy</td>
-          <td><select type="integer" id="TechnicalContentandAccuracy" name="TechnicalContentandAccuracy" min=0  max=10 placeholder="0" required></select></td>
+          <td><input th:value="${review.TechnicalContentandAccuracy}" th:field="${review.TechnicalContentandAccuracy}" type="integer" id="TechnicalContentandAccuracy" name="TechnicalContentandAccuracy" min=0  max=10 required></input></td>
 
       </tr>
       <tr>
           <td>Significance of the Work</td>
-          <td><select type="integer" id="SignificanceoftheWork" name="SignificanceoftheWork" min=0  max=10 placeholder="0" required></select></td>
+          <td><input th:value="${review.SignificanceoftheWork}" th:field="${review.SignificanceoftheWork}" type="integer" id="SignificanceoftheWork" name="SignificanceoftheWork" min=0  max=10 required></input></td>
 
       </tr>
       <tr>
           <td>Appropriate Title, Introduction, and Conclusion</td>
-          <td><select type="integer" id="AppropriateTitleLongroductionandConclusion" name="AppropriateTitleLongroductionandConclusion" min=0  max=10 placeholder="0" required></select></td>
+          <td><input th:value="${review.AppropriateTitleLongroductionandConclusion}" th:field="${review.AppropriateTitleLongroductionandConclusion}" type="integer" id="AppropriateTitleLongroductionandConclusion" name="AppropriateTitleLongroductionandConclusion" min=0  max=10 required></input></td>
 
       </tr>
       <tr>
           <td>Overall Organization</td>
-          <td><select type="integer" id="OverallOrganization" name="OverallOrganization"  min=0  placeholder="0" required></select></td>
+          <td><input th:value="${review.OverallOrganization}" th:field="${review.OverallOrganization}" type="integer" id="OverallOrganization" name="OverallOrganization"  min=0 required></input></td>
 
       </tr>
       <tr>
           <td>Appropriate for SAC</td>
-          <td> <select type="integer" id="AppropriateforSAC" name="AppropriateforSAC" min=0 max=10 placeholder="0" required></select></td>
+          <td> <input th:value="${review.AppropriateforSAC}" th:field="${review.AppropriateforSAC}" type="integer" id="AppropriateforSAC" name="AppropriateforSAC" min=0 max=10 required></input></td>
 
       </tr>
       <tr>
           <td>Style and Clarity of Paper</td>
           
-<td><select type="integer" id="StyleandClarityofPaper" name="StyleandClarityofPaper" min=0 max=10 placeholder="0" required></select></td>
+<td><input th:value="${review.StyleandClarityofPaper}" th:field="${review.StyleandClarityofPaper}" type="integer" id="StyleandClarityofPaper" name="StyleandClarityofPaper" min=0 max=10 required></input></td>
 
       </tr>
       <tr>
           <td>Originality of Content</td>
-          <td><select type="integer" id="OriginalityofContent" name="OriginalityofContent"  min=0 max=10 placeholder="0" required></select></td>
+          <td><input th:value="${review.OriginalityofContent}" th:field="${review.OriginalityofContent}" type="integer" id="OriginalityofContent" name="OriginalityofContent"  min=0 max=10 required></input></td>
       </tr>
       <tr>
           <td>Referee's Confidence in Paper's Subject</td>
-          <td><select  type="integer" id="RefereesConfidenceinPapersSubject" name="RefereesConfidenceinPapersSubject"  min=0 max=10 placeholder="0" required></select></td>
+          <td><input th:value="${review.RefereesConfidenceinPapersSubject}" th:field="${review.RefereesConfidenceinPapersSubject}"  type="integer" id="RefereesConfidenceinPapersSubject" name="RefereesConfidenceinPapersSubject"  min=0 max=10 required></input></td>
 
       </tr>
       <tr>
           <td>Overall Recommendation</td>
-          <td><select type="integer" id="OverallRecommendation" name="OverallRecommendation" min=0 max=10 placeholder="0" required></select></td>
+          <td><input th:value="${review.OverallRecommendation}" th:field="${review.OverallRecommendation}" type="integer" id="OverallRecommendation" name="OverallRecommendation" min=0 max=10 required></input></td>
 
       </tr>
   </table>
@@ -186,7 +188,7 @@
     <p>Please supply detailed comments to back up your rankings.These comments will be forwarded to the aurthors of the paper.The committe decide the outcome of the paper and will help justify this decision for the aurthors.Moreover,if the paper is accepted,the comments should guide the aurthors in making revisions for a final manuscript .Hence,the more detailed you make comments,the more useful your review will be - both the committe and for the aurthors</p>
 
       <div class="mi">
-    <textarea id="comments" name="comments" rows="8"></textarea>
+    <textarea th:value="${review.comments}" th:field="${review.comments}" id="comments" name="comments" rows="8"></textarea>
   </div>
     
 <hr>
@@ -194,13 +196,13 @@
   <h2>Confidential-comments to programme committe</h2>
         <p>You may wish to withhold some comments from the aurthors,and include solely for the committee's internal use.For example,you may want to express a very strong(negative) opinion on the paper,which might pffend the aurthors in some way.Or,perhaps you wish to write something which would expose your identity to aurthors.If you wish to share comments of this nature with the committe,this is the place to put them</p>
         <div class="mi">
-          <textarea id="comments" name="ConfidentialComments" rows="8"></textarea>
+          <textarea th:value="${review.ConfidentialComments}" th:field="${review.ConfidentialComments}" id="comments" name="ConfidentialComments" rows="8"></textarea>
         </div>
     <hr>
   
 <h2>Over all recommendation</h2>
 <label for="decision">Select Decision:</label>
-<select id="decision" name="decision" required>
+<select th:field="${review.decision}" id="decision" name="decision" required>
   <option value="accept as it is">Accept as it is</option>
   <option value="accept with minor revisions">Accept with minor revisions</option>
   <option value="accept with major revisions">Accept with major revisions</option>
@@ -209,7 +211,8 @@
 
 <hr>
 
-<button class="button1" type="submit">Submit Review</button>
+<button th:formaction="@{/review(id=${paper.pid})}" class="button1" type="submit">Submit Review</button>
+
 </form>
 
 </body>

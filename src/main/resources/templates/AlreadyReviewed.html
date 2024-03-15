@@ -368,7 +368,7 @@
               					<td th:text="${paper.authors}"></td>
               					<td>No Tags</td>
               					<td>View</td>
-              					<td>Review</td>
+              					<td><a th:href="@{/review(action=view,id=${paper.pid})}">review</a></td>
               					<td>DeadLine</td>
             				</tr>
 						</tbody>
