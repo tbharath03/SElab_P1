@@ -39,8 +39,7 @@ public class AlreadyReviewController {
 		String username = principal.getName(); // Get the username of the currently logged-in user
         User user = repo.findByEmailId(username); // Retrieve the user details from the repository using the username
         model.addAttribute("user", user); // Add the user details to the model
-        model.addAttribute("paperCount", paperRepo.count());
-        
+        model.addAttribute("paperCount", reviewRepo.countByUserAndStatus(user,"Already Reviewed"));
 		ArrayList<Review> reviews = reviewRepo.findAllByuserAndStatus(user,"Already Reviewed");
         ArrayList<Paper> papers = new ArrayList<Paper>();
         ArrayList<Paper> pp = new ArrayList<Paper>();

@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import reviewer.model.User;
 import reviewer.repository.PaperRepository;
+import reviewer.repository.ReviewRepository;
 import reviewer.repository.UserRepository;
 
 @Controller
@@ -24,16 +25,18 @@ public class EditProfileController {
     private UserRepository repo;
     private PasswordEncoder passwordEncoder;
     private PaperRepository paperRepo;
+    private ReviewRepository reviewRepo;
 
     /**
      * Constructor for EditProfileController.
      * 
      * @param repo The UserRepository for interacting with user data.
      */
-    public EditProfileController(UserRepository repo,PasswordEncoder passwordEncoder,PaperRepository paperRepo) {
+    public EditProfileController(UserRepository repo,PasswordEncoder passwordEncoder,PaperRepository paperRepo,ReviewRepository reviewRepo) {
         this.repo = repo;
         this.passwordEncoder=passwordEncoder;
         this.paperRepo = paperRepo;
+        this.reviewRepo = reviewRepo;
     }
 
     /**
@@ -49,7 +52,7 @@ public class EditProfileController {
         String username = principal.getName(); // Get the username of the currently logged-in user
         User user = repo.findByEmailId(username); // Retrieve the user details from the repository using the username
         model.addAttribute("user", user); // Add the user details to the model
-        model.addAttribute("paperCount", paperRepo.count());
+        model.addAttribute("paperCount", reviewRepo.countByUserAndStatus(user,"Already Reviewed"));
         return "editProfile"; // Return the view name for displaying the edit profile page
     }
 
