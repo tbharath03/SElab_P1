@@ -107,6 +107,7 @@
     <h1>Conference Paper Review Form</h1>
   </header>
 
+
     <div class="mainBox">
       
         <div class="blabla1">
@@ -137,47 +138,47 @@
       </tr>
       <tr>
           <td>Technical Content and Accuracy</td>
-          <td><input th:value="${review.TechnicalContentandAccuracy}" th:field="${review.TechnicalContentandAccuracy}" type="integer" id="TechnicalContentandAccuracy" name="TechnicalContentandAccuracy" min=0  max=10 required></input></td>
+          <td><input th:value="${review.TechnicalContentandAccuracy}" th:field="${review.TechnicalContentandAccuracy}" type="integer" id="TechnicalContentandAccuracy" name="TechnicalContentandAccuracy" pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Significance of the Work</td>
-          <td><input th:value="${review.SignificanceoftheWork}" th:field="${review.SignificanceoftheWork}" type="integer" id="SignificanceoftheWork" name="SignificanceoftheWork" min=0  max=10 required></input></td>
+          <td><input th:value="${review.SignificanceoftheWork}" th:field="${review.SignificanceoftheWork}" type="integer" id="SignificanceoftheWork" name="SignificanceoftheWork" min=0  max=10  pattern="\b(?:10|\d)\b"required></input></td>
 
       </tr>
       <tr>
           <td>Appropriate Title, Introduction, and Conclusion</td>
-          <td><input th:value="${review.AppropriateTitleLongroductionandConclusion}" th:field="${review.AppropriateTitleLongroductionandConclusion}" type="integer" id="AppropriateTitleLongroductionandConclusion" name="AppropriateTitleLongroductionandConclusion" min=0  max=10 required></input></td>
+          <td><input th:value="${review.AppropriateTitleLongroductionandConclusion}" th:field="${review.AppropriateTitleLongroductionandConclusion}" type="integer" id="AppropriateTitleLongroductionandConclusion" name="AppropriateTitleLongroductionandConclusion" min=0  max=10  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Overall Organization</td>
-          <td><input th:value="${review.OverallOrganization}" th:field="${review.OverallOrganization}" type="integer" id="OverallOrganization" name="OverallOrganization"  min=0 required></input></td>
+          <td><input th:value="${review.OverallOrganization}" th:field="${review.OverallOrganization}" type="integer" id="OverallOrganization" name="OverallOrganization"  min=0  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Appropriate for SAC</td>
-          <td> <input th:value="${review.AppropriateforSAC}" th:field="${review.AppropriateforSAC}" type="integer" id="AppropriateforSAC" name="AppropriateforSAC" min=0 max=10 required></input></td>
+          <td> <input th:value="${review.AppropriateforSAC}" th:field="${review.AppropriateforSAC}" type="integer" id="AppropriateforSAC" name="AppropriateforSAC" min=0 max=10  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Style and Clarity of Paper</td>
           
-<td><input th:value="${review.StyleandClarityofPaper}" th:field="${review.StyleandClarityofPaper}" type="integer" id="StyleandClarityofPaper" name="StyleandClarityofPaper" min=0 max=10 required></input></td>
+<td><input th:value="${review.StyleandClarityofPaper}" th:field="${review.StyleandClarityofPaper}" type="integer" id="StyleandClarityofPaper" name="StyleandClarityofPaper" min=0 max=10  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Originality of Content</td>
-          <td><input th:value="${review.OriginalityofContent}" th:field="${review.OriginalityofContent}" type="integer" id="OriginalityofContent" name="OriginalityofContent"  min=0 max=10 required></input></td>
+          <td><input th:value="${review.OriginalityofContent}" th:field="${review.OriginalityofContent}" type="integer" id="OriginalityofContent" name="OriginalityofContent"  min=0 max=10  pattern="\b(?:10|\d)\b" required></input></td>
       </tr>
       <tr>
           <td>Referee's Confidence in Paper's Subject</td>
-          <td><input th:value="${review.RefereesConfidenceinPapersSubject}" th:field="${review.RefereesConfidenceinPapersSubject}"  type="integer" id="RefereesConfidenceinPapersSubject" name="RefereesConfidenceinPapersSubject"  min=0 max=10 required></input></td>
+          <td><input th:value="${review.RefereesConfidenceinPapersSubject}" th:field="${review.RefereesConfidenceinPapersSubject}"  type="integer" id="RefereesConfidenceinPapersSubject" name="RefereesConfidenceinPapersSubject"  min=0 max=10 r pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Overall Recommendation</td>
-          <td><input th:value="${review.OverallRecommendation}" th:field="${review.OverallRecommendation}" type="integer" id="OverallRecommendation" name="OverallRecommendation" min=0 max=10 required></input></td>
+          <td><input th:value="${review.OverallRecommendation}" th:field="${review.OverallRecommendation}" type="integer" id="OverallRecommendation" name="OverallRecommendation" min=0 max=10  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
   </table>
