@@ -17,7 +17,7 @@ import reviewer.model.Tag;
 import reviewer.model.User;
 
 import reviewer.repository.PaperRepository;
-
+import reviewer.repository.ReviewRepository;
 import reviewer.repository.TagRepository;
 import reviewer.repository.UserRepository;
 
@@ -38,13 +38,14 @@ public class TagController {
 	@Autowired
 	 private UserRepository userRepository;
 	private TagRepository tagRepository;
-
+	private ReviewRepository reviewRepo;
 	private PaperRepository paperRepo;
 
-	    public TagController(UserRepository userRepository, TagRepository tagRepository,PaperRepository paperRepo) {
+	    public TagController(UserRepository userRepository, TagRepository tagRepository,PaperRepository paperRepo,ReviewRepository reviewRepo) {
 	        this.userRepository = userRepository;
 	        this.tagRepository=tagRepository;
 	        this.paperRepo=paperRepo;
+	        this.reviewRepo = reviewRepo;
 	    }
 	    @GetMapping
 	    public String addtag(Model model, Principal principal) 
@@ -52,7 +53,7 @@ public class TagController {
 	    	 String username = principal.getName(); // Get the username of the currently logged-in user
 	         User user = userRepository.findByEmailId(username); // Retrieve the user details from the repository using the username
 	         model.addAttribute("user", user);
-	         model.addAttribute("paperCount", paperRepo.count());
+	         model.addAttribute("paperCount", reviewRepo.countByUserAndStatus(user,"Already Reviewed"));
 
 	          List <Tag> list1 = tagRepository.findByUser(user);
     		 List<String> list = new ArrayList<String>(); 
