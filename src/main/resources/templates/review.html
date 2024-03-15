@@ -92,6 +92,13 @@
   {
     width: 60%;
   }
+  .mainBox{
+	  border: 2px solid #707070;
+	  padding : 10px;
+	  margin : 5px;
+	  display: flex;
+	  justify-content: space-between;
+  }
 </style>
 </head>
 
@@ -99,33 +106,28 @@
   <header>
     <h1>Conference Paper Review Form</h1>
   </header>
-<!--
-    <table>
-      <tr>
-        <div class="tr1">
-        <td>
-          <label for="submissionId">Submission ID:</label>
-          <p id="submissionIdPlaceholder"></p>
-		
-          <label for="authors">Authors:</label>
-          <p id="authorsPlaceholder" th:text="${paper.authors}"></p>
 
-          <label for="trackCommittee">Track Committee Name:</label>
-          <p id="trackCommitteePlaceholder"></p>
-
-          <label for="paperName">Paper Name:</label>
-          <p id="paperNamePlaceholder" th:text="${paper.pid}"></p>
-        </td>
-      </div>
-        <td>
-          <label for="reviewer">Primary Reviewer:</label>
-          <p id="reviewerPlaceholder"></p>
-
-          <label for="secondaryReviewer">Secondary Reviewer:</label>
-          <p id="secondaryReviewerPlaceholder"></p>
-        </td>
-      </tr>
-    </table> -->
+    <div class="mainBox">
+      
+        <div class="blabla1">
+        
+          <p>Paper ID : <span th:text="${paper.pid}"></span></p>
+          <p>Title : <span th:text="${paper.title}"></span></p>
+          <p>Authors : <span th:text="${paper.authors}"></span></p>
+          <p>Date Allocated : <span th:text="${paper.dateallocated}"></span> </p>
+ 		  
+         </div>
+         <div>
+			 
+		 </div>
+		<div class="blabla2">
+			<p>Reviewer : <span th:text="${user.firstName}"></span><span> </span><span th:text="${user.lastName}"></span></p>
+ 		  <p>E-mail : <span th:text="${user.emailId}"></span> </p>
+ 		  <p>DeadLine : <span th:text="${paper.deadlinedate}"></span> </p>
+		</div>
+		<div></div>
+		<div></div>
+    </div>
 <hr>
 <form  method="post" th:action="@{/review}" th:object="${review}">
     <table>
