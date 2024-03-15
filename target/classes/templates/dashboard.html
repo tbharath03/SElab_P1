@@ -357,7 +357,6 @@
 								<th scope="col">Paper Id</th>
 								<th scope="col">Title</th>
 								<th scope="col">Authors</th>
-								<th scope="col">Tags</th>
 								<th scope="col">View</th>
 								<th scope="col">Review</th>
 								<th scope="col">DeadLine</th>
@@ -368,10 +367,9 @@
               					<td scope="row" id="" th:text="${paper.pid}"></td>
               					<td th:text="${paper.title}"></td>
               					<td th:text="${paper.authors}"></td>
-              					<td>No Tags</td>
-              					<td>View</td>
+              					<td><a th:href="${paper.paperlink}" target="_blank">view</a></td>
               					<td><a th:href="@{/review(action=view,id=${paper.pid})}">review</a></td>
-              					<td>DeadLine</td>
+              					<td th:text="${paper.deadlinedate}"></td>
             				</tr>
 						</tbody>
 					</table>
