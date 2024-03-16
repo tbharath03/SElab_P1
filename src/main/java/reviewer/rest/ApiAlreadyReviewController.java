@@ -31,7 +31,8 @@ public class ApiAlreadyReviewController {
 	    
 	    @GetMapping
 	    public List<Paper> getAlreadyReviewedPapers(Principal principal) {
-	    	User user = getUser(principal);
+	    	String username = principal.getName();
+			User user = userRepository.findByEmailId(username);
 	        List<Review> reviews = reviewRepository.findAllByuserAndStatus(user, "Already Reviewed");
 	        List<Paper> alreadyReviewedPapers = new ArrayList<>();
 
@@ -42,17 +43,4 @@ public class ApiAlreadyReviewController {
 	        return alreadyReviewedPapers;
 	    }
 	    
-	    @GetMapping
-	    public User getUser(Principal principal) {
-	    	String username = principal.getName(); // Get the username of the currently logged-in user
-	        User user = userRepository.findByEmailId(username); // Retrieve the user details from the repository using the username
-	        
-	        return user;
-	    }
-	    
-	    @GetMapping
-	    public Long getPaperCount(Principal principal) {
-	    	User user = getUser(principal);
-	    	return reviewRepository.countByUserAndStatus(user,"Already Reviewed");
-	    }
 }
