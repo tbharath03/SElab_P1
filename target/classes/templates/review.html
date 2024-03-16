@@ -107,29 +107,30 @@
     <h1>Conference Paper Review Form</h1>
   </header>
 
+
     <div class="mainBox">
       
         <div class="blabla1">
         
-          <p>Paper ID : <span th:text="${paper.pid}"></span></p>
-          <p>Title : <span th:text="${paper.title}"></span></p>
-          <p>Authors : <span th:text="${paper.authors}"></span></p>
-          <p>Date Allocated : <span th:text="${paper.dateallocated}"></span> </p>
+          <p>Paper ID : <span id="paperPid"></span></p>
+          <p>Title : <span id="paperTitle"></span></p>
+          <p>Authors : <span id="paperAuthors"></span></p>
+          <p>Date Allocated : <span id="paperDateAllocated"></span> </p>
  		  
          </div>
          <div>
 			 
 		 </div>
 		<div class="blabla2">
-			<p>Reviewer : <span th:text="${user.firstName}"></span><span> </span><span th:text="${user.lastName}"></span></p>
- 		  <p>E-mail : <span th:text="${user.emailId}"></span> </p>
- 		  <p>DeadLine : <span th:text="${paper.deadlinedate}"></span> </p>
+			<p>Reviewer : <span id="userFirstName"></span><span> </span><span id="userLastName"></span></p>
+ 		  <p>E-mail : <span id="userName"></span> </p>
+ 		  <p>DeadLine : <span id="paperDeadline"></span> </p>
 		</div>
 		<div></div>
 		<div></div>
     </div>
 <hr>
-<form  method="post" th:action="@{/review}" th:object="${review}">
+<form id="reviewForm" method="POST">
     <table>
       <tr>
           <th>Evaluation Category</th>
@@ -137,47 +138,47 @@
       </tr>
       <tr>
           <td>Technical Content and Accuracy</td>
-          <td><input th:value="${review.TechnicalContentandAccuracy}" th:field="${review.TechnicalContentandAccuracy}" type="integer" id="TechnicalContentandAccuracy" name="TechnicalContentandAccuracy" min=0  max=10 required></input></td>
+          <td><input type="number" id="TechnicalContentandAccuracy" name="technicalContentandAccuracy" pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Significance of the Work</td>
-          <td><input th:value="${review.SignificanceoftheWork}" th:field="${review.SignificanceoftheWork}" type="integer" id="SignificanceoftheWork" name="SignificanceoftheWork" min=0  max=10 required></input></td>
+          <td><input type="number" id="SignificanceoftheWork" name="significanceoftheWork" min=0  max=10  pattern="\b(?:10|\d)\b"required></input></td>
 
       </tr>
       <tr>
           <td>Appropriate Title, Introduction, and Conclusion</td>
-          <td><input th:value="${review.AppropriateTitleLongroductionandConclusion}" th:field="${review.AppropriateTitleLongroductionandConclusion}" type="integer" id="AppropriateTitleLongroductionandConclusion" name="AppropriateTitleLongroductionandConclusion" min=0  max=10 required></input></td>
+          <td><input type="number" id="AppropriateTitleLongroductionandConclusion" name="appropriateTitleLongroductionandConclusion" min=0  max=10  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Overall Organization</td>
-          <td><input th:value="${review.OverallOrganization}" th:field="${review.OverallOrganization}" type="integer" id="OverallOrganization" name="OverallOrganization"  min=0 required></input></td>
+          <td><input type="number" id="OverallOrganization" name="overallOrganization"  min=0  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Appropriate for SAC</td>
-          <td> <input th:value="${review.AppropriateforSAC}" th:field="${review.AppropriateforSAC}" type="integer" id="AppropriateforSAC" name="AppropriateforSAC" min=0 max=10 required></input></td>
+          <td> <input type="number" id="AppropriateforSAC" name="appropriateforSAC" min=0 max=10  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Style and Clarity of Paper</td>
           
-<td><input th:value="${review.StyleandClarityofPaper}" th:field="${review.StyleandClarityofPaper}" type="integer" id="StyleandClarityofPaper" name="StyleandClarityofPaper" min=0 max=10 required></input></td>
+<td><input type="number" id="StyleandClarityofPaper" name="styleandClarityofPaper" min=0 max=10  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Originality of Content</td>
-          <td><input th:value="${review.OriginalityofContent}" th:field="${review.OriginalityofContent}" type="integer" id="OriginalityofContent" name="OriginalityofContent"  min=0 max=10 required></input></td>
+          <td><input type="number" id="OriginalityofContent" name="originalityofContent"  min=0 max=10  pattern="\b(?:10|\d)\b" required></input></td>
       </tr>
       <tr>
           <td>Referee's Confidence in Paper's Subject</td>
-          <td><input th:value="${review.RefereesConfidenceinPapersSubject}" th:field="${review.RefereesConfidenceinPapersSubject}"  type="integer" id="RefereesConfidenceinPapersSubject" name="RefereesConfidenceinPapersSubject"  min=0 max=10 required></input></td>
+          <td><input type="number" id="RefereesConfidenceinPapersSubject" name="refereesConfidenceinPapersSubject"  min=0 max=10 r pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
       <tr>
           <td>Overall Recommendation</td>
-          <td><input th:value="${review.OverallRecommendation}" th:field="${review.OverallRecommendation}" type="integer" id="OverallRecommendation" name="OverallRecommendation" min=0 max=10 required></input></td>
+          <td><input type="number" id="OverallRecommendation" name="overallRecommendation" min=0 max=10  pattern="\b(?:10|\d)\b" required></input></td>
 
       </tr>
   </table>
@@ -188,7 +189,7 @@
     <p>Please supply detailed comments to back up your rankings.These comments will be forwarded to the aurthors of the paper.The committe decide the outcome of the paper and will help justify this decision for the aurthors.Moreover,if the paper is accepted,the comments should guide the aurthors in making revisions for a final manuscript .Hence,the more detailed you make comments,the more useful your review will be - both the committe and for the aurthors</p>
 
       <div class="mi">
-    <textarea th:value="${review.comments}" th:field="${review.comments}" id="comments" name="comments" rows="8"></textarea>
+    <textarea id="comments" name="comments" rows="8"></textarea>
   </div>
     
 <hr>
@@ -196,13 +197,13 @@
   <h2>Confidential-comments to programme committe</h2>
         <p>You may wish to withhold some comments from the aurthors,and include solely for the committee's internal use.For example,you may want to express a very strong(negative) opinion on the paper,which might pffend the aurthors in some way.Or,perhaps you wish to write something which would expose your identity to aurthors.If you wish to share comments of this nature with the committe,this is the place to put them</p>
         <div class="mi">
-          <textarea th:value="${review.ConfidentialComments}" th:field="${review.ConfidentialComments}" id="comments" name="ConfidentialComments" rows="8"></textarea>
+          <textarea id="ConfidentialComments" name="confidentialComments" rows="8"></textarea>
         </div>
     <hr>
   
 <h2>Over all recommendation</h2>
 <label for="decision">Select Decision:</label>
-<select th:field="${review.decision}" id="decision" name="decision" required>
+<select id="decision" name="decision" required>
   <option value="accept as it is">Accept as it is</option>
   <option value="accept with minor revisions">Accept with minor revisions</option>
   <option value="accept with major revisions">Accept with major revisions</option>
@@ -211,30 +212,97 @@
 
 <hr>
 
-<button th:formaction="@{/review(id=${paper.pid})}" class="button1" type="submit">Submit Review</button>
+<button class="button1" type="submit">Submit Review</button>
 
 </form>
 
 </body>
 <script>
-   function createDropdown(id) {
-    var selectElement = document.getElementById(id);
-
-    for (var i = 0; i <= 10; i++) {
-      var option = document.createElement("option");
-      option.value = i;
-      option.text = i;
-      selectElement.add(option);
-    }
-  }
-  createDropdown("TechnicalContentandAccuracy");
-  createDropdown("SignificanceoftheWork");
-  createDropdown("AppropriateTitleLongroductionandConclusion");
-  createDropdown("OverallOrganization");
-  createDropdown("AppropriateforSAC");
-  createDropdown("StyleandClarityofPaper");
-  createDropdown("OriginalityofContent");
-  createDropdown("RefereesConfidenceinPapersSubject");
-  createDropdown("OverallRecommendation");
+	let reviewId;
+	const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1);
+	var link = window.location.href;
+	var userName = document.getElementById("userName")
+	var userFirstName = document.getElementById("userFirstName")
+	var userLastName = document.getElementById("userLastName")
+	
+	var paperPid = document.getElementById("paperPid")
+	var paperTitle = document.getElementById("paperTitle")
+	var paperAuthors = document.getElementById("paperAuthors")
+	var paperDateAllocated = document.getElementById("paperDateAllocated")
+	var paperDeadline = document.getElementById("paperDeadline")
+	
+	var TechnicalContentandAccuracy = document.getElementById("TechnicalContentandAccuracy");
+	var SignificanceoftheWork = document.getElementById("SignificanceoftheWork");
+	var AppropriateTitleLongroductionandConclusion = document.getElementById("AppropriateTitleLongroductionandConclusion");
+	var OverallOrganization = document.getElementById("OverallOrganization");
+	var AppropriateforSAC = document.getElementById("AppropriateforSAC");
+	var StyleandClarityofPaper = document.getElementById("StyleandClarityofPaper");
+	var OriginalityofContent = document.getElementById("OriginalityofContent");
+	var RefereesConfidenceinPapersSubject = document.getElementById("RefereesConfidenceinPapersSubject");
+	var OverallRecommendation = document.getElementById("OverallRecommendation");
+	
+	var comments = document.getElementById("comments");
+	var ConfidentialComments = document.getElementById("ConfidentialComments");
+	var decision = document.getElementById("decision");
+	
+   fetch(`http://localhost:8080/api/review/${getLastItem(link)}`)
+   .then(res => res.json())
+   .then(data => {
+	   reviewId = data.rid
+	   console.log(reviewId)
+	   TechnicalContentandAccuracy.setAttribute('value',data.technicalContentandAccuracy);
+	   SignificanceoftheWork.setAttribute('value',data.significanceoftheWork);
+	   AppropriateTitleLongroductionandConclusion.setAttribute('value',data.appropriateTitleLongroductionandConclusion);
+	   OverallOrganization.setAttribute('value',data.overallOrganization);
+	   AppropriateforSAC.setAttribute('value',data.appropriateforSAC );
+	   StyleandClarityofPaper.setAttribute('value',data.styleandClarityofPaper) ;
+	   OriginalityofContent.setAttribute('value',data.originalityofContent) ;
+	   RefereesConfidenceinPapersSubject.setAttribute('value',data.refereesConfidenceinPapersSubject);
+	   OverallRecommendation.setAttribute('value',data.overallRecommendation);
+	   
+	   comments.textContent = data.comments;
+	   ConfidentialComments.textContent = data.confidentialComments;
+	   // decision didnt write bcoz its fetch
+   })
+   
+   fetch("http://localhost:8080/api/user")
+   .then(res => res.json())
+   .then(data => {
+	 
+	 	userName.textContent=data.emailId;
+		userFirstName.textContent = data.firstName;
+		userLastName.textContent = data.lastName;  
+   })
+   
+   fetch(`http://localhost:8080/api/paper/${getLastItem(link)}`)
+		.then(res => res.json())
+		.then(data => {
+			paperPid.textContent = data.pid;
+			paperAuthors.textContent = data.authors;
+			paperTitle.textContent = data.title;
+			paperDateAllocated.textContent = data.dateallocated;
+			paperDeadline.textContent = data.deadlinedate;
+		})
+		
+	const form = document.getElementById("reviewForm");
+	
+	form.addEventListener('submit', function(e){
+		e.preventDefault();
+		
+		const prePayload = new FormData(form);
+		const values = Object.fromEntries(prePayload);
+		
+		console.log(values);
+		values["rid"] = reviewId;
+		
+		fetch(`http://localhost:8080/api/review/save?id=${getLastItem(link)}`,{
+			method : 'POST',
+			body : JSON.stringify(values),
+			headers:{
+				'Content-Type' : 'application/json'
+			}
+			})
+	})
+	
 </script>
 </html>
