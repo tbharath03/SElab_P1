@@ -313,7 +313,7 @@
   				</a>
   				<div class="dropdown-container">
 					<span>Total Papers : </span>
-    				<span th:text="${paperCount}"/>
+    				<span id = "paperCount"/>
   				</div>
   			</li>
             <!-- <li class="item">
@@ -335,9 +335,9 @@
             <img th:src="@{/profile.png}" alt="logo_img" />
           </span>
           <div class="data_text">
-			             <span th:text="${user.emailId}"></span>
-            <span class="email" th:text="${user.firstName}"></span>
-            <span class="email" th:text="${user.lastName}"></span>
+			             <span id="userName"></span>
+            <span class="email" id="userFirstName"></span>
+            <span class="email" id="userLastName"></span>
           </div>
         </div>
       </div>
@@ -362,15 +362,7 @@
 								<th scope="col">DeadLine</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr th:each="paper : ${papers}">
-              					<td scope="row" id="" th:text="${paper.pid}"></td>
-              					<td th:text="${paper.title}"></td>
-              					<td th:text="${paper.authors}"></td>
-              					<td><a th:href="${paper.paperlink}" target="_blank">view</a></td>
-              					<td><a th:href="@{/review(action=view,id=${paper.pid})}">review</a></td>
-              					<td th:text="${paper.deadlinedate}"></td>
-            				</tr>
+						<tbody id="tableBody">
 						</tbody>
 					</table>
 				</div>
@@ -402,6 +394,54 @@ for (i = 0; i < dropdown.length; i++) {
     }
   });
 }
+	</script>
+	
+	<script>
+		var userName = document.getElementById("userName")
+		var userFirstName = document.getElementById("userFirstName")
+		var userLastName = document.getElementById("userLastName")
+		var paperCount = document.getElementById("paperCount")
+		fetch("http://localhost:8080/api/user")
+		.then(res => res.json())
+		.then(data => {
+			userName.textContent=data.emailId;
+			userFirstName.textContent = data.firstName;
+			userLastName.textContent = data.lastName;
+		})
+		
+		fetch("http://localhost:8080/api/paperCount")
+		.then(res => res.json())
+		.then(data => {
+			paperCount.textContent = data;
+		})
+		
+		fetch("http://localhost:8080/api/dashboard")
+		.then(res => res.json())
+		.then(data => {
+			var tableBody = document.getElementById("tableBody");
+			for(var i = 0;i<data.length;i++){
+				var tr = document.createElement('tr');
+				tableBody.appendChild(tr);
+				var td1 = document.createElement('td');
+				td1.textContent = data[i].pid;
+				tr.appendChild(td1);
+				var td2 = document.createElement('td');
+				td2.textContent = data[i].title;
+				tr.appendChild(td2);
+				var td3 = document.createElement('td');
+				td3.textContent = data[i].authors;
+				tr.appendChild(td3);
+				var td4 = document.createElement('td');
+				td4.innerHTML = `<a href="${data[i].paperlink}" target="_blank">link</a>`;
+				tr.appendChild(td4);
+				var td5 = document.createElement('td');
+				td5.innerHTML = `<a href="/review/${data[i].pid}">Review</a>`;
+				tr.appendChild(td5);
+				var td6 = document.createElement('td');
+				td6.textContent = data[i].deadlinedate;
+				tr.appendChild(td6);
+			}
+		})
 	</script>
   </body>
 </html>
