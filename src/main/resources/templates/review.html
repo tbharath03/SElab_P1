@@ -295,13 +295,15 @@
 		console.log(values);
 		values["rid"] = reviewId;
 		
-		fetch(`http://localhost:8080/api/review/save?id=${getLastItem(link)}`,{
+		fetch(`http://localhost:8080/api/review/save/${getLastItem(link)}`,{
 			method : 'POST',
 			body : JSON.stringify(values),
 			headers:{
 				'Content-Type' : 'application/json'
 			}
 			})
+			
+		window.location.href = "/AlreadyReviewed";
 	})
 	
 </script>

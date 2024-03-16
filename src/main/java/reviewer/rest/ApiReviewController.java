@@ -30,7 +30,6 @@ public class ApiReviewController {
         this.reviewRepository = reviewRepository;
     }
     
-    
 	@GetMapping("/{id}")
 	public Review getReviewFormPage(@PathVariable("id") Long paperId, Principal principal) {
 		Review review = reviewRepository.findById(new Rkey(paperId,principal.getName())).get();
@@ -38,8 +37,8 @@ public class ApiReviewController {
 	}
 	
 	
-	@PostMapping(path="/save" , consumes="application/json")
-	public Review setReviewFormPage(@RequestParam("id") Long paperId, Principal principal,@RequestBody Review review) {
+	@PostMapping(path="/save/{id}" , consumes="application/json")
+	public Review setReviewFormPage(@PathVariable("id") Long paperId, Principal principal,@RequestBody Review review) {
 		review.setStatus("Already Reviewed");
 		reviewRepository.save(review);
 		System.out.println(review);
