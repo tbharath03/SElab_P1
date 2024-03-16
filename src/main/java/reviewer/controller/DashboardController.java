@@ -47,10 +47,7 @@ public class DashboardController {
         reviews.forEach((rev)->{papers.add(rev.getPaper());});
         papers.forEach((p)->{
         	pp.add(paperRepo.findBypid(p.getPid()));
-        	System.out.println(p.getPid());
         });
-        
-        System.out.println(pp);
         
         model.addAttribute("papers",pp);
         return "dashboard";

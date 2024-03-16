@@ -64,9 +64,6 @@ public class ReviewController {
 			Review review = reviewRepo.findById(new Rkey(paperId,username)).get();
 		    model.addAttribute("review",review);
 		
-		System.out.println(paperId);
-		System.out.println(review);
-		
 		return "review";
 	}
 	 /**

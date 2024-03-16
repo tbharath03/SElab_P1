@@ -3,10 +3,13 @@ package reviewer.rest;
 import java.security.Principal;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import reviewer.model.Paper;
 import reviewer.model.User;
+import reviewer.repository.PaperRepository;
 import reviewer.repository.ReviewRepository;
 import reviewer.repository.UserRepository;
 
@@ -16,10 +19,12 @@ public class ApiUserDetails {
 	
 	private final UserRepository userRepository;
 	private final ReviewRepository reviewRepository;
+	private final PaperRepository paperRepository;
 	
-	public ApiUserDetails(UserRepository userRepository,ReviewRepository reviewRepository) {
+	public ApiUserDetails(UserRepository userRepository,ReviewRepository reviewRepository,PaperRepository paperRepository) {
 		this.userRepository = userRepository;
 		this.reviewRepository = reviewRepository;
+		this.paperRepository = paperRepository;
 	}
 	
 	@GetMapping("/user")
@@ -34,4 +39,10 @@ public class ApiUserDetails {
     	User user = getUserDetails(principal);
     	return reviewRepository.countByUserAndStatus(user,"Already Reviewed");
     }
+	
+	@GetMapping("/paper/{id}")
+	public Paper getPaper(@PathVariable("id") Long paperId) {
+		Paper paper = paperRepository.findBypid(paperId);
+		return paper;
+	}
 }
