@@ -19,17 +19,17 @@ public class Review
 	
 	  @EmbeddedId
 	   private Rkey rid;
-       private Long TechnicalContentandAccuracy;	
-       private Long SignificanceoftheWork;	
-       private Long AppropriateTitleLongroductionandConclusion;	
-       private Long OverallOrganization;
-       private Long AppropriateforSAC;	
-       private Long StyleandClarityofPaper;	
-       private Long OriginalityofContent;	
-       private Long RefereesConfidenceinPapersSubject;	
-       private Long OverallRecommendation;
+       private Long technicalContentandAccuracy;	
+       private Long significanceoftheWork;	
+       private Long appropriateTitleLongroductionandConclusion;	
+       private Long overallOrganization;
+       private Long appropriateforSAC;	
+       private Long styleandClarityofPaper;	
+       private Long originalityofContent;	
+       private Long refereesConfidenceinPapersSubject;	
+       private Long overallRecommendation;
        private String comments;
-       private String ConfidentialComments;
+       private String confidentialComments;
        private String decision;
        private String status="Need to Review";
     
@@ -46,82 +46,82 @@ public class Review
    	Paper paper;
       
 	public Long getTechnicalContentandAccuracy() {
-		return TechnicalContentandAccuracy;
+		return technicalContentandAccuracy;
 	}
 	 
 	public void setTechnicalContentandAccuracy(Long technicalContentandAccuracy) {
-		TechnicalContentandAccuracy = technicalContentandAccuracy;
+		this.technicalContentandAccuracy = technicalContentandAccuracy;
 	}
 	
 	public Long getSignificanceoftheWork() {
-		return SignificanceoftheWork;
+		return significanceoftheWork;
 	}
 	 
 	public void setSignificanceoftheWork(Long significanceoftheWork) {
-		SignificanceoftheWork = significanceoftheWork;
+		this.significanceoftheWork = significanceoftheWork;
 	}
 	
 	public Long getAppropriateTitleLongroductionandConclusion() {
-		return AppropriateTitleLongroductionandConclusion;
+		return appropriateTitleLongroductionandConclusion;
 	}
 	
 
 	public void setAppropriateTitleLongroductionandConclusion(Long appropriateTitleLongroductionandConclusion) {
-		AppropriateTitleLongroductionandConclusion = appropriateTitleLongroductionandConclusion;
+		this.appropriateTitleLongroductionandConclusion = appropriateTitleLongroductionandConclusion;
 	}
 	
 	
 	public Long getOverallOrganization() {
-		return OverallOrganization;
+		return overallOrganization;
 	}
 	
 	
 	public void setOverallOrganization(Long overallOrganization) {
-		OverallOrganization = overallOrganization;
+		this.overallOrganization = overallOrganization;
 	}
 	
     
 
 	public Long getAppropriateforSAC() {
-		return AppropriateforSAC;
+		return appropriateforSAC;
 	}
 	
     
 
 	public void setAppropriateforSAC(Long appropriateforSAC) {
-		AppropriateforSAC = appropriateforSAC;
+		this.appropriateforSAC = appropriateforSAC;
 	}
 	
 	public Long getStyleandClarityofPaper() {
-		return StyleandClarityofPaper;
+		return styleandClarityofPaper;
 	}
 	
 	public void setStyleandClarityofPaper(Long styleandClarityofPaper) {
-		StyleandClarityofPaper = styleandClarityofPaper;
+		this.styleandClarityofPaper = styleandClarityofPaper;
 	}
 	
 	public Long getOriginalityofContent() {
-		return OriginalityofContent;
+		return originalityofContent;
 	}
 	
 	public void setOriginalityofContent(Long originalityofContent) {
-		OriginalityofContent = originalityofContent;
+		this.originalityofContent = originalityofContent;
 	}
 	
 
 	public Long getRefereesConfidenceinPapersSubject() {
-		return RefereesConfidenceinPapersSubject;
+		return refereesConfidenceinPapersSubject;
 	}
     
 
 	public void setRefereesConfidenceinPapersSubject(Long refereesConfidenceinPapersSubject) {
-		RefereesConfidenceinPapersSubject = refereesConfidenceinPapersSubject;
+		this.refereesConfidenceinPapersSubject = refereesConfidenceinPapersSubject;
 	}
 	
 	
 	
 	public Long getOverallRecommendation() {
-		return OverallRecommendation;
+		return overallRecommendation;
 	}
 	
 
@@ -150,7 +150,7 @@ public class Review
 	}
 
 	public void setOverallRecommendation(Long overallRecommendation) {
-		OverallRecommendation = overallRecommendation;
+		this.overallRecommendation = overallRecommendation;
 	}
 	
 
@@ -168,11 +168,11 @@ public class Review
 	 
 	
 	public String getConfidentialComments() {
-		return ConfidentialComments;
+		return confidentialComments;
 	}
 	
 	public void setConfidentialComments(String confidentialComments) {
-		ConfidentialComments = confidentialComments;
+		this.confidentialComments = confidentialComments;
 	}
 
 	 
@@ -182,17 +182,17 @@ public class Review
 			Long overallRecommendation, String comments, String confidentialComments, String decision) {
 		super();
 		this.rid = rid;
-		this.TechnicalContentandAccuracy = technicalContentandAccuracy;
-		this.SignificanceoftheWork = significanceoftheWork;
-		this.AppropriateTitleLongroductionandConclusion = appropriateTitleLongroductionandConclusion;
-		this.OverallOrganization = overallOrganization;
-		this.AppropriateforSAC = appropriateforSAC;
-		this.StyleandClarityofPaper = styleandClarityofPaper;
-		this.OriginalityofContent = originalityofContent;
-		this.RefereesConfidenceinPapersSubject = refereesConfidenceinPapersSubject;
-		this.OverallRecommendation = overallRecommendation;
+		this.technicalContentandAccuracy = technicalContentandAccuracy;
+		this.significanceoftheWork = significanceoftheWork;
+		this.appropriateTitleLongroductionandConclusion = appropriateTitleLongroductionandConclusion;
+		this.overallOrganization = overallOrganization;
+		this.appropriateforSAC = appropriateforSAC;
+		this.styleandClarityofPaper = styleandClarityofPaper;
+		this.originalityofContent = originalityofContent;
+		this.refereesConfidenceinPapersSubject = refereesConfidenceinPapersSubject;
+		this.overallRecommendation = overallRecommendation;
 		this.comments = comments;
-		this.ConfidentialComments = confidentialComments;
+		this.confidentialComments = confidentialComments;
 		this.decision = decision;
 	}
 	
@@ -200,13 +200,13 @@ public class Review
 	
 	@Override
 	public String toString() {
-		return "Review [rid=" + rid + ", TechnicalContentandAccuracy=" + TechnicalContentandAccuracy
-				+ ", SignificanceoftheWork=" + SignificanceoftheWork + ", AppropriateTitleLongroductionandConclusion="
-				+ AppropriateTitleLongroductionandConclusion + ", OverallOrganization=" + OverallOrganization
-				+ ", AppropriateforSAC=" + AppropriateforSAC + ", StyleandClarityofPaper=" + StyleandClarityofPaper
-				+ ", OriginalityofContent=" + OriginalityofContent + ", RefereesConfidenceinPapersSubject="
-				+ RefereesConfidenceinPapersSubject + ", OverallRecommendation=" + OverallRecommendation + ", comments="
-				+ comments + ", ConfidentialComments=" + ConfidentialComments + ", decision=" + decision + "]";
+		return "Review [rid=" + rid + ", TechnicalContentandAccuracy=" + technicalContentandAccuracy
+				+ ", SignificanceoftheWork=" + significanceoftheWork + ", AppropriateTitleLongroductionandConclusion="
+				+ appropriateTitleLongroductionandConclusion + ", OverallOrganization=" + overallOrganization
+				+ ", AppropriateforSAC=" + appropriateforSAC + ", StyleandClarityofPaper=" + styleandClarityofPaper
+				+ ", OriginalityofContent=" + originalityofContent + ", RefereesConfidenceinPapersSubject="
+				+ refereesConfidenceinPapersSubject + ", OverallRecommendation=" + overallRecommendation + ", comments="
+				+ comments + ", ConfidentialComments=" + confidentialComments + ", decision=" + decision + "]";
 	}
 	
 	 

@@ -55,8 +55,8 @@ public class SecurityConfig{
      */
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {     //need to understand 
-		http
-			.authorizeHttpRequests((requests) -> requests
+		http.csrf(requests -> requests.disable())
+		    .authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/home","/login","/registerPage","/forgotpassword","/resetpassword").permitAll()
 				.anyRequest().authenticated()
 			)
@@ -64,7 +64,6 @@ public class SecurityConfig{
 				.loginPage("/login")
 				.permitAll()
 				.defaultSuccessUrl("/dashboard", true)
-				
 			)
 			.logout((logout) -> logout.permitAll());
 		// Builds and returns the configured SecurityFilterChain
