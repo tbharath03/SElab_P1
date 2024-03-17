@@ -22,7 +22,7 @@ import reviewer.repository.ReviewRepository;
 import reviewer.repository.TagRepository;
 import reviewer.repository.UserRepository;
 
-@Controller
+@RestController
 @RequestMapping("/api/tags")
 public class ApiTagController {
    
