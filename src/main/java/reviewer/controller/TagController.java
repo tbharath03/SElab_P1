@@ -31,7 +31,7 @@ import reviewer.repository.UserRepository;
  * @since 2024-02-05
  */
 @Controller
-@RequestMapping("/tags")
+@RequestMapping("/")
 public class TagController {
    
 	
@@ -47,7 +47,7 @@ public class TagController {
 	        this.paperRepo=paperRepo;
 	        this.reviewRepo = reviewRepo;
 	    }
-	    @GetMapping
+	    @GetMapping("/tags")
 	    public String addtag(Model model, Principal principal) 
 	    {  
 	    	 String username = principal.getName(); // Get the username of the currently logged-in user
@@ -65,9 +65,9 @@ public class TagController {
     		 model.addAttribute("list1",list1);
 	        return "tags";
 	    }
-	@PostMapping
+	@PostMapping("/tagsadd")
 
-	public String TagControllering( @RequestParam(name = "rmtag", required = false) String rmtag,@RequestParam("newtag")String tag,
+	public String TagControllering(@RequestParam(name = "newtag",required =false)String tag,
 			Principal principal,@ModelAttribute User user)
 	{
 		System.out.println("1"+tag);
@@ -98,6 +98,18 @@ public class TagController {
 		}
 		
 		
+
+		return "redirect:/tags?success";
+    }
+
+@PostMapping("/tagsdelete")
+	public String TagControllering1(@RequestParam(name = "rmtag", required = false) String rmtag,Principal principal,@ModelAttribute User user)
+	{
+		
+		User user1=userRepository.findByEmailId(principal.getName());
+		List <Tag> list1 = tagRepository.findByUser(user1);
+	
+		
 		if(list1.size()>5)
 		{
 		if(rmtag!="")
@@ -116,7 +128,6 @@ public class TagController {
 		}
 		return "redirect:/tags?success";
     }
-	
 
 	
 }
