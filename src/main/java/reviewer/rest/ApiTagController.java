@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +27,7 @@ import reviewer.repository.TagRepository;
 import reviewer.repository.UserRepository;
 
 @RestController
-@RequestMapping("/api/tags")
+@RequestMapping("/api")
 public class ApiTagController {
    
 	
@@ -42,27 +44,23 @@ public class ApiTagController {
 	        this.reviewRepo = reviewRepo;
 	    }
 	    @GetMapping("/tags")
-	    public List<String> addtag(Model model, Principal principal) 
+	    public List<String> getTags(Principal principal) 
 	    {  
 	    	 String username = principal.getName(); // Get the username of the currently logged-in user
 	         User user = userRepository.findByEmailId(username); // Retrieve the user details from the repository using the username
-	         model.addAttribute("user", user);
-	         model.addAttribute("paperCount", reviewRepo.countByUserAndStatus(user,"Already Reviewed"));
-
+	         
 	          List <Tag> list1 = tagRepository.findByUser(user);
     		 List<String> list = new ArrayList<String>(); 
     		 for(int i=0;i<list1.size();i++)
     		 {
     			  list.add(list1.get(i).getTag());
     		 }
-    		 model.addAttribute("list",list);
-    		 model.addAttribute("list1",list1);
 	        return list;
 	    }
-	@PostMapping("/tagsadd")
-
-	public List<String> TagControllering(@RequestParam(name = "newtag",required =false)String tag,
-			Principal principal,@ModelAttribute User user)
+	    
+	@PostMapping("/tagsadd/{id}")
+	public List<String> addTags(@PathVariable(name = "id",required =false)String tag,
+			Principal principal)
 	{
 		System.out.println("1"+tag);
 		User user1=userRepository.findByEmailId(principal.getName());
@@ -86,7 +84,7 @@ public class ApiTagController {
          
 		else
 		{
-			System.out.println("tag exsist");
+			System.out.println("tag exist");
 		}
 		
 		}
@@ -100,44 +98,38 @@ public class ApiTagController {
 		return list;
     }
 
-@PostMapping("/tagsdelete")
-	public List<String> TagControllering1(@RequestParam(name = "rmtag", required = false) String rmtag,Principal principal,@ModelAttribute User user)
+	@PostMapping("/tagsdelete")
+	public List<String> tagDeletes(@RequestBody List<String> values ,Principal principal)
 	{
-		
 		User user1=userRepository.findByEmailId(principal.getName());
 		List <Tag> list1 = tagRepository.findByUser(user1);
-	
-		
-		if(list1.size()>5)
-		{
-		if(rmtag!="")
-		{
-		Tag rmtag1=tagRepository.findByUserAndTag(user1,rmtag);
-		if(rmtag1!=null)
-		{
-			tagRepository.delete(rmtag1);
-		}
-		else
-		{
-			System.out.println("tag doesn't exsist");
+		List<String> reflist = new ArrayList<String>();
+		for (int i = 0; i < list1.size(); i++) {
+			reflist.add(list1.get(i).getTag());
 		}
 		
-		}
-		}
-		 List<String> list = new ArrayList<String>(); 
-		 for(int i=0;i<list1.size();i++)
-		 {
-			  list.add(list1.get(i).getTag());
-		 }
+		reflist.removeAll(values);
 		
+		if (values.size()>=5) {
+			for(String rmtag : reflist) {
+				if (rmtag != "") {
+					Tag rmtag1 = tagRepository.findByUserAndTag(user1, rmtag);
+					if (rmtag1 != null) {
+						tagRepository.delete(rmtag1);
+					} else {
+						System.out.println("tag doesn't exsist");
+					}
 
+				}
+			}
+			
+		}
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < list1.size(); i++) {
+			list.add(list1.get(i).getTag());
+		}
+		
 		return list;
     }
-
 	
 }
-
-
-
-
-
