@@ -53,10 +53,8 @@
          width: 20px;
       }
       h2{
-
-          padding-top: 10px;
-          padding-left: 0px;
-
+          padding-top: 13px;
+          padding-left: 30px;
           padding-bottom: 10px;
       }
       body {
@@ -455,9 +453,9 @@ background-color:rgb(7, 7, 106) ;
             <img th:src="@{profile.png}" alt="logo_img" />
           </span>
           <div class="data_text">
-			             <span th:text="${user.emailId}"></span>
-            <span class="email" th:text="${user.firstName}"></span>
-            <span class="email" th:text="${user.lastName}"></span>
+			             <span id="userName"></span>
+            <span class="email" id="userFirstName"></span>
+            <span class="email" id="userLastName"></span>
           </div>
         </div>
       </div>
@@ -470,7 +468,7 @@ background-color:rgb(7, 7, 106) ;
   <hr>
 
 
- <form method="post" th:action="@{/tagsadd}">
+ <form method="post" id="addForm">
 <label for="areaofinterest">ADD YOUR TAGS</label>
 <br>
 <font color="grey"> **You can add your tags here** </font>
@@ -481,17 +479,23 @@ background-color:rgb(7, 7, 106) ;
 
       
  <div class="arrange">
-     <form method="post" th:action="@{/tagsdelete}">
+     
 		  <label for="areaofinterest">REMOVE YOUR TAGS</label>
     <br>
     <font color="grey"> **You can remove your tags here** </font>
-    <!-- Iterate through the list of tags and display an input field and remove button for each -->
+    <!-- Iterate through the list of tags and display an input field and remove button for each 
     <div th:each="tag : ${list}">
         <input type="text" th:value="${tag}" id="areaofinterest"  readonly="readonly" />
         <button type="submit" name="rmtag" th:value="${tag}">DELETE</button>
-         <form method="post" th:action="@{/add}">
+         
         <br>
     </div>
+    -->
+    <form method="post" id="deleteForm">
+		
+		
+		
+    </form>
 </div>
 
 </div>
@@ -499,53 +503,115 @@ background-color:rgb(7, 7, 106) ;
 </div>
 </body>
 <script>
-let Id;
-	const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1);
-	var link = window.location.href;	
-	var areaofinterest = document.getElementById("areaofinterest");
-	
-   fetch(`http://localhost:8080/api/tags/${getLastItem(link)}`)
-   .then(res => res.json())
-   .then(data => {
-	   Id = data.emailId
-	   console.log(Id)
-	   areaofinterest.textContent = data.tags;
-	
-   })
-   
-   fetch("http://localhost:8080/api/user")
-   .then(res => res.json())
-   .then(data => {
+		var userName = document.getElementById("userName")
+		var userFirstName = document.getElementById("userFirstName")
+		var userLastName = document.getElementById("userLastName")
+		
+		
+		fetch("http://localhost:8080/api/user")
+   		.then(res => res.json())
+   		.then(data => {
 	 
 	 	userName.textContent=data.emailId;
 		userFirstName.textContent = data.firstName;
 		userLastName.textContent = data.lastName;  
-   })
-   
-  
+   		})
+   		
+   		
+   		fetch("http://localhost:8080/api/tags")
+   		.then(res => res.json())
+   		.then(data =>{
+			   var tags = document.getElementById("deleteForm");
+			   for(var i=0;i<data.length;i++){
+				   var div = document.createElement("div");
+				   div.setAttribute('id',data[i]+"zz");
+				   div.innerHTML = `<input type="text" value="${data[i]}" id="areaofinterest"  readonly="readonly" />
+        							<button id="${data[i]}" name="${data[i]}" type="button">DELETE</button>
+        							<br>`;
+        			tags.appendChild(div);
+			   }
+			   var butt = document.createElement("button");
+			   butt.setAttribute('type',"submit");
+			   butt.textContent="Save Changes";
+			   tags.appendChild(butt);
+			   
+			   
+			   const buttDel = document.querySelectorAll('#deleteForm button[type="button"]');
+			   buttDel.forEach(butt => {
+				   butt.setAttribute('onclick',"myfunc(id)");
+			   })
+		   }) 
+		   
+		const addform = document.getElementById("addForm");
+   		
+   		addform.addEventListener('submit',function(e){
+			   e.preventDefault();
+			   
+			   const prePayload = new FormData(addForm);
+			   const values = Object.fromEntries(prePayload);
+			   var newTag = values["newtag"];
+			   
+			   fetch(`http://localhost:8080/api/tagsadd/${newTag}`,{
+					method : 'POST',
+					body : JSON.stringify(values),
+					headers:{
+					'Content-Type' : 'application/json'
+					}
+				})
+			   window.location.href="http://localhost:8080/tags"
+		   })
+		   
 		
-	const form = document.getElementById("tagForm");
-	
-	form.addEventListener('submit', function(e){
-		e.preventDefault();
+		const deleteForm = document.getElementById("deleteForm");
 		
-		const prePayload = new FormData(form);
-		const values = Object.fromEntries(prePayload);
-		
-		console.log(values);
-		values["rid"] = reviewId;
-		
-		fetch(`http://localhost:8080/api/review/save/${getLastItem(link)}`,{
-			method : 'POST',
-			body : JSON.stringify(values),
-			headers:{
-				'Content-Type' : 'application/json'
-			}
-			})
+		deleteForm.addEventListener('submit',function(e){
+			e.preventDefault();
 			
-		window.location.href = "/AlreadyReviewed";
-	})
-	
+			const values = [];
+    		const inputs = document.querySelectorAll('#deleteForm input[type="text"]');
+    		inputs.forEach(input => {
+        		values.push(input.value);
+    		});
+			
+			fetch(`http://localhost:8080/api/tagsdelete`,{
+					method : 'POST',
+					body : JSON.stringify(values),
+					headers:{
+					'Content-Type' : 'application/json'
+					}
+				})
+				
+			window.location.href="http://localhost:8080/dashboard"
+		})
+		
+		function myfunc(id){
+			const element = document.getElementById(id+"zz");
+			element.remove();
+		}
+		
+		/*
+			var deleteForm = document.get("deleteForm");
+		
+		
+		deleteForm.addEventListener('submit',function(e){
+			e.preventDefault();
+			
+			const prePayload = new FormData(deleteForm);
+			const values = Object.fromEntries(prePayload);
+			consol.log(values);
+			//var newTag = values["newtag"];
+			fetch(`http://localhost:8080/api/tagsdelete/${newTag}`,{
+					method : 'POST',
+					body : JSON.stringify(values),
+					headers:{
+					'Content-Type' : 'application/json'
+					}
+			})
+			window.location.href="http://localhost:8080/tags"
+		})
+		*/
+
+		
 </script>
 
 </html>
