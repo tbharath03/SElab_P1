@@ -24,7 +24,6 @@ import reviewer.repository.ReviewRepository;
 import reviewer.repository.TagRepository;
 import reviewer.repository.UserRepository;
 
-
 @RestController
 @RequestMapping("/api/tags")
 public class ApiTagController {
