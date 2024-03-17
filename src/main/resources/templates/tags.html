@@ -294,7 +294,11 @@ background-color:rgb(7, 7, 106) ;
       padding: 5px;
     }
 
-
+.arrange
+{
+	padding-left: -10px;
+	margin-left: -180px;
+}
 
 .tag-container {
     display: flex;
@@ -464,31 +468,84 @@ background-color:rgb(7, 7, 106) ;
 <div class="MAINBODY">
   <h2 class="mb-4">MANAGE YOUR TAGS</h2>
   <hr>
-  <form method="post" th:action="@{/tags}">
 
+
+ <form method="post" th:action="@{/tagsadd}">
 <label for="areaofinterest">ADD YOUR TAGS</label>
 <br>
 <font color="grey"> **You can add your tags here** </font>
 <input type="text" id="areaofinterest" name="newtag" pattern="[A-Z]+" placeholder="interest">
 <button type="submit">ADD</button>
+ </form>
 <br>
 
       
-  <label for="areaofinterest">REMOVE YOUR TAGS</label>
+ <div class="arrange">
+     <form method="post" th:action="@{/tagsdelete}">
+		  <label for="areaofinterest">REMOVE YOUR TAGS</label>
     <br>
     <font color="grey"> **You can remove your tags here** </font>
-    
     <!-- Iterate through the list of tags and display an input field and remove button for each -->
     <div th:each="tag : ${list}">
         <input type="text" th:value="${tag}" id="areaofinterest"  readonly="readonly" />
         <button type="submit" name="rmtag" th:value="${tag}">DELETE</button>
+         <form method="post" th:action="@{/add}">
         <br>
     </div>
-
+</div>
 
 </div>
-</form>
+
 </div>
 </body>
+<script>
+let Id;
+	const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1);
+	var link = window.location.href;	
+	var areaofinterest = document.getElementById("areaofinterest");
+	
+   fetch(`http://localhost:8080/api/tags/${getLastItem(link)}`)
+   .then(res => res.json())
+   .then(data => {
+	   Id = data.emailId
+	   console.log(Id)
+	   areaofinterest.textContent = data.tags;
+	
+   })
+   
+   fetch("http://localhost:8080/api/user")
+   .then(res => res.json())
+   .then(data => {
+	 
+	 	userName.textContent=data.emailId;
+		userFirstName.textContent = data.firstName;
+		userLastName.textContent = data.lastName;  
+   })
+   
+  
+		
+	const form = document.getElementById("tagForm");
+	
+	form.addEventListener('submit', function(e){
+		e.preventDefault();
+		
+		const prePayload = new FormData(form);
+		const values = Object.fromEntries(prePayload);
+		
+		console.log(values);
+		values["rid"] = reviewId;
+		
+		fetch(`http://localhost:8080/api/review/save/${getLastItem(link)}`,{
+			method : 'POST',
+			body : JSON.stringify(values),
+			headers:{
+				'Content-Type' : 'application/json'
+			}
+			})
+			
+		window.location.href = "/AlreadyReviewed";
+	})
+	
+</script>
 
 </html>
