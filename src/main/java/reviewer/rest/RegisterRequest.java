@@ -78,7 +78,6 @@ public class RegisterRequest
 	}
 	public RegisterRequest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

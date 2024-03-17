@@ -390,9 +390,9 @@
             <img th:src="@{profile.png}" alt="logo_img" />
           </span>
           <div class="data_text">
-			             <span th:text="${user.emailId}"></span>
-            <span class="email" th:text="${user.firstName}"></span>
-            <span class="email" th:text="${user.lastName}"></span>
+			             <span id="userName1"></span>
+            <span class="email" id="userFirstName1"></span>
+            <span class="email" id="userLastName1"></span>
           </div>
         </div>
       </div>
@@ -402,74 +402,111 @@
 
 <div class="MAINBODY">
   <h2 class="mb-4">Edit Profile</h2>
-  <form id="editProfileForm" method="post" th:action="@{/editProfile}"> <!--form start-->
+  <form id="editProfileForm" method="post"> <!--form start-->
     <div class="form-group" style="display: flex;">
       <label for="FirstName">Firstname:</label>
       <div class="input-group" style="display: flex;  margin-left: 10px;">
-        <input type="text"  class="form-control" id="FirstName" name="firstName" th:value="${user.firstName}" th:field="${user.firstName}">
+        <input type="text"  class="form-control" id="userFirstName" name="firstName" >
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="LastName">Lastname:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="LastName" name="lastName" th:value="${user.lastName}" th:field="${user.lastName}">
+        <input type="text" class="form-control" id="userLastName" name="lastName" >
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="email">Email:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="email" class="form-control" id="email" name="emailId" th:value="${user.emailId}" th:field="${user.emailId}">
+        <input type="email" class="form-control" id="userName" name="emailId">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="PhoneNumber">Phone Number:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="PhoneNumber" name="number" th:value="${user.number}" th:field="${user.number}">
+        <input type="text" class="form-control" id="userNumber" name="number">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="paperLimit">Paperlimit:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="text" class="form-control" id="paperLimit" name="paperlimit" th:value="${user.paperlimit}" th:field="${user.paperlimit}">
+        <input type="text" class="form-control" id="userpaperlimit" name="paperlimit">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="OldPassword">Old Password:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="password" class="form-control" id="OldPassword" placeholder="Enter old password" name="oldPassword" th:field="${user.password}">
+        <input type="password" class="form-control" id="useroldpassword" placeholder="Enter old password" name="oldPassword">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="NewPassword">New Password:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="password" class="form-control" id="NewPassword" name="newPassword" placeholder="Enter new password" th:attr="value = ${newPassword}">
+        <input type="password" class="form-control" id="usernewpassword" name="newPassword" placeholder="Enter new password">
       </div>
     </div>
     <div class="form-group" style="display: flex;">
       <label for="ReEnterNewPassword">Re-enter new Password:</label>
       <div class="input-group" style="display: flex; margin-left: 10px;">
-        <input type="password" class="form-control" id="ReEnterNewPassword" placeholder="re-enter new password" name="reEnterPassword" th:attr="value = ${reEnterPassword}">
+        <input type="password" class="form-control" id="userrestenterpassword" placeholder="re-enter new password" name="reEnterPassword" >
       </div>
     </div>
-    <button type="submit" class="btn-primary" onclick="validate()">Save Changes</button>
+    <button type="submit" class="btn-primary">Save Changes</button>
   </form>
 </div>
 </div>
-<!--
-<script defer async>
-	document.getElementById("editProfileForm").addEventListener("submit",(event) => {
-		let oldPassword = document.getElementById("OldPassword").value;
-		let newPassword = document.getElementById("NewPassword").value;
-		let reEnterPassword = document.getElementById("ReEnterNewPassword").value;
-		if(oldPassword!=null || newPassword!= null || reEnterPassword!=null){
-			if(newPassword != reEnterPassword || newPassword==null || reEnterPassword == null || oldPassword == null){
-				alert("errors");
-				event.preventDefault();
-			}	
-		}
-	});
+<script>
+	let emailId;
+	var userName = document.getElementById("userName")
+	var userFirstName = document.getElementById("userFirstName")
+	var userLastName = document.getElementById("userLastName")
+	var userNumber = document.getElementById("userNumber")
+	var useroldpassword = document.getElementById("useroldpassword")
+	var usernewpassword = document.getElementById("usernewpassword")
+	var userrestpassword = document.getElementById("userrestpassword")
+	var userpaperlimit = document.getElementById("userpaperlimit")
+	var usertag = document.getElementById("usertag")
+	
+   fetch(`http://localhost:8080/api/editProfile`)
+   .then(res => res.json())
+   .then(data => {
+	   emailId = data.emailId
+	   console.log(emailId)
+	   userName.setAttribute('value',data.emailId);
+	   userFirstName.setAttribute('value',data.firstName);
+	   userLastName.setAttribute('value',data.lastName);
+	   userNumber.setAttribute('value',data.number);
+	   userpaperlimit.setAttribute('value',data.paperlimit);
+	   userName1.textContent=data.emailId;
+	   userFirstName1.textContent=data.firstName;
+	   userLastName1.textContent=data.lastName;
+	  
+   })
+   
+ 
+	const form = document.getElementById("editProfileForm");
+	
+	form.addEventListener('submit', function(e){
+		e.preventDefault();
+		
+		const prePayload = new FormData(form);
+		const values = Object.fromEntries(prePayload);
+		
+		console.log(values);
+
+		
+		fetch(`http://localhost:8080/api/editProfile/save`,{
+			method : 'POST',
+			body : JSON.stringify(values),
+			headers:{
+				'Content-Type' : 'application/json'
+			}
+			})
+			
+		window.location.href = "/dashboard";
+	})
+	
 </script>
-				-->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
