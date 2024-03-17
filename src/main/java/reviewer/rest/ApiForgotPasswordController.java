@@ -2,17 +2,17 @@ package reviewer.rest;
 
 
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import reviewer.model.User;
 import reviewer.repository.UserRepository;
 import reviewer.service.EmailService;
 import reviewer.service.TokenService;
 
-@Controller
+@RestController
 @RequestMapping("/api/forgotpassword")
 public class ApiForgotPasswordController 
 
@@ -29,7 +29,7 @@ private EmailService emailservice;
 
 	 
 	@PostMapping("/forgotpassword")
-	public void forgotimpl(@RequestParam String email,@RequestParam String number)
+	public String forgotimpl(@RequestParam String email,@RequestParam String number)
 	{
 		User user=userRepository.findByEmailId(email);
 		System.out.println(number);
@@ -39,10 +39,11 @@ private EmailService emailservice;
 	 
 			 String resetToken = tokenService.generateToken();
 	            tokenService.saveToken(user, resetToken);
-	           /// System.out.println("before mail service");
 	            emailservice.sendResetEmail(user.getEmailId(), resetToken);
-	           // System.out.println("hloo");
+	          return "emailsent";
 		}
+		
+		return "wrong credentials";
 		
 	}
 }
