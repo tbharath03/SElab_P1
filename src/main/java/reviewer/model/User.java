@@ -71,7 +71,7 @@ public class User implements UserDetails{
 		return firstName;
 	}
 	public User(String emailId, String firstName, String lastName, String number, String password, Long paperlimit,
-			String tag) {
+			String tag, List<Review> review) {
 		super();
 		this.emailId = emailId;
 		this.firstName = firstName;
@@ -80,7 +80,21 @@ public class User implements UserDetails{
 		this.password = password;
 		this.paperlimit = paperlimit;
 		this.tag = tag;
+		this.review = review;
 	}
+
+
+//	public User(String emailId, String firstName, String lastName, String number, String password, Long paperlimit,
+//			String tag) {
+//		super();
+//		this.emailId = emailId;
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.number = number;
+//		this.password = password;
+//		this.paperlimit = paperlimit;
+//		this.tag = tag;
+//	}
 	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
