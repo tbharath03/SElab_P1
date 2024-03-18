@@ -5,6 +5,7 @@ import java.security.Principal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import reviewer.model.Paper;
@@ -28,15 +29,14 @@ public class ApiUserDetails {
 	}
 	
 	@GetMapping("/user")
-	public User getUserDetails(Principal principal) {
-		String username = principal.getName();
+	public User getUserDetails(@RequestParam("id") String username) {
 		User user = userRepository.findByEmailId(username);
 		return user;
 	}
 	
 	@GetMapping("/paperCount")
-    public Long getPaperCount(Principal principal) {
-    	User user = getUserDetails(principal);
+    public Long getPaperCount(@RequestParam("id") String username) {
+    	User user = getUserDetails(username);
     	return reviewRepository.countByUserAndStatus(user,"Already Reviewed");
     }
 	

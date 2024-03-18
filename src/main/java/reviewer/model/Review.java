@@ -179,7 +179,7 @@ public class Review
 	public Review(Rkey rid, Long technicalContentandAccuracy, Long significanceoftheWork,
 			Long appropriateTitleLongroductionandConclusion, Long overallOrganization, Long appropriateforSAC,
 			Long styleandClarityofPaper, Long originalityofContent, Long refereesConfidenceinPapersSubject,
-			Long overallRecommendation, String comments, String confidentialComments, String decision) {
+			Long overallRecommendation, String comments, String confidentialComments, String decision,String status) {
 		super();
 		this.rid = rid;
 		this.technicalContentandAccuracy = technicalContentandAccuracy;
@@ -194,6 +194,7 @@ public class Review
 		this.comments = comments;
 		this.confidentialComments = confidentialComments;
 		this.decision = decision;
+		this.status = status;
 	}
 	
 	

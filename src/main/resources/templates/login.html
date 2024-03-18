@@ -123,7 +123,7 @@ width: 400px;
         <div><h2>NITCONF</h2></div>
 </div>
     <div class="body">
-        <form method="post" th:action="@{/login}" th:object="${user}">
+        <form method="post" id="loginForm" th:action="@{/login}" th:object="${user}">
 			
 			<div class="login-container">
         <h2>Login</h2>
@@ -142,17 +142,25 @@ width: 400px;
                 <a th:href="@{/forgotpassword}">Forgot Password?</a>
             </div>
 
-            <button type="submit" onclick="login()">Login</button>
+            <button type="submit" onclick="setLocalStorage()">Login</button>
            
            
         </form>
     </div>
 </div>
     <script>
+		
+		function setLocalStorage(){
+			const form = document.getElementById("loginForm");
+		
+		const prePayload = new FormData(form);
+		const values = Object.fromEntries(prePayload);
+		localStorage.setItem("email",values.username);
+		}
+		
         function login() {
-            var email = document.getElementById('email').value;
+            const email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
-
             // Here, you would typically send the email and password to a server for authentication
             // This is a basic example and not secure for production use
             console.log('Login with email:', email, 'and password:', password);

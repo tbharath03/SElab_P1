@@ -41,15 +41,15 @@ public class ApiEditProfileController {
     }
 
     @GetMapping
-    public User EditProfile(Principal principal) {
-        User user = repo.findByEmailId(principal.getName());
+    public User EditProfile(@RequestParam("id") String username) {
+        User user = repo.findByEmailId(username);
         System.out.println(user);
         return user; 
     }
 
     @PostMapping(path="/save" ,consumes="application/json")
     public @ResponseBody User Edit( @RequestBody EditProfileUtil util,
-    					Principal principal) {
+    					@RequestParam("id") String username) {
     	User user = new User();
     	user.setEmailId(util.getEmailId());
     	user.setFirstName(util.getFirstName());
@@ -62,7 +62,7 @@ public class ApiEditProfileController {
     	System.out.println(util);
     	
     	
-    	User user0 = repo.findByEmailId(principal.getName());
+    	User user0 = repo.findByEmailId(username);
     	if(!user0.getEmailId().equals(user.getEmailId()) && user.getEmailId() != null) {
     		User user1 = repo.findByEmailId(user.getEmailId());
     		if(user1 != null) {

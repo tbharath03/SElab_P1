@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import reviewer.model.Paper;
@@ -31,8 +32,7 @@ public class ApiDashBoardController {
     }
 	
 	@GetMapping
-    public List<Paper> getAllPapers(Principal principal) {
-    	String username = principal.getName();
+    public List<Paper> getAllPapers(@RequestParam("id") String username) {
 		User user = userRepository.findByEmailId(username);
         List<Review> reviews = reviewRepository.findAllByuser(user);
         List<Paper> allPapers = new ArrayList<>();

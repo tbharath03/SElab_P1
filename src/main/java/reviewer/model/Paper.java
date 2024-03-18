@@ -37,7 +37,15 @@ public class Paper {
        
        @OneToMany(mappedBy="paper")
        List<Review> reviews;
-       public Long getPid() {
+       public Paper(long l, String string, String string2, LocalDateTime now, String string3, LocalDateTime now2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Paper() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Long getPid() {
 		return pid;
 	}
        

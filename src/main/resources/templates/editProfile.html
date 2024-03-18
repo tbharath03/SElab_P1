@@ -457,6 +457,7 @@
 </div>
 <script>
 	let emailId;
+	const email = localStorage.getItem("email")
 	var userName = document.getElementById("userName")
 	var userFirstName = document.getElementById("userFirstName")
 	var userLastName = document.getElementById("userLastName")
@@ -467,7 +468,7 @@
 	var userpaperlimit = document.getElementById("userpaperlimit")
 	var usertag = document.getElementById("usertag")
 	
-   fetch(`http://localhost:8080/api/editProfile`)
+   fetch(`http://localhost:8080/api/editProfile?id=${email}`)
    .then(res => res.json())
    .then(data => {
 	   emailId = data.emailId
@@ -495,7 +496,7 @@
 		console.log(values);
 
 		
-		fetch(`http://localhost:8080/api/editProfile/save`,{
+		fetch(`http://localhost:8080/api/editProfile/save?id=${email}`,{
 			method : 'POST',
 			body : JSON.stringify(values),
 			headers:{
