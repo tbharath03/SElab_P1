@@ -123,13 +123,13 @@ width: 400px;
         <div><h2>NITCONF</h2></div>
 </div>
     <div class="body">
-        <form method="post" id="loginform">
+        <form method="post" th:action="@{/login}" th:object="${user}">
 			
 			<div class="login-container">
         <h2>Login</h2>
             <label for="email">Email:</label>
             <div class="password-container1">
-            <input type="email" id="username" name="emailId" placeholder="someone@gmail.com" required>
+            <input type="email" id="username" name="username" placeholder="someone@gmail.com" required>
 </div>
 
             <div class="password-container">
@@ -152,37 +152,21 @@ width: 400px;
         function login() {
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
+
+            // Here, you would typically send the email and password to a server for authentication
+            // This is a basic example and not secure for production use
             console.log('Login with email:', email, 'and password:', password);
         }
 
         function forgotPassword() {
             var email = prompt('Enter your email to recover your password:');
+
+            // Here, you would typically send the email to a server for password recovery
+            // This is a basic example and not secure for production use
             console.log('Password recovery email sent to:', email);
         }
 
-     	 
-document.getElementById("loginform").addEventListener("submit", function(event) {
-	event.preventDefault(); 
-   
-        const prePayload = new FormData(document.getElementById("loginform"));
-        
-		const values = Object.fromEntries(prePayload);
-
-		
-		console.log(values);
-		
-		fetch(`http://localhost:8080/api/login`,{
-			method : 'POST',
-			body : JSON.stringify(values),
-			headers:{
-				'Content-Type' : 'application/json'
-			}
-			})
-			
-			
-			
-		window.location.href = "/dashboard";
-	});
+     
         
         const togglePassword = document.querySelectorAll('#togglePassword');
   const password = document.querySelector('#id_password');
