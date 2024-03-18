@@ -33,7 +33,7 @@ public class ApiNeedToReviewController {
     @GetMapping
     public List<Paper> getNeedToReviewedPapers(@RequestParam("id") String username) {
 		User user = userRepository.findByEmailId(username);
-        List<Review> reviews = reviewRepository.findAllByuserAndStatus(user, "Need To Review");
+        List<Review> reviews = reviewRepository.findAllByuserAndStatus(user, "Need to Review");
         List<Paper> needToReviewPapers = new ArrayList<>();
 
         for (Review review : reviews) {

@@ -71,7 +71,7 @@ public class User implements UserDetails{
 		return firstName;
 	}
 	public User(String emailId, String firstName, String lastName, String number, String password, Long paperlimit,
-			String tag, List<Review> review) {
+			String tag) {
 		super();
 		this.emailId = emailId;
 		this.firstName = firstName;
