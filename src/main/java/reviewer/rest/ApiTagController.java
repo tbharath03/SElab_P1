@@ -44,9 +44,9 @@ public class ApiTagController {
 	        this.reviewRepo = reviewRepo;
 	    }
 	    @GetMapping("/tags")
-	    public List<String> getTags(Principal principal) 
+	    public List<String> getTags(@RequestParam("id") String username) 
 	    {  
-	    	 String username = principal.getName(); // Get the username of the currently logged-in user
+	    	  // Get the username of the currently logged-in user
 	         User user = userRepository.findByEmailId(username); // Retrieve the user details from the repository using the username
 	         
 	          List <Tag> list1 = tagRepository.findByUser(user);
@@ -60,10 +60,10 @@ public class ApiTagController {
 	    
 	@PostMapping("/tagsadd/{id}")
 	public List<String> addTags(@PathVariable(name = "id",required =false)String tag,
-			Principal principal)
+			@RequestParam("id") String username)
 	{
 		System.out.println("1"+tag);
-		User user1=userRepository.findByEmailId(principal.getName());
+		User user1=userRepository.findByEmailId(username);
 		List <Tag> list1 = tagRepository.findByUser(user1);
 		Tag tag1=tagRepository.findByUserAndTag(user1,tag);
 		System.out.println(tag);
@@ -99,9 +99,9 @@ public class ApiTagController {
     }
 
 	@PostMapping("/tagsdelete")
-	public List<String> tagDeletes(@RequestBody List<String> values ,Principal principal)
+	public List<String> tagDeletes(@RequestBody List<String> values ,@RequestParam("id") String username)
 	{
-		User user1=userRepository.findByEmailId(principal.getName());
+		User user1=userRepository.findByEmailId(username);
 		List <Tag> list1 = tagRepository.findByUser(user1);
 		List<String> reflist = new ArrayList<String>();
 		for (int i = 0; i < list1.size(); i++) {

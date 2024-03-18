@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import reviewer.model.Paper;
@@ -30,8 +31,7 @@ public class ApiNeedToReviewController {
     }
     
     @GetMapping
-    public List<Paper> getNeedToReviewedPapers(Principal principal) {
-    	String username = principal.getName();
+    public List<Paper> getNeedToReviewedPapers(@RequestParam("id") String username) {
 		User user = userRepository.findByEmailId(username);
         List<Review> reviews = reviewRepository.findAllByuserAndStatus(user, "Need To Review");
         List<Paper> needToReviewPapers = new ArrayList<>();

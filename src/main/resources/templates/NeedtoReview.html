@@ -395,11 +395,12 @@ for (i = 0; i < dropdown.length; i++) {
 	</script>
 	
 	<script>
+		const email = localStorage.getItem("email")
 		var userName = document.getElementById("userName")
 		var userFirstName = document.getElementById("userFirstName")
 		var userLastName = document.getElementById("userLastName")
 		var paperCount = document.getElementById("paperCount")
-		fetch("http://localhost:8080/api/user")
+		fetch(`http://localhost:8080/api/user?id=${email}`)
 		.then(res => res.json())
 		.then(data => {
 			userName.textContent=data.emailId;
@@ -413,7 +414,7 @@ for (i = 0; i < dropdown.length; i++) {
 			paperCount.textContent = data;
 		})
 		
-		fetch("http://localhost:8080/api/needtoreview")
+		fetch(`http://localhost:8080/api/needtoreview?id=${email}`)
 		.then(res => res.json())
 		.then(data => {
 			var tableBody = document.getElementById("tableBody");

@@ -31,14 +31,14 @@ public class ApiReviewController {
     }
     
 	@GetMapping("/{id}")
-	public Review getReviewFormPage(@PathVariable("id") Long paperId, Principal principal) {
-		Review review = reviewRepository.findById(new Rkey(paperId,principal.getName())).get();
+	public Review getReviewFormPage(@PathVariable("id") Long paperId, @RequestParam("id") String username) {
+		Review review = reviewRepository.findById(new Rkey(paperId,username)).get();
 		return review;
 	}
 	
 	
-	@PostMapping(path="/save/{id}" , consumes="application/json")
-	public Review setReviewFormPage(@PathVariable("id") Long paperId, Principal principal,@RequestBody Review review) {
+	@PostMapping(path="/save" , consumes="application/json")
+	public Review setReviewFormPage(@RequestBody Review review) {
 		review.setStatus("Already Reviewed");
 		reviewRepository.save(review);
 		System.out.println(review);

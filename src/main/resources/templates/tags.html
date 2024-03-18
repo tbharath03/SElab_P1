@@ -503,12 +503,13 @@ background-color:rgb(7, 7, 106) ;
 </div>
 </body>
 <script>
+		const email = localStorage.getItem("email")
 		var userName = document.getElementById("userName")
 		var userFirstName = document.getElementById("userFirstName")
 		var userLastName = document.getElementById("userLastName")
 		
 		
-		fetch("http://localhost:8080/api/user")
+		fetch(`http://localhost:8080/api/user?id=${email}`)
    		.then(res => res.json())
    		.then(data => {
 	 
@@ -518,7 +519,7 @@ background-color:rgb(7, 7, 106) ;
    		})
    		
    		
-   		fetch("http://localhost:8080/api/tags")
+   		fetch(`http://localhost:8080/api/tags?id=${email}`)
    		.then(res => res.json())
    		.then(data =>{
 			   var tags = document.getElementById("deleteForm");
@@ -551,7 +552,7 @@ background-color:rgb(7, 7, 106) ;
 			   const values = Object.fromEntries(prePayload);
 			   var newTag = values["newtag"];
 			   
-			   fetch(`http://localhost:8080/api/tagsadd/${newTag}`,{
+			   fetch(`http://localhost:8080/api/tagsadd/${newTag}?id=${email}`,{
 					method : 'POST',
 					body : JSON.stringify(values),
 					headers:{
@@ -573,7 +574,7 @@ background-color:rgb(7, 7, 106) ;
         		values.push(input.value);
     		});
 			
-			fetch(`http://localhost:8080/api/tagsdelete`,{
+			fetch(`http://localhost:8080/api/tagsdelete?id=${email}`,{
 					method : 'POST',
 					body : JSON.stringify(values),
 					headers:{
