@@ -209,7 +209,7 @@ align-items: center;
     <div class="body">
 <div class="form-container">
 
-<form id="registrationForm"  method="post" th:action="@{/registerPage}">
+<form id="registerPage"  method="post" >
 <h3>REGISTER</h3>
 <font color="grey">**Name must be as per Aadhar**</font>
 <br>
@@ -217,11 +217,11 @@ align-items: center;
 <label for="fname">Enter your Firstname</label>
 <font color="grey"> **Name must in Capital letters** </font>
 <br>
- <input type="text" th:field="${user.firstName}" pattern="[A-Z]+" placeholder="Firstname" required>
+ <input type="text" id="firstName" name="firstName" pattern="[A-Z]+" placeholder="Firstname" required>
  <label for="lname">Enter your Lastname</label>
 <font color="grey"> **Name must in Capital letters**</font>
 <br>
-<input type="text" th:field="${user.lastName}" pattern="[A-Z]+" placeholder="Lastname" required>
+<input type="text" name="lastName" id="lastName" pattern="[A-Z]+" placeholder="Lastname" required>
  <br>
  <br>
  <!--
@@ -235,21 +235,21 @@ align-items: center;
 <input type="text" id="areaofinterest" name="tag" pattern="[A-Z]+" placeholder="interest">
 <button type="button" onclick="addInterests()">ADD</button>
 
-<input type="hidden" id="hiddenInterests" name="hiddenInterests" th:field="${user.tag}">
+<input type="hidden" id="hiddenInterests" name="tag">
 
 
 <label for="paper limit">Paper Limit</label>
 
 <font color="grey"> **Max papers you can evaluate**. </font>
-<input type="number" th:field="${user.paperlimit}" min=1  placeholder="0" required>
+<input type="number" name="paperlimit" id="paperlimit" min=1  placeholder="0" required>
 <br>
 <br>
 <label for="phoneNumber">Enter your phoneNumber:</label>
- <input type="tel" th:field="${user.number}" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" required>
+ <input type="tel" id ="number" name="number" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" required>
 <label for="email">Enter your email:</label>
-<input type="email" id="email" th:field="${user.emailId}"  name="email" pattern="^[\w.+\-]+@gmail\.com$"  placeholder="someoneexample@gmail.com" required>
+<input type="email" id="email"   name="emailId" pattern="^[\w.+\-]+@gmail\.com$"  placeholder="someoneexample@gmail.com" required>
 <label for="password">Enter your Password:</label>
-<input type="password" id="id_password" th:field="${user.password}" placeholder="Enter password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required>
+<input type="password" id="id_password"  name="password" placeholder="Enter password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required>
 <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
 <div class="password-restrictions">
 Password must follow the following:
@@ -271,7 +271,17 @@ Password must follow the following:
 	<div class="success">You have successfully registered</div>
 </div>
 <script>
-document.getElementById("registrationForm").addEventListener("submit", function(event) {
+	
+var  emailId=document.getElementById("email");
+var firstName=document.getElementById("firstName");
+var lastName=document.getElementById("lastName");
+	 var number=document.getElementById("number");
+//var password=document.getElementById("id_password");
+	 var paperlimit=document.getElementById("paperlimit");
+	//var tag=hiddenInput;//hiddenInterests=document.getElementById("hiddenInterests");
+	 
+document.getElementById("registerPage").addEventListener("submit", function(event) {
+	event.preventDefault(); 
 var password = document.getElementById("id_password").value;
 var confirmPassword = document.getElementById("cp").value;
 if (password !== confirmPassword) 
@@ -286,7 +296,25 @@ alert("add min 5 tags");
 event.preventDefault(); 
         }
    
-});
+        const prePayload = new FormData(document.getElementById("registerPage"));
+        
+		const values = Object.fromEntries(prePayload);
+	
+		
+		console.log(values);
+		
+		fetch(`http://localhost:8080/api/registerPage`,{
+			method : 'POST',
+			body : JSON.stringify(values),
+			headers:{
+				'Content-Type' : 'application/json'
+			}
+			})
+			
+			
+			
+		window.location.href = "/login";
+	});
 
 const togglePassword = document.querySelectorAll('#togglePassword');
   const password = document.querySelector('#id_password');
@@ -374,7 +402,7 @@ if (!regex.test(interest)) {
         }
         tagCount--;
     }
-document.getElementById("registrationForm").addEventListener("submit", function(event) 
+/*document.getElementById("registrationForm").addEventListener("submit", function(event) 
 {
     var interestTagsContainer = document.getElementById("interestTagsContainer");
     var selectedInterests = Array.from(interestTagsContainer.getElementsByClassName("interest-tag")).map(tag => tag.textContent);
@@ -388,8 +416,22 @@ document.getElementById("registrationForm").addEventListener("submit", function(
     event.target.appendChild(hiddenInput);
     });
 });
+*/
+
+ /* fetch(`http://localhost:8080/api/registerPage/${getLastItem(link)}`)
+   .then(res => res.json())
+   .then(data => {
+emailId.textContent=data.emailId;
+firstName.textContent=data.firstName;
+lastName.textContent=data.lastName;
+number.textContent=data.number;
+passwordu.textContent=data.password;
+paperlimit.textContent=data.paperlimit;
+*/
+
 
 var paperLimitDropdown = document.getElementById("paperLimit");
+
         for (var i = 1; i <= 5; i++) 
         {
             var option = document.createElement("option");

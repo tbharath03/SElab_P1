@@ -1,7 +1,10 @@
 package reviewer.rest;
 
 
+import java.security.Principal;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +17,12 @@ import reviewer.repository.UserRepository;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/home/login")
+@RequestMapping(path = "/api/login")
 public class ApiLoginController {
 	private UserRepository repo;
 
-	@GetMapping
-	  public User loginUser(@RequestBody LoginRequest user)
+	@GetMapping("/{id}")
+	  public User loginUser(@RequestBody LoginRequest user,@PathVariable("id") String emailId)
 	{
 		
 		User user1 = new User();

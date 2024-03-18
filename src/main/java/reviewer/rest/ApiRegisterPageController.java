@@ -1,8 +1,6 @@
 package reviewer.rest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,9 +19,11 @@ import reviewer.repository.UserRepository;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/home")
+@RequestMapping(path = "/api")
+	///registerPage",produces="application/json")
 public class ApiRegisterPageController 
 {
+	
    private UserRepository userRepo;
    private PasswordEncoder passwordEncoder;
    private TagRepository tagRepository;
@@ -44,10 +44,12 @@ public class ApiRegisterPageController
    
   
   
-   @PostMapping("/register")
+   @PostMapping("/registerPage")
    public User registerUser(@RequestBody RegisterRequest user) 
    
    {
+	   
+	   System.out.println("in api");
 		System.out.println(user.toString());
 		User user0;
 		user0= userRepo.findByEmailId(user.getEmailId());
@@ -80,10 +82,7 @@ public class ApiRegisterPageController
 	    			user1.setNumber(user.getNumber());
 	    			user1.setPassword(user.getPassword());
 	    			user1.setTag(user1.getTag());
-	    		 List<User> list = new ArrayList<User>(); 
-	    	        list.add(user1);
-	    	        System.out.println("HLOO"+list);
-	    	        System.out.println(Arrays.toString(list.toArray()));
+	    			userRepo.save(user1);
 	    		tag2.setUser(user1);
 	    		tagRepository.save(tag2);
 	    		
