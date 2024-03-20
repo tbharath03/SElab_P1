@@ -31,12 +31,9 @@ public class ApiReviewController {
     }
     
 
-	@GetMapping("/{id}/{username}")
-	public Review getReviewFormPage(@PathVariable("id") Long paperId, @PathVariable("username") String username) {
-		Review review = reviewRepository.findById(new Rkey(paperId,username)).get();
-
-		return review;
-	}
+	@GetMapping("/{id}")
+	public Review getReviewFormPage(@PathVariable("id") Long paperId, @RequestParam("id") String username) {
+		Review review = reviewRepository.findByUserAndPaper(paperId, username);
 	
 	
 	@PostMapping(path="/save" , consumes="application/json")
