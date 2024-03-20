@@ -231,5 +231,10 @@ public class Review
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public Review get() {
+		// TODO Auto-generated method stub
+		return this;
+	}
 	   
 }
