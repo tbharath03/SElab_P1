@@ -30,11 +30,12 @@ public class ApiReviewController {
         this.reviewRepository = reviewRepository;
     }
     
-
 	@GetMapping("/{id}")
 	public Review getReviewFormPage(@PathVariable("id") Long paperId, @RequestParam("id") String username) {
 		Review review = reviewRepository.findByUserAndPaper(paperId, username);
+		return review;
 	}
+	
 	
 	@PostMapping(path="/save" , consumes="application/json")
 	public Review setReviewFormPage(@RequestBody Review review) {
