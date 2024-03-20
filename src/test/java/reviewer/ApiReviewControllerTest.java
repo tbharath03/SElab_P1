@@ -107,7 +107,7 @@ public class ApiReviewControllerTest {
     @Test
     public void findbyRid() throws Exception 
     {
-        when(reviewRepository.findByUserAndPaper(1L,"aishwaryaisback1234@gmail.com")).thenReturn(review1);
+    	when(reviewRepository.findByrid(new Rkey(1L,"aishwaryaisback1234@gmail.com")).get()).thenReturn(review1);
         Review review = apiReviewController.getReviewFormPage(paper1.getPid(), user.getUsername());
         assertEquals(review, review1);
     }
