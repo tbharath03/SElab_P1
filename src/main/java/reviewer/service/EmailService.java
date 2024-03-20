@@ -25,4 +25,17 @@ public class EmailService {
 
         javaMailSender.send(mailMessage);
     }
+    
+    public  void sendRegisterEmail(String userEmail, String resetToken) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(userEmail);
+        mailMessage.setSubject("Email confirmation");
+        mailMessage.setText("Click the link below to verify your email:\n"
+                + "http://localhost:8080/resetpassword?token=" + resetToken);
+
+
+        javaMailSender.send(mailMessage);
+    }
+    
+    
 }

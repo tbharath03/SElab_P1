@@ -22,9 +22,10 @@ public class MailConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587); // Use port 587 for TLS
-		mailSender.setUsername("mail");
-        mailSender.setPassword("password");
-
+		mailSender.setUsername("reviewersmanagement@gmail.com");
+        mailSender.setPassword("reviewersmanagement@gmail.com");
+       
+        mailSender.setPassword("bdhx pqhv hyst vtey");
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
         props.put("mail.transport.protocol", "smtp");

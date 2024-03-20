@@ -32,7 +32,7 @@ public class ApiReviewController {
     
 	@GetMapping("/{id}")
 	public Review getReviewFormPage(@PathVariable("id") Long paperId, @RequestParam("id") String username) {
-		Review review = reviewRepository.findById(new Rkey(paperId,username)).get();
+		Review review = reviewRepository.findByUserAndPaper(paperId, username);
 		return review;
 	}
 	
