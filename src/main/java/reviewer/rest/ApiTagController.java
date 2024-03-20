@@ -1,16 +1,10 @@
 package reviewer.rest;
 
-
-
-
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,20 +28,17 @@ public class ApiTagController {
 	@Autowired
 	 private UserRepository userRepository;
 	private TagRepository tagRepository;
-	private ReviewRepository reviewRepo;
-	private PaperRepository paperRepo;
+
 
 	    public ApiTagController(UserRepository userRepository, TagRepository tagRepository,PaperRepository paperRepo,ReviewRepository reviewRepo) {
 	        this.userRepository = userRepository;
 	        this.tagRepository=tagRepository;
-	        this.paperRepo=paperRepo;
-	        this.reviewRepo = reviewRepo;
+	        
 	    }
 	    @GetMapping("/tags/{id}")
 	    public List<String> getTags(@PathVariable("id") String username) 
 	    {  
-	    	  // Get the username of the currently logged-in user
-	         User user = userRepository.findByEmailId(username); // Retrieve the user details from the repository using the username
+	         User user = userRepository.findByEmailId(username); 
 	         
 	          List <Tag> list1 = tagRepository.findByUser(user);
     		 List<String> list = new ArrayList<String>(); 

@@ -30,9 +30,11 @@ public class ApiReviewController {
         this.reviewRepository = reviewRepository;
     }
     
+
 	@GetMapping("/{id}/{username}")
 	public Review getReviewFormPage(@PathVariable("id") Long paperId, @PathVariable("username") String username) {
 		Review review = reviewRepository.findById(new Rkey(paperId,username)).get();
+
 		return review;
 	}
 	

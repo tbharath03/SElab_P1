@@ -23,6 +23,8 @@ import reviewer.model.Tag;
 import reviewer.model.User;
 import reviewer.repository.TagRepository;
 import reviewer.repository.UserRepository;
+import reviewer.service.EmailService;
+import reviewer.service.TokenService;
 /**
  * Controller class for user registration.
  *
@@ -40,18 +42,24 @@ public class RegisterPageController
      private UserRepository userRepo;
      private PasswordEncoder passwordEncoder;
      private TagRepository tagRepository;
+     private TokenService tokenService;
+     private EmailService emailservice;
      /**
       * Constructor for RegisterPageController.
       *
       * @param userRepo        The user repository.
       * @param passwordEncoder The password encoder for secure password storage.
      * @param tagRepository 
+     * @param tokenService 
+     * @param emailservice 
       */
-     public RegisterPageController(UserRepository userRepo,PasswordEncoder passwordEncoder, TagRepository tagRepository) 
+     public RegisterPageController(UserRepository userRepo,PasswordEncoder passwordEncoder, TagRepository tagRepository, TokenService tokenService, EmailService emailservice) 
      {
     	    this.userRepo =userRepo;
     	    this.passwordEncoder=passwordEncoder;
     	    this.tagRepository=tagRepository;
+    	    this.tokenService=tokenService;
+    	    this.emailservice=emailservice;
      }
      /**
       * Provides a new User object as a model attribute.
@@ -101,8 +109,10 @@ public class RegisterPageController
 		
 		if(user0==null) 
 		{
+			
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
+        
 	    String tags=user.getTag();
 	    tags=tags+",";
 	    String mytag="";
@@ -131,7 +141,12 @@ public class RegisterPageController
 	    	}
 	    		}
 	    }
-        
+	    String resetToken = tokenService.generateToken();
+        tokenService.saveToken(user, resetToken);
+        System.out.println("before mail service");
+        emailservice.sendResetEmail(user.getEmailId(), resetToken);
+     //   (, resetToken);
+        System.out.println("hloo");
 		return "redirect:/login?success";
 		}
 		

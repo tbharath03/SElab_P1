@@ -17,4 +17,5 @@ public interface ReviewRepository extends CrudRepository<Review,Rkey>{
 	 ArrayList<Review> findAllByuser(User user);
 	 ArrayList<Review> findAllByuserAndStatus(User user,String status);
 	 Long countByUserAndStatus(User user,String status);
+	Review findByUserAndPaper(long l, String string);
 }
