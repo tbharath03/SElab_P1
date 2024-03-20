@@ -432,7 +432,7 @@ background-color:rgb(7, 7, 106) ;
   				</a>
   				<div class="dropdown-container">
     				<span>Total Papers : </span>
-    				<span th:text="${paperCount}"/>
+    				<span id="paperCount"/>
   				</div>
   			</li>
 
@@ -507,7 +507,7 @@ background-color:rgb(7, 7, 106) ;
 		var userName = document.getElementById("userName")
 		var userFirstName = document.getElementById("userFirstName")
 		var userLastName = document.getElementById("userLastName")
-		
+		var paperCount = document.getElementById("paperCount")
 		
 		fetch(`http://localhost:8080/api/user/${email}`)
    		.then(res => res.json())
@@ -518,6 +518,12 @@ background-color:rgb(7, 7, 106) ;
 		userLastName.textContent = data.lastName;  
    		})
    		
+   		fetch(`http://localhost:8080/api/paperCount/${email}`)
+   		.then(res => res.json())
+   		.then(data => {
+	 	
+	 	paperCount.textContent = data;  
+   		})
    		
    		fetch(`http://localhost:8080/api/tags/${email}`)
    		.then(res => res.json())
@@ -590,6 +596,7 @@ background-color:rgb(7, 7, 106) ;
 			element.remove();
 		}
 		
+		
 		/*
 			var deleteForm = document.get("deleteForm");
 		
@@ -614,5 +621,21 @@ background-color:rgb(7, 7, 106) ;
 
 		
 </script>
+<script>
+		var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+	</script>
 
 </html>

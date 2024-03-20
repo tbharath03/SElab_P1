@@ -366,7 +366,7 @@
   				</a>
   				<div class="dropdown-container">
     				<span>Total Papers : </span>
-    				<span th:text="${paperCount}"/>
+    				<span id="paperCount"/>
   				</div>
   			</li>
             <!-- <li class="item">
@@ -467,6 +467,7 @@
 	var userrestpassword = document.getElementById("userrestpassword")
 	var userpaperlimit = document.getElementById("userpaperlimit")
 	var usertag = document.getElementById("usertag")
+	var paperCount = document.getElementById("paperCount")
 	
    fetch(`http://localhost:8080/api/editProfile/${email}`)
    .then(res => res.json())
@@ -483,6 +484,13 @@
 	   userLastName1.textContent=data.lastName;
 	  
    })
+   
+   fetch(`http://localhost:8080/api/paperCount/${email}`)
+   		.then(res => res.json())
+   		.then(data => {
+	 	
+	 	paperCount.textContent = data;  
+   		})
    
  
 	const form = document.getElementById("editProfileForm");
