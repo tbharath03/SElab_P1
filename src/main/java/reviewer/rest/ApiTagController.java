@@ -56,12 +56,20 @@ public class ApiTagController {
 		System.out.println("1"+tag);
 		User user1=userRepository.findByEmailId(username);
 		List <Tag> list1 = tagRepository.findByUser(user1);
+		int repeat=0;
+		for(int i=0;i<list1.size();i++)
+		{
+			if(list1.get(i).getTag().equals(tag) && list1.get(i).getUser().equals(user1))
+			{
+				repeat=1;
+			}
+		}
 		Tag tag1=tagRepository.findByUserAndTag(user1,tag);
-		System.out.println(tag);
+		System.out.println(tag1);
 		if(tag!="")
 		{
 
-		if(tag1==null)
+		if(repeat==0)
 		{
 			tag1=new Tag();
 			 tag1.setTag(tag);
@@ -71,6 +79,7 @@ public class ApiTagController {
 			 }
 			 System.out.println(tag1.toString());
 			tagRepository.save(tag1);
+			list1.add(tag1);
 		}
          
 		else
@@ -79,6 +88,7 @@ public class ApiTagController {
 		}
 		
 		}
+		list1 = tagRepository.findByUser(user1);
 		 List<String> list = new ArrayList<String>(); 
 		 for(int i=0;i<list1.size();i++)
 		 {
@@ -98,26 +108,26 @@ public class ApiTagController {
 		for (int i = 0; i < list1.size(); i++) {
 			reflist.add(list1.get(i).getTag());
 		}
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < list1.size(); i++) {
+			list.add(list1.get(i).getTag());
+		}
 		
 		reflist.removeAll(values);
 		
 		if (values.size()>=5) {
-			for(String rmtag : reflist) {
-				if (rmtag != "") {
+			for(String rmtag : reflist) 
+			{
+				
 					Tag rmtag1 = tagRepository.findByUserAndTag(user1, rmtag);
-					if (rmtag1 != null) {
+					
 						tagRepository.delete(rmtag1);
-					} else {
-						System.out.println("tag doesn't exsist");
-					}
+					
 
-				}
+				
 			}
+			list.removeAll(reflist);
 			
-		}
-		List<String> list = new ArrayList<String>();
-		for (int i = 0; i < list1.size(); i++) {
-			list.add(list1.get(i).getTag());
 		}
 		
 		return list;

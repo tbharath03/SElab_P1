@@ -549,15 +549,43 @@ background-color:rgb(7, 7, 106) ;
 			   })
 		   }) 
 		   
-		const addform = document.getElementById("addForm");
+		//const addform = document.getElementById("addForm");
    		
-   		addform.addEventListener('submit',function(e){
-			   e.preventDefault();
+   		//addform.addEventListener('submit',function(e){
+			//   
+			  // const prePayload = new FormData(addForm);
+			  // const values = Object.fromEntries(prePayload);
 			   
-			   const prePayload = new FormData(addForm);
-			   const values = Object.fromEntries(prePayload);
-			   var newTag = values["newtag"];
-			   
+			   //var newTag = values["newtag"];
+			     const addForm = document.getElementById("addForm");
+
+    addForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        const newTagInput = document.getElementById("areaofinterest");
+        const newTag = newTagInput.value.trim();
+
+        // Check if the tag already exists
+        const existingTags = document.querySelectorAll('#deleteForm input[type="text"]');
+        let tagExists = false;
+        existingTags.forEach(tag => {
+            if (tag.value === newTag) {
+                tagExists = true;
+            }
+        });
+
+        // If the tag already exists, show an alert and do not proceed
+        if (tagExists) {
+            alert("Tag already exists.");
+            return;
+        }
+
+        // If the tag does not exist, proceed with form submission
+        const formData = new FormData(addForm);
+        const values = {};
+        formData.forEach((value, key) => {
+            values[key] = value;
+        });
 			   fetch(`http://localhost:8080/api/tagsadd/${newTag}/${email}`,{
 					method : 'POST',
 					body : JSON.stringify(values),
@@ -565,6 +593,8 @@ background-color:rgb(7, 7, 106) ;
 					'Content-Type' : 'application/json'
 					}
 				})
+				
+				
 			   window.location.href="http://localhost:8080/tags"
 		   })
 		   

@@ -53,6 +53,9 @@ public class ApiTagControllerTest {
     private Tag tag3;
     private Tag tag4;
     private Tag tag5;
+    private Tag tag6;
+    private Tag tag7;
+    private Tag tag8;
 
 	private OngoingStubbing<User> thenReturn;
  
@@ -66,29 +69,50 @@ public class ApiTagControllerTest {
     	tag1=new Tag();
     	tag1.setTag("ML");
     	tag1.setUser(user1);
+    	tag1.setId(1L);
+    
     	
     	tag2=new Tag();
     	tag2.setTag("FOP");
     	tag2.setUser(user1);
+    	tag2.setId(2L);
     	
     	tag3=new Tag();
     	tag3.setTag("CG");
     	tag3.setUser(user1);
+    	tag3.setId(3L);
     	
     	tag4=new Tag();
     	tag4.setTag("IIS");
     	tag4.setUser(user1);
+    	tag4.setId(4L);
     	
         tag5=new Tag();
     	tag5.setTag("JAVA");
     	tag5.setUser(user1);
+    	tag5.setId(5L);
     	
-    	
+    	 tag6=new Tag();
+     	tag6.setTag("JAVA1");
+     	tag6.setUser(user1);
+     	tag1.setId(6L);
+     	
+     	 tag7=new Tag();
+     	tag7.setTag("JAVA2");
+     	tag7.setUser(user1);
+     	tag7.setId(7L);
+     	
+     	 tag8=new Tag();
+     	tag8.setTag("JAVA3");
+     	tag8.setUser(user1);
+     	tag8.setId(8L);
+     	
+     	
 
       }
     
     
-    @Test
+   @Test
     public void findAllTagbyUser() throws Exception{	
     	ArrayList<Tag> tags = new ArrayList<>();
     	tags.add(tag1);
@@ -109,24 +133,120 @@ public class ApiTagControllerTest {
     }
     
     
-    @Test
-    public void findNoTagbyUser() throws Exception{	
+   @Test
+    public void addtags() throws Exception{	
+    	Tag tag6=new Tag();
+    	tag6.setTag("newtag");
+    	tag6.setUser(user1);
     	ArrayList<Tag> tags = new ArrayList<>();
     	tags.add(tag1);
     	tags.add(tag2);
     	tags.add(tag3);
     	tags.add(tag4);
     	tags.add(tag5);
-    	//List <Tag> list1 = tagRepository.findByUser(user1);
+      //  tags.add(tag6);
+  	when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(user1);
+	
+	when(tagRepository.findByUser(user1)).thenReturn(tags);
+	List<String> result1 = apitagController.getTags(user1.getUsername());
+	List<String> result = apitagController.addTags( "newtag",user1.getEmailId());
+	
+	assertEquals(result.size(),6);
 
+    }
+    
+    
+    @Test
+    public void addexistingtags() throws Exception{	
+    	Tag tag6=new Tag();
+    	tag6.setTag("newtag");
+    	tag6.setUser(user1);
+    	ArrayList<Tag> tags = new ArrayList<>();
+    	tags.add(tag1);
+    	tags.add(tag2);
+    	tags.add(tag3);
+    	tags.add(tag4);
+    	tags.add(tag5);
+  	when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(user1);
+	
+	when(tagRepository.findByUser(user1)).thenReturn(tags);
+	//System.out.print(tags.size());
+	List<String> result1 = apitagController.getTags(user1.getUsername());
+	System.out.print(result1.size());
+	List<String> result = apitagController.addTags(tag5.getTag(),user1.getEmailId());
+	System.out.print(result.size());
+	assertEquals(result.size(),5);
+
+    }
+    
+    
+    @Test
+    public void deletetagscheck() throws Exception{	
+    	
+    	ArrayList<Tag> tags = new ArrayList<>();
+    	tags.add(tag1);
+    	tags.add(tag2);
+    	tags.add(tag3);
+    	tags.add(tag4);
+    	tags.add(tag5);
+    	
+    	ArrayList<String> dtags = new ArrayList<>();
+    	dtags.add(tag1.getTag());
+    	dtags.add(tag2.getTag());
+    	dtags.add(tag3.getTag());
+      
+  	when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(user1);
+	
+	when(tagRepository.findByUser(user1)).thenReturn(tags);
+	List<String> result = apitagController.tagDeletes(dtags,user1.getUsername());
+	
+	assertEquals(result.size(),5);
+
+    }
+    
+    @Test
+    public void deletetags() throws Exception{	
+    	
+    	ArrayList<Tag> tags = new ArrayList<>();
+    	tags.add(tag1);
+    	tags.add(tag2);
+    	tags.add(tag3);
+    	tags.add(tag4);
+    	tags.add(tag5);
+        tags.add(tag6);
+        tags.add(tag7);
+        tags.add(tag8);
+    	
+    	ArrayList<String> dtags = new ArrayList<>();
+    	dtags.add(tag1.getTag());
+    	dtags.add(tag2.getTag());
+    	dtags.add(tag3.getTag());
+    	dtags.add(tag4.getTag());
+    	dtags.add(tag5.getTag());
+    	
+  	when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(user1);
+	
+	when(tagRepository.findByUser(user1)).thenReturn(tags);
+	List<String> result = apitagController.tagDeletes(dtags,user1.getUsername());
+	
+	assertEquals(result.size(),5);
+
+    }
+    
+    @Test
+    public void notagtoUser() throws Exception{	
+    	ArrayList<Tag> tags = new ArrayList<>();
+    	tags.add(tag1);
+    	tags.add(tag2);
+    	tags.add(tag3);
+    	tags.add(tag4);
+    	tags.add(tag5);
+    	
     	user2.setEmailId("test@google.com");
   	when(userRepository.findByEmailId(user2.getEmailId())).thenReturn(user2);
-
-	
-	System.out.print(user2.getUsername());
 	List<String> result = apitagController.getTags(user2.getUsername());
 	
-	System.out.print(result.size());
+
     	
 	assertEquals(result.size(),0);
 

@@ -63,7 +63,15 @@ public class Tag {
         this.user = user;
     }
 
-    public Tag() 
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Tag() 
     {
         super();
     }
