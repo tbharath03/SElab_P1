@@ -64,24 +64,21 @@ public class ApiEditProfileController {
     	User user0 = repo.findByEmailId(username);
     	if(!user0.getEmailId().equals(user.getEmailId()) && user.getEmailId() != null) {
     		User user1 = repo.findByEmailId(user.getEmailId());
-    		if(user1 != null) {
-    			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists!");
-    		}
-    		else{
+    		if(user1==null){
     			user0.setEmailId(user.getEmailId());
     		}
     	}
     	System.out.println(user.toString());
-    	if(user0.getFirstName() != user.getFirstName() && user.getFirstName() != null) {
+    	if( user.getFirstName() != null) {
     		user0.setFirstName(user.getFirstName());
     	}
-    	if(user0.getLastName() != user.getLastName() && user.getLastName() != null) {
+    	if(user.getLastName() != null) {
     		user0.setLastName(user.getLastName());
     	}
-    	if(user0.getNumber() != user.getNumber() && user.getNumber() != null) {
+    	if( user.getNumber() != null) {
     		user0.setNumber(user.getNumber());
     	}
-    	if(user0.getPaperlimit() != user.getPaperlimit() && user.getPaperlimit() != null) {
+    	if( user.getPaperlimit() != null) {
     		user0.setPaperlimit(user.getPaperlimit());
     	}
     	
@@ -90,15 +87,15 @@ public class ApiEditProfileController {
     	System.out.println(reEnterPassword);
     	System.out.println(user.getPassword());
     	if(newPassword != "" && reEnterPassword != "" && user.getPassword() != "") {
-    		System.out.println("firstIf");
+    		//System.out.println("firstIf");
     		if(passwordEncoder.matches(user.getPassword(),user0.getPassword())) {
     			System.out.println("secondIf");
     			if(newPassword.equals(reEnterPassword)) {
-    				System.out.println("3If");
+    				//System.out.println("3If");
     				user0.setPassword(passwordEncoder.encode(newPassword));
     			}
     			else {
-    				System.out.println("newpasswords didnt matched");
+    				//System.out.println("newpasswords didnt matched");
     				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "newpasswords didnt matched");
     			}
     		}
@@ -107,7 +104,7 @@ public class ApiEditProfileController {
     			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "old password didnt matched");
     		}
     	}
-    	System.out.println("hello");
+    	//System.out.println("hello");
     	repo.save(user0);
     	System.out.println(user0);
     	return user;

@@ -5,14 +5,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.security.Principal;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -79,6 +78,7 @@ public class ApiEditProfileControllerTest {
 
 
         when(userRepository.findByEmailId("rohith@gmail.com")).thenReturn(existingUser);
+        //when(userRepository.findById("rohith1@gmail.com")).thenReturn(Optional.of(existingUser));
         when(passwordEncoder.matches("oldPass", "oldPass")).thenReturn(true);
 
         // Act
@@ -92,6 +92,41 @@ public class ApiEditProfileControllerTest {
         assertThat(result.getPaperlimit()).isEqualTo(5);
         verify(userRepository).save(any(User.class));
     }
+    
+    
+    @Test
+    public void testEditEmailTrueCase() {
+        
+        EditProfileUtil util1 = new EditProfileUtil();
+        util1.setEmailId("rohith@gmail.com");
+        util1.setFirstName("Rohith");
+        util1.setLastName("Sai");
+        util1.setNumber("1234567890");
+        util1.setPaperlimit(5L);
+        util1.setOldPassword("oldPass");
+        util1.setNewPassword("newPass");
+        util1.setReEnterPassword("newPass");
+
+        User existingUser = new User();
+        existingUser.setEmailId("rohith1@gmail.com");
+        existingUser.setFirstName("Rohith");
+        existingUser.setPassword("oldPass");
+
+        when(userRepository.findByEmailId("rohith1@gmail.com")).thenReturn(existingUser);
+        when(passwordEncoder.matches("oldPass", "oldPass")).thenReturn(true);
+
+        // Act
+        User result = controller.Edit(util1, "rohith1@gmail.com");
+          System.out.println(result);
+        // Assert
+        assertThat(result.getEmailId()).isEqualTo("rohith@gmail.com");
+        assertThat(result.getFirstName()).isEqualTo("Rohith");
+        assertThat(result.getLastName()).isEqualTo("Sai");
+        assertThat(result.getNumber()).isEqualTo("1234567890");
+        assertThat(result.getPaperlimit()).isEqualTo(5);
+        verify(userRepository).save(any(User.class));
+    }
+    
 
     @Test
     public void testEditWithInvalidPassword() {
@@ -108,7 +143,7 @@ public class ApiEditProfileControllerTest {
 
          // checking wheather user is present or not
         when(userRepository.findByEmailId("rohith@gmail.com")).thenReturn(existingUser);
-        // checking oldpassword and password stored in database
+         // checking oldpassword and password stored in database
         when(passwordEncoder.matches("oldPass1", "oldPass")).thenReturn(false);
 
         ResponseStatusException exception = org.junit.jupiter.api.Assertions.assertThrows(ResponseStatusException.class,
@@ -122,7 +157,7 @@ public class ApiEditProfileControllerTest {
         EditProfileUtil util = new EditProfileUtil();
         util.setEmailId("rohith@gmail.com");
         util.setOldPassword("oldPass");
-        util.setNewPassword("newPass");
+        util.setNewPassword("newPass1");
         util.setReEnterPassword("newpass");
         // checking condition that newpassword and reententred password equal or not
 
