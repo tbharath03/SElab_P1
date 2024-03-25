@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import reviewer.model.Paper;
 import reviewer.model.Review;
+import reviewer.model.User;
 import reviewer.repository.PaperRepository;
 import reviewer.repository.ReviewRepository;
 import reviewer.repository.UserRepository;
@@ -32,9 +34,10 @@ public class ApiReviewController {
     
 	@GetMapping("/{id}/{username}")
 	public Review getReviewFormPage(@PathVariable("id") Long paperId, @PathVariable("username") String username) {
-
-		Review review = reviewRepository.findByrid(new Rkey(paperId,username)).get();
-		
+//		Rkey rkey = new Rkey(paperId,username).get();
+		User user = userRepository.findByEmailId(username);
+		Paper paper = paperRepository.findBypid(paperId);
+		Review review = reviewRepository.findByUserAndPaper(user,paper);
 		return review;
 	}
 	
@@ -43,7 +46,7 @@ public class ApiReviewController {
 	public Review setReviewFormPage(@RequestBody Review review) {
 		review.setStatus("Already Reviewed");
 		reviewRepository.save(review);
-		System.out.println(review);
+//		System.out.println(review);
 		return review;
 	}
 }
