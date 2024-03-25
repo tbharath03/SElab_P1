@@ -1,20 +1,13 @@
 package reviewer.rest;
-import java.security.Principal;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -62,12 +55,13 @@ public class ApiEditProfileController {
     	
     	
     	User user0 = repo.findByEmailId(username);
-    	if(!user0.getEmailId().equals(user.getEmailId()) && user.getEmailId() != null) {
+    	user0.setEmailId(user.getEmailId());
+
     		User user1 = repo.findByEmailId(user.getEmailId());
     		if(user1==null){
     			user0.setEmailId(user.getEmailId());
     		}
-    	}
+   	
     	System.out.println(user.toString());
     	if( user.getFirstName() != null) {
     		user0.setFirstName(user.getFirstName());
@@ -86,7 +80,8 @@ public class ApiEditProfileController {
     	System.out.println(newPassword);
     	System.out.println(reEnterPassword);
     	System.out.println(user.getPassword());
-    	if(newPassword != "" && reEnterPassword != "" && user.getPassword() != "") {
+    	boolean verify=(newPassword != "" && reEnterPassword != "");
+    	if(verify) {
     		//System.out.println("firstIf");
     		if(passwordEncoder.matches(user.getPassword(),user0.getPassword())) {
     			System.out.println("secondIf");
@@ -103,6 +98,9 @@ public class ApiEditProfileController {
     			System.out.println("2else");
     			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "old password didnt matched");
     		}
+    	}else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, " password should not be empty");
+
     	}
     	//System.out.println("hello");
     	repo.save(user0);

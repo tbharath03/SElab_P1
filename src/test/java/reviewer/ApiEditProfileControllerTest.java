@@ -5,8 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -95,7 +93,7 @@ public class ApiEditProfileControllerTest {
     
     
     @Test
-    public void testEditEmailTrueCase() {
+    public void testEditEmailTrueCase1() {
         
         EditProfileUtil util1 = new EditProfileUtil();
         util1.setEmailId("rohith@gmail.com");
@@ -151,6 +149,53 @@ public class ApiEditProfileControllerTest {
        // assertThat(exception.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    public void testEditWithInvalidPasswordcheck1() {
+        // Arrange
+        EditProfileUtil util = new EditProfileUtil();
+        util.setEmailId("rohith@gmail.com");
+        util.setOldPassword("oldPass1");
+        util.setNewPassword("");
+        util.setReEnterPassword("newPass");
+
+        User existingUser = new User();
+        existingUser.setEmailId("rohith@gmail.com");
+        existingUser.setPassword("oldPass");
+
+         // checking wheather user is present or not
+        when(userRepository.findByEmailId("rohith@gmail.com")).thenReturn(existingUser);
+         // checking oldpassword and password stored in database
+        //when(passwordEncoder.matches("oldPass1", "oldPass")).thenReturn(false);
+
+        ResponseStatusException exception = org.junit.jupiter.api.Assertions.assertThrows(ResponseStatusException.class,
+                () -> controller.Edit(util, "rohith@gmail.com"));
+       // assertThat(exception.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+   
+    @Test
+    public void testEditWithInvalidPasswordcheck() {
+        // Arrange
+        EditProfileUtil util = new EditProfileUtil();
+        util.setEmailId("rohith@gmail.com");
+        util.setOldPassword("oldPass1");
+        util.setNewPassword("newPass");
+        util.setReEnterPassword("");
+
+        User existingUser = new User();
+        existingUser.setEmailId("rohith@gmail.com");
+        existingUser.setPassword("oldPass");
+
+         // checking wheather user is present or not
+        when(userRepository.findByEmailId("rohith@gmail.com")).thenReturn(existingUser);
+         // checking oldpassword and password stored in database
+        //when(passwordEncoder.matches("oldPass1", "oldPass")).thenReturn(false);
+
+        ResponseStatusException exception = org.junit.jupiter.api.Assertions.assertThrows(ResponseStatusException.class,
+                () -> controller.Edit(util, "rohith@gmail.com"));
+       // assertThat(exception.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+   
+ 
     @Test
     public void testEditWithMismatchedPasswords() {
         // Arrange
