@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import reviewer.model.Paper;
 import reviewer.model.Review;
 import reviewer.model.User;
 import reviewer.util.Rkey;
@@ -17,4 +18,5 @@ public interface ReviewRepository extends CrudRepository<Review,Rkey>{
 	 ArrayList<Review> findAllByuser(User user);
 	 ArrayList<Review> findAllByuserAndStatus(User user,String status);
 	 Long countByUserAndStatus(User user,String status);
+	 Review findByUserAndPaper(User user,Paper paper);
 }
