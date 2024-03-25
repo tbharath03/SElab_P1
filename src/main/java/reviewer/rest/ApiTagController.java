@@ -59,9 +59,16 @@ public class ApiTagController {
 		int repeat=0;
 		for(int i=0;i<list1.size();i++)
 		{
-			if(list1.get(i).getTag().equals(tag) && list1.get(i).getUser().equals(user1))
+			boolean k1=list1.get(i).getTag().equals(tag);
+			//boolean  k2=list1.get(i).getUser().equals(user1);
+			if(k1)
 			{
 				repeat=1;
+			}
+			
+			else
+			{
+				repeat=0;
 			}
 		}
 		Tag tag1=tagRepository.findByUserAndTag(user1,tag);
@@ -73,10 +80,10 @@ public class ApiTagController {
 		{
 			tag1=new Tag();
 			 tag1.setTag(tag);
-			 if(tag1!=null)
-			 {
+			// if(tag1!=null)
+			// {
 			 tag1.setUser(user1);
-			 }
+			// }
 			 System.out.println(tag1.toString());
 			tagRepository.save(tag1);
 			list1.add(tag1);
@@ -88,6 +95,8 @@ public class ApiTagController {
 		}
 		
 		}
+		
+		
 		list1 = tagRepository.findByUser(user1);
 		 List<String> list = new ArrayList<String>(); 
 		 for(int i=0;i<list1.size();i++)
