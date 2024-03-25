@@ -144,16 +144,57 @@ public class ApiTagControllerTest {
     	tags.add(tag3);
     	tags.add(tag4);
     	tags.add(tag5);
-      //  tags.add(tag6);
+   
   	when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(user1);
 	
 	when(tagRepository.findByUser(user1)).thenReturn(tags);
-	List<String> result1 = apitagController.getTags(user1.getUsername());
-	List<String> result = apitagController.addTags( "newtag",user1.getEmailId());
+	List<String> result = apitagController.addTags("newtag",user1.getEmailId());
 	
 	assertEquals(result.size(),6);
 
     }
+   
+   @Test
+   public void addnulltag() throws Exception{	
+   	Tag tag6=new Tag();
+   	tag6.setTag("newtag");
+   	tag6.setUser(user1);
+   	ArrayList<Tag> tags = new ArrayList<>();
+   	tags.add(tag1);
+   	tags.add(tag2);
+   	tags.add(tag3);
+   	tags.add(tag4);
+   	tags.add(tag5);
+  
+ 	when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(user1);
+	
+	when(tagRepository.findByUser(user1)).thenReturn(tags);
+	List<String> result = apitagController.addTags("",user1.getEmailId());
+	
+	assertEquals(result.size(),5);
+
+   }
+   
+   @Test
+   public void bothnulltag() throws Exception{	
+   	Tag tag6=new Tag();
+   	tag6.setTag("newtag");
+   	tag6.setUser(user1);
+   	ArrayList<Tag> tags = new ArrayList<>();
+   	tags.add(tag1);
+   	tags.add(tag2);
+   	tags.add(tag3);
+   	tags.add(tag4);
+   	tags.add(tag5);
+  
+ 	when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(user1);
+	
+	when(tagRepository.findByUser(user1)).thenReturn(tags);
+	List<String> result = apitagController.addTags("",user1.getUsername());
+	
+	assertEquals(result.size(),5);
+
+   }
     
     
     @Test
@@ -170,7 +211,6 @@ public class ApiTagControllerTest {
   	when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(user1);
 	
 	when(tagRepository.findByUser(user1)).thenReturn(tags);
-	//System.out.print(tags.size());
 	List<String> result1 = apitagController.getTags(user1.getUsername());
 	System.out.print(result1.size());
 	List<String> result = apitagController.addTags(tag5.getTag(),user1.getEmailId());
