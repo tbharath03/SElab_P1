@@ -48,6 +48,7 @@ public class User implements UserDetails{
 	private String password;
 	private Long paperlimit;
     private String tag;
+    private Long confirm=0L;
 	 
     
     @JsonIgnore
@@ -174,5 +175,15 @@ public class User implements UserDetails{
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+
+	public Long getConfirm() {
+		return confirm;
+	}
+
+
+	public void setConfirm(Long confirm) {
+		this.confirm = confirm;
 	}	
 }

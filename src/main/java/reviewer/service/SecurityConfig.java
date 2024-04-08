@@ -57,7 +57,7 @@ public class SecurityConfig{
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {     //need to understand 
 		http.csrf(requests -> requests.disable())
 		    .authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/", "/home","/login","/registerPage","/forgotpassword","/resetpassword","/RMS_Login.jpg").permitAll()
+				.requestMatchers("/", "/home","/login","/registerPage","/forgotpassword","/resetpassword","/RMS_Login.jpg","/ConfirmRegister").permitAll()
 				.anyRequest().authenticated()
 			)
 			.formLogin((form) -> form

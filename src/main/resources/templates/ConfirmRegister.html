@@ -1,5 +1,8 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 	<head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
@@ -21,12 +24,16 @@
 			padding: 0px;
 			margin:0px;
 		}
+
         .login-container {
             text-align: center;
         }
+
         h2 {
             color:black;
         }
+
+
 form 
 {
 background-color: #fff;
@@ -35,6 +42,7 @@ border-radius: 10px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 width: 400px;
 }
+
         label {
             display: block;
             text-align: left;
@@ -47,15 +55,18 @@ width: 400px;
             display: flex;
             justify-content: space-between;
         }
+
         h2{
             padding-left: 30px;
             color: white;
         }
+
         .password-container {
             position: relative;
             margin-bottom: 10px;
             text-align: left;
         }
+
         .password-container1 {
             position: relative;
             margin-bottom: 5px;
@@ -68,6 +79,7 @@ width: 400px;
             box-sizing: border-box;
         }
        
+
         .show-password {
             position: absolute;
             right: 35px;
@@ -77,6 +89,7 @@ width: 400px;
             font-size: 18px;
             color: black;
         }
+
         button {
             background-color: rgb(8, 8, 156);
             color: #fff;
@@ -86,83 +99,52 @@ width: 400px;
             cursor: pointer;
             width: 40%;
         }
+
         button:hover {
             background-color:rgb(7, 7, 106)
         }
+
         .forgot-password {
             text-align: left;
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
         .forgot-password a {
             color: #4285f4;
             text-decoration: none;
         }
+
         .forgot-password a:hover {
             text-decoration: underline;
+        }
+        
+          .container {
+            max-width: 440px;
+            margin-top: 100px;
+            margin-left: 430px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
         <div class="header">
-         <div><h2>NITCONF</h2></div>
- </div>
-     <div class="body">
-         <form method="post" id="loginform">
-
- 		<div class="login-container">
-        <h2>Login</h2>
-            <label for="email">Email:</label>
-            <div class="password-container1">
-            <input type="email" id="username" name="username" placeholder="someone@gmail.com" required>
+        <div><h2>NITCONF</h2></div>
 </div>
-
-            <div class="password-container">
-                <label for="password">Enter your Password:</label>
-<input type="password" id="id_password" name="password"  required>
-<i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
-
-            </div>
-            <div class="forgot-password">
-                <a th:href="@{/forgotpassword}">Forgot Password?</a>
-            </div>
-
-            <button type="submit" onclick="setLocalStorage()">Login</button>           
-           
-        </form>
-    </div>
-</div>
-    <script>
-         function login() {
-             var email = document.getElementById('email').value;
-             var password = document.getElementById('password').value;
-             console.log('Login with email:', email, 'and password:', password);
-         }
-
-         function forgotPassword() {
-             var email = prompt('Enter your email to recover your password:');
-             console.log('Password recovery email sent to:', email);
-         }
-
-
-
-
-         const togglePassword = document.querySelectorAll('#togglePassword');
-   const password = document.querySelector('#id_password');
-
+<div class="container">
+   <form id="resetForm" th:action="@{/ConfirmRegister}" method="post">
+	          <input type="text" id="emailId" name="emailId" th:field="${user.emailId}" readonly="readonly" />
+        <p>You are registered as reviewer in NITCONF <p>
+			<p>Please click the confirm button to verify your mail</p>
+       <button type="submit">CONFIRM</button>
+    </form>
     
-          
-  
-    togglePassword.forEach(func);
-    function func(item){
-        item.addEventListener('click', function (e) {
-    // toggle the type attribute
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    // toggle the eye slash icon
-    this.classList.toggle('fa-eye-slash');
-    });
-    }
-    </script>
+</div>
+
 </body>
 </html>
+

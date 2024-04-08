@@ -103,7 +103,7 @@ public class RegisterPageController
 	{
 		
 		
-		System.out.println(user.toString());
+		System.out.println(user.getEmailId());
 		User user0;
 		user0= userRepo.findByEmailId(user.getEmailId());
 		
@@ -144,8 +144,7 @@ public class RegisterPageController
 	    String resetToken = tokenService.generateToken();
         tokenService.saveToken(user, resetToken);
         System.out.println("before mail service");
-        emailservice.sendResetEmail(user.getEmailId(), resetToken);
-     //   (, resetToken);
+        emailservice.sendRegisterEmail(user.getEmailId(), resetToken);
         System.out.println("hloo");
 		return "redirect:/login?success";
 		}

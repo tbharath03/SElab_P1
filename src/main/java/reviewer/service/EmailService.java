@@ -20,6 +20,7 @@ public class EmailService {
         mailMessage.setTo(userEmail);
         mailMessage.setSubject("Password Reset Link");
         mailMessage.setText("Click the link below to reset your password:\n"
+        		+"This link is valid for only 30 minutes please reset with in time\n"
                 + "http://localhost:8080/resetpassword?token=" + resetToken);
 
 
@@ -31,7 +32,8 @@ public class EmailService {
         mailMessage.setTo(userEmail);
         mailMessage.setSubject("Email confirmation");
         mailMessage.setText("Click the link below to verify your email:\n"
-                + "http://localhost:8080/resetpassword?token=" + resetToken);
+        +"This link is valid for only 30 minutes please confirm with in time\n"
+                + "http://localhost:8080/ConfirmRegister?token=" + resetToken);
 
 
         javaMailSender.send(mailMessage);

@@ -508,6 +508,7 @@ background-color:rgb(7, 7, 106) ;
 		var userFirstName = document.getElementById("userFirstName")
 		var userLastName = document.getElementById("userLastName")
 		var paperCount = document.getElementById("paperCount")
+		let count;
 		
 		fetch(`http://localhost:8080/api/user/${email}`)
    		.then(res => res.json())
@@ -530,6 +531,7 @@ background-color:rgb(7, 7, 106) ;
    		.then(data =>{
 			   var tags = document.getElementById("deleteForm");
 			   for(var i=0;i<data.length;i++){
+				   count=data.length;
 				   var div = document.createElement("div");
 				   div.setAttribute('id',data[i]+"zz");
 				   div.innerHTML = `<input type="text" value="${data[i]}" id="areaofinterest"  readonly="readonly" />
@@ -541,7 +543,7 @@ background-color:rgb(7, 7, 106) ;
 			   butt.setAttribute('type',"submit");
 			   butt.textContent="Save Changes";
 			   tags.appendChild(butt);
-			   
+		
 			   
 			   const buttDel = document.querySelectorAll('#deleteForm button[type="button"]');
 			   buttDel.forEach(butt => {
@@ -594,8 +596,9 @@ background-color:rgb(7, 7, 106) ;
 					}
 				})
 				
-				
+				count++;
 			   window.location.href="http://localhost:8080/tags"
+			  
 		   })
 		   
 		
@@ -618,12 +621,17 @@ background-color:rgb(7, 7, 106) ;
 					}
 				})
 				
-			window.location.href="http://localhost:8080/dashboard"
+			window.location.href="http://localhost:8080/tags"
 		})
 		
 		function myfunc(id){
+				     if (count<=5) {
+            alert("min 5 tags should be present");
+            return;
+        }
 			const element = document.getElementById(id+"zz");
 			element.remove();
+			count--;
 		}
 		
 		
@@ -650,8 +658,6 @@ background-color:rgb(7, 7, 106) ;
 		*/
 
 		
-</script>
-<script>
 		var dropdown = document.getElementsByClassName("dropdown-btn");
 var i;
 

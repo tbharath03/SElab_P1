@@ -1,9 +1,16 @@
 package reviewer.controller;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import reviewer.model.User;
+import reviewer.repository.TagRepository;
+import reviewer.repository.UserRepository;
+import reviewer.service.EmailService;
+import reviewer.service.TokenService;
 
 /**
  * Controller class for handling user login.
@@ -20,31 +27,40 @@ import reviewer.model.User;
 @RequestMapping("/login")
 public class LoginController {
 
-	/**
-     * Handles HTTP GET requests for the "/loginPage" path.
-     *
-     * This method prepares a new User object and adds it to the model.
-     * The User object is then used to capture user credentials during the login process.
-     *
-     * @param model The model to add attributes to the model
-     * @return The logical view name "loginPage"
-     *
-     *
-     *
-     * See Also:
-     *   - {@link User} For information about the User model.
-     *   - /loginPage The login page endpoint.
-     *    
-     * @author Attanti
-     * @version 1.0
-     * @since 2024-02-05
-     */
+	   private UserRepository userRepo;
+	     private PasswordEncoder passwordEncoder;
+	     private TagRepository tagRepository;
+	     private TokenService tokenService;
+	     private EmailService emailservice;
+	     
+	     public LoginController(UserRepository userRepo,PasswordEncoder passwordEncoder, TagRepository tagRepository, TokenService tokenService, EmailService emailservice) 
+	     {
+	    	    this.userRepo =userRepo;
+	    	    this.passwordEncoder=passwordEncoder;
+	    	    this.tagRepository=tagRepository;
+	    	    this.tokenService=tokenService;
+	    	    this.emailservice=emailservice;
+	     }
 	@GetMapping
 	public String login(Model model) 
 	{
 		User user = new User();
 		model.addAttribute("user",user);
 		return "login";
+	}
+	
+	@PostMapping
+	public String login1(@ModelAttribute User user) 
+	{
+		System.out.println(user.toString());
+		User user0;
+		user0= userRepo.findByEmailId(user.getEmailId());
+		if(user0.getConfirm()==0)
+		{
+		return "login";
+		}
+		return "dashboard";
+		
 	}
 	
 }
