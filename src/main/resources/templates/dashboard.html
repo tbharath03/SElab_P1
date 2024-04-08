@@ -421,6 +421,9 @@ for (i = 0; i < dropdown.length; i++) {
 		.then(data => {
 			var tableBody = document.getElementById("tableBody");
 			for(var i = 0;i<data.length;i++){
+				const d = new Date(data[i].deadlinedate);
+				const q = new Date();
+				if(q<=d){
 				var tr = document.createElement('tr');
 				tableBody.appendChild(tr);
 				var td1 = document.createElement('td');
@@ -436,11 +439,38 @@ for (i = 0; i < dropdown.length; i++) {
 				td4.innerHTML = `<a href="${data[i].paperlink}" target="_blank">link</a>`;
 				tr.appendChild(td4);
 				var td5 = document.createElement('td');
-				td5.innerHTML = `<a href="/review/${data[i].pid}">Review</a>`;
+				td5.innerHTML = `<a href="/review/${data[i].pid}">review</a>`;
 				tr.appendChild(td5);
 				var td6 = document.createElement('td');
 				td6.textContent = data[i].deadlinedate;
 				tr.appendChild(td6);
+				}
+			}
+			for(var i = 0;i<data.length;i++){
+				const d = new Date(data[i].deadlinedate);
+				const q = new Date();
+				if(q>d){
+				var tr = document.createElement('tr');
+				tableBody.appendChild(tr);
+				var td1 = document.createElement('td');
+				td1.textContent = data[i].pid;
+				tr.appendChild(td1);
+				var td2 = document.createElement('td');
+				td2.textContent = data[i].title;
+				tr.appendChild(td2);
+				var td3 = document.createElement('td');
+				td3.textContent = data[i].authors;
+				tr.appendChild(td3);
+				var td4 = document.createElement('td');
+				td4.innerHTML = `<a href="${data[i].paperlink}" target="_blank">link</a>`;
+				tr.appendChild(td4);
+				var td5 = document.createElement('td');
+				td5.innerHTML = `<a href="/review/${data[i].pid}">review</a>`;
+				tr.appendChild(td5);
+				var td6 = document.createElement('td');
+				td6.textContent = data[i].deadlinedate;
+				tr.appendChild(td6);
+				}
 			}
 		})
 	</script>

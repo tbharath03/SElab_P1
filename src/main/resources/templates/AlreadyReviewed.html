@@ -419,6 +419,8 @@ for (i = 0; i < dropdown.length; i++) {
 		.then(data => {
 			var tableBody = document.getElementById("tableBody");
 			for(var i = 0;i<data.length;i++){
+				const d = new Date(data[i].deadlinedate);
+				const q = new Date();
 				var tr = document.createElement('tr');
 				tableBody.appendChild(tr);
 				var td1 = document.createElement('td');

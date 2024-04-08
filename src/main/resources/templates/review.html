@@ -274,7 +274,6 @@
 		userFirstName.textContent = data.firstName;
 		userLastName.textContent = data.lastName;  
    })
-   
    fetch(`http://localhost:8080/api/paper/${getLastItem(link)}`)
 		.then(res => res.json())
 		.then(data => {
@@ -283,8 +282,20 @@
 			paperTitle.textContent = data.title;
 			paperDateAllocated.textContent = data.dateallocated;
 			paperDeadline.textContent = data.deadlinedate;
+			const d = new Date(data.deadlinedate);
+			const q = new Date();
+			if(q>=d){
+				document.querySelectorAll("input").forEach(inp => {
+					inp.readOnly = true;
+				});
+				document.querySelectorAll("textarea").forEach(inp => {
+					inp.readOnly = true;
+				});
+				document.querySelector(".button1").remove();
+			}
+			
 		})
-		
+	
 	const form = document.getElementById("reviewForm");
 	
 	form.addEventListener('submit', function(e){
