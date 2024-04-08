@@ -86,6 +86,21 @@ public class User implements UserDetails{
 
 
 	public User(String emailId, String firstName, String lastName, String number, String password, Long paperlimit,
+			String tag, Long confirm, List<Review> review) {
+		super();
+		this.emailId = emailId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.number = number;
+		this.password = password;
+		this.paperlimit = paperlimit;
+		this.tag = tag;
+		this.confirm = confirm;
+		this.review = review;
+	}
+
+
+	public User(String emailId, String firstName, String lastName, String number, String password, Long paperlimit,
 			String tag) {
 		super();
 		this.emailId = emailId;
