@@ -32,7 +32,14 @@ public class SecurityUserDetailsService implements UserDetailsService{
 		User user = userRepository.findByEmailId(username);
 		
 		if(user!= null)
+		{
+			System.out.print("im here in security for login");
+			if(user.getConfirm()==1L)
+			{
 			return (UserDetails) user;
+			}
+		}
+		
 		
 		System.out.println("Usernotfound");
 		throw new UsernameNotFoundException("Username Not Found");

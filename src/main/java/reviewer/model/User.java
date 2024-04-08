@@ -48,6 +48,7 @@ public class User implements UserDetails{
 	private String password;
 	private Long paperlimit;
     private String tag;
+    private Long confirm=0L;
 	 
     
     @JsonIgnore
@@ -80,6 +81,21 @@ public class User implements UserDetails{
 		this.password = password;
 		this.paperlimit = paperlimit;
 		this.tag = tag;
+		this.review = review;
+	}
+
+
+	public User(String emailId, String firstName, String lastName, String number, String password, Long paperlimit,
+			String tag, Long confirm, List<Review> review) {
+		super();
+		this.emailId = emailId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.number = number;
+		this.password = password;
+		this.paperlimit = paperlimit;
+		this.tag = tag;
+		this.confirm = confirm;
 		this.review = review;
 	}
 
@@ -174,5 +190,15 @@ public class User implements UserDetails{
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+
+	public Long getConfirm() {
+		return confirm;
+	}
+
+
+	public void setConfirm(Long confirm) {
+		this.confirm = confirm;
 	}	
 }
