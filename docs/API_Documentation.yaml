@@ -8,247 +8,316 @@ info:
   version: 1.0.0
 servers:
   # Added by API Auto Mocking Plugin
-  # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/ROHITHMUTHAVARAPU/NITCONF/1.0.0
   - url: "http://localhost:8080"
     description: "Generated server url"
 paths:
-  /api/reviewpage:
+  /api/AlreadyReviewed/{id}:
     get:
-      tags:
-        - "ReviewPage"
-      summary: "Search for review"
-      description: "Find the requested reviewpaper and display it."
-      operationId: "searchReviewpaper"
+      summary: Retrieves already reviewed papers by a user
+      description: |
+        Retrieves the list of papers already reviewed by the user identified by the provided ID.
       parameters:
-        - name: "action"
-          in: "query"
-          description: "This is to submit the details of particular paper"
+        - name: id
+          in: path
+          description: Email ID of the user.
           required: true
           schema:
-            type: "string"
-          example: "view"
-        - name: "id"
-          in: "query"
-          description: "The ID of the paper."
-          required: true
-          schema:
-            type: "integer"
-            format: "int64"
-          example: 1
-        - name: "EmailId"
-          in: "query"
-          description: "The EmailId of the reviewer."
-          required: true
-          schema:
-            type: "string"
+            type: string
       responses:
-        200:
-          description: "OK"
+        '200':
+          description: Returns a list of papers already reviewed by the specified user.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Review"
-    post:
-      tags:
-        - "ReviewPage"
-      summary: "store the data"
-      description: "Save the current progress in reviewFrompage."
-      operationId: "saveReviewFormPage"
-      parameters:
-        - name: "action"
-          in: "query"
-          description: "The action to perform. Valid actions are to save the review for particular page."
-          required: true
-          schema:
-            type: "string"
-          example: "update"
-        - name: "id"
-          in: "query"
-          description: "The ID of the paper."
-          required: true
-          schema:
-            type: "integer"
-            format: "int64"
-          example: 1
-        - name: "EmailId"
-          in: "query"
-          description: "The EmailId of the reviewer."
-          required: true
-          schema:
-            type: "string"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Review"
-        required: true
-      responses:
-        200:
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Review"
-                
-  /api/ForgotPassword:
-    get:
-      tags:
-        - "ForgotPassword"
-      summary: "Search for Reviewer Details"
-      description: "Find the requested revierdetails and display it."
-      operationId: "Forgotpassword"
-      parameters:
-        - name: "action"
-          in: "query"
-          description: "get reviewer details"
-          required: true
-          schema:
-            type: "string"
-          example: ""
-        - name: "Number"
-          in: "query"
-          description: "The Phonenumber of the reviewer."
-          required: true
-          schema:
-            type: "integer"
-            format: "int64"
-          example: 9876543210
-        - name: "EmailId"
-          in: "query"
-          description: "The EmailId of the reviewer."
-          required: true
-          schema:
-            type: "string"
-      responses:
-        200:
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Tokens"
-    post:
-      tags:
-        - "ForgotPassword"
-      summary: "override the oldpassword with newone"
-      description: "Save the current password."
-      operationId: "changepassword"
-      parameters:
-        - name: "action"
-          in: "query"
-          description: "The action to perform.change the password of the reviewer after valid verfication."
-          required: true
-          schema:
-            type: "string"
-          example: "update"
-        - name: "id"
-          in: "query"
-          description: "The ID of the paper."
-          required: true
-          schema:
-            type: "integer"
-            format: "int64"
-          example: 1
-        - name: "EmailId"
-          in: "query"
-          description: "The EmailId of the reviewer."
-          required: true
-          schema:
-            type: "string"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Review"
-        required: true
-      responses:
-        200:
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-  /api/NeedtoReview:
-    get:
-      tags:
-        - "Need To Review"
-      summary: "all papers"
-      description: "Find all papers assigned to a reviewer which are not reviewed."
-      operationId: "find all Papers"
-      parameters:
-        - name: "EmailId"
-          in: "query"
-          description: "The EmailId of the reviewer."
-          required: true
-          schema:
-            type: "string"
-      responses:
-        200:
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                type: "object"
-  /api/AlreadyReviewed:
-    get:
-      tags:
-        - "AlreadyReviewed"
-      summary: "List all submissions"
-      description: "Display all submissions made by the reviewer."
-      operationId: "Already Reviewed"
-      parameters:
-        - name: "Email"
-          in: "query"
-          description: "The Email of the reviewer to get alreadyReviewed papers."
-          required: true
-          schema:
-            type: "string"
-      responses:
-        200:
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                type: "array"
+                type: array
                 items:
-                  $ref: "#/components/schemas/Review"
-  /api/edit_profile:
-    get:
+                  $ref: '#/components/schemas/Paper'
+        '404':
+          description: If the specified user does not exist or has not reviewed any papers.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
       tags:
-        - "EditProfile"
-      summary: "Edit the reviewer details"
-      description: "Search the reviewer for whom the details to be changed"
-      operationId: "FindEmailId"
+        - AlreadyReviewed
+  /api/dashboard/{id}:
+    get:
+      summary: Retrieves all papers for a user
+      description: |
+        Retrieves all papers associated with the user identified by the provided ID.
       parameters:
-        - name: "EmailId"
-          in: "query"
-          description: "The EmailId of the reviewer to retrieve the information for."
+        - name: id
+          in: path
+          description: Email ID of the user.
           required: true
           schema:
-            type: "string"
+            type: string
       responses:
-        200:
-          description: "OK"
+        '200':
+          description: Returns a list of papers associated with the specified user.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-  /api/tags:
-    get:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Paper'
+        '404':
+          description: If the specified user does not exist or has not reviewed any papers.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
       tags:
-        - "Tags"
-      summary: "Display all tags for Reviewer"
-      description: "Show all tags."
-      operationId: "displayTags"
+        - Dashboard
+  /api/editProfile/{id}:
+    get:
+      summary: Retrieves user profile details
+      description: |
+        Retrieves the profile details of the user identified by the provided ID.
+      parameters:
+        - name: id
+          in: path
+          description: Email ID of the user.
+          required: true
+          schema:
+            type: string
       responses:
-        200:
-          description: "OK"
+        '200':
+          description: Returns the profile details of the specified user.
           content:
             application/json:
               schema:
-                 $ref: "#/components/schemas/Tags"
-  
+                $ref: '#/components/schemas/User'
+        '404':
+          description: If the specified user does not exist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      tags:
+        - EditProfile
+    post:
+      summary: Updates user profile
+      description: |
+        Updates the profile details of the user identified by the provided ID.
+      parameters:
+        - name: id
+          in: path
+          description: Email ID of the user.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Profile updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: If there is a validation error or password mismatch.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      tags:
+        - EditProfile
+  /api/needtoreview/{id}:
+    get:
+      summary: Retrieves papers needing review by a user
+      description: |
+        Retrieves the list of papers needing review by the user identified by the provided ID.
+      parameters:
+        - name: id
+          in: path
+          description: Email ID of the user.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns a list of papers needing review by the specified user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Paper'
+        '404':
+          description: If the specified user does not exist or has no papers needing review.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      tags:
+        - NeedToReview
+        
+  /api/review/{id}/{username}:
+    get:
+      summary: Retrieves review form for a paper by a user
+      description: |
+        Retrieves the review form for the specified paper by the identified user.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the paper.
+          required: true
+          schema:
+            type: integer
+        - name: username
+          in: path
+          description: Email ID of the user.
+          required: true
+          schema:
+            type: string
+      tags:
+       - ReviewPage
+       
+    post:
+      summary: Saves review form for a paper by a user
+      description: Saves the review form for the specified paper by the identified user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '200':
+          description: Review form saved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+      tags:
+       - ReviewPage
+
+  /api/tagsadd/{id}:
+    get:
+      summary: Retrieves user tags
+      description: Retrieves the tags associated with the specified user.
+      parameters:
+        - name: id
+          in: path
+          description: Email ID of the user.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the list of tags associated with the specified user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '404':
+          description: If the specified user does not exist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      tags:
+        - Tags
+    post:
+      summary: Add a new tag for a user
+      description: Adds a new tag for the specified user.
+      parameters:
+        - name: id
+          in: path
+          description: Email ID of the user.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag:
+                  type: string
+      responses:
+        '200':
+          description: Returns the updated list of tags associated with the specified user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: If the tag already exists for the user or other validation errors.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      tags:
+       - Tags
+       
+  /api/tagsdelete/{id}:
+    post:
+      summary: Delete tags for a user
+      description: Deletes specified tags for the user.
+      parameters:
+        - name: id
+          in: path
+          description: Email ID of the user.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: Returns the list of remaining tags associated with the specified user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      tags:
+        - Tags
+
+
 components:
   schemas:
     
@@ -331,3 +400,23 @@ components:
           type: "boolean"
         credentialsNonExpired:
           type: "boolean"
+    Paper:
+      type: "object"
+      properties:
+        pid:
+          type: "integer"
+          format: "int64"
+        title:
+          type: "string"
+        authors:
+          type: "string"
+        dateallocated:
+          type: "string"
+        deadlinedate:
+          type: "string"
+        paperlink:
+          type: "string"
+        Reviews:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Tags"
