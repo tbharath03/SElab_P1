@@ -37,4 +37,5 @@ Connected a database through MySQL server  and added the following tables .
 ## Token
   For forgot password when a link is sent to reset password it works on token like the expiry time after token generation and user name are stored.
 
-
+## Swagger UI Documentation
+  U can find swagger UI documentation in docs/API_Documentation.yaml file.
